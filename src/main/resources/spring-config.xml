@@ -6,9 +6,7 @@
     <context:annotation-config/>
     <context:component-scan base-package="com.dasbiersec.reloader"/>
 
-    <bean
-            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
             <value>database.properties</value>
         </property>
@@ -46,11 +44,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="AbstractHibernateDAO" abstract="true"
-          class="com.dasbiersec.reloader.dao.AbstractHibernateDAO"/>
-
-    <bean id="RoundDAO" parent="AbstractHibernateDAO"
-          class="com.dasbiersec.reloader.dao.RoundDAO"/>
-    <bean id="ComponentDAO" parent="AbstractHibernateDAO"
-          class="com.dasbiersec.reloader.dao.ComponentDAO"/>
+    <bean id="AbstractHibernateDAO" abstract="true" class="com.dasbiersec.reloader.dao.AbstractHibernateDAO"/>
+    <bean id="RoundDAO" parent="AbstractHibernateDAO" class="com.dasbiersec.reloader.dao.RoundDAO"/>
+    <bean id="ComponentDAO" parent="AbstractHibernateDAO" class="com.dasbiersec.reloader.dao.ComponentDAO"/>
 </beans>
