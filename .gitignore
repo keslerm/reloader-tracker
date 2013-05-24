@@ -1,0 +1,23 @@
+syntax: glob
+*svn*
+*bin/*
+*target/*
+*dist/*
+glob:.metadata/*
+*.settings*
+bin/*
+*.log*
+*.txt
+*.jar
+*.xlsx
+*.csv
+*.sql
+*.launch
+.DS_Store
+config/*
+*.iml
+data/*
+build/rev.number
+*config.properties*
+.hg*
+database.properties
