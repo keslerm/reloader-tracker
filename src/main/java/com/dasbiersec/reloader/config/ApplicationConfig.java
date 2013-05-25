@@ -1,5 +1,7 @@
 package com.dasbiersec.reloader.config;
 
+import com.dasbiersec.reloader.controller.ReportingController;
+import com.dasbiersec.reloader.dao.ReportingDAO;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +37,19 @@ public class ApplicationConfig
 	@Value("${hibernate.dialect}") private String hibernateDialect;
 	@Value("${hibernate.show_sql}") private String hibernateShowSQL;
 	@Value("${hibernate.hbm2ddl}") private String hibernateHBM2DDLAuto;
+
+
+	@Bean
+	public ReportingController reportingController()
+	{
+		return new ReportingController();
+	}
+
+	@Bean
+	public ReportingDAO reportingDAO()
+	{
+		return new ReportingDAO(dataSource());
+	}
 
 	@Bean
 	public DataSource dataSource()

@@ -4,6 +4,7 @@ import com.dasbiersec.reloader.servlet.CustomRepositoryRestDispatcherServlet;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,10 +23,15 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 		context.addListener(new ContextLoaderListener(rootContex));
 
 		CustomRepositoryRestDispatcherServlet exporter = new CustomRepositoryRestDispatcherServlet();
-
 		ServletRegistration.Dynamic reg = context.addServlet("reloader-data-tracking", exporter);
 		reg.setLoadOnStartup(1);
-		reg.addMapping("/*");
+		reg.addMapping("/rest/*");
+
+		DispatcherServlet dispatcherServlet = new DispatcherServlet();
+		ServletRegistration.Dynamic reg1 = context.addServlet("reporting", dispatcherServlet);
+		reg1.setLoadOnStartup(1);
+		reg1.addMapping("/reporting/");
+
 
 	}
 }
