@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Collection;
 
 @Controller
-@RequestMapping("/reporting")
 public class ReportingController
 {
 	@Autowired
 	private ReportingDAO reportingDAO;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody
-	Collection<CostPerRound> getCPR()
+	@RequestMapping(value = "/cpr", method = RequestMethod.GET)
+	public @ResponseBody Collection<CostPerRound> getCPR()
 	{
 		return reportingDAO.getCPR();
 	}

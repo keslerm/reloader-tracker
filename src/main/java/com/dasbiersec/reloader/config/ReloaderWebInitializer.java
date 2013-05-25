@@ -30,7 +30,7 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 		DispatcherServlet dispatcherServlet = new DispatcherServlet();
 		ServletRegistration.Dynamic reg1 = context.addServlet("reporting", dispatcherServlet);
 		reg1.setLoadOnStartup(1);
-		reg1.addMapping("/reporting/");
+		reg1.addMapping("/reporting/*");
 
 
 	}
