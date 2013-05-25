@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 public class Component implements Serializable
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "hibernate_sequence")
 	private Integer id;
 
 	@Column(name = "name")

@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 public class Round implements Serializable
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "hibernate_sequence")
 	private Integer id;
 	private String description;
 
