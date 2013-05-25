@@ -1,6 +1,7 @@
 package com.dasbiersec.reloader.model;
 
 import com.dasbiersec.reloader.enums.SupplyType;
+import org.springframework.data.rest.repository.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name="components")
+@RestResource(path = "component")
 public class Component implements Serializable
 {
 	@Id
