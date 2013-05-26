@@ -4,16 +4,14 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 @Entity
-@Table(name = "rounds")
-public class Round implements Serializable
+@Table(name = "batches")
+public class Batch extends AbstractEntity implements Serializable
 {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "hibernate_sequence")
-	private Integer id;
+	@Column(name = "description")
 	private String description;
 
 	@ManyToOne
@@ -35,15 +33,8 @@ public class Round implements Serializable
 	@Column(name = "powder_charge")
 	private BigDecimal powderCharge;
 
-	public Integer getId()
-	{
-		return id;
-	}
-
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+	@Column(name = "amount")
+	private Integer amount;
 
 	public String getDescription()
 	{

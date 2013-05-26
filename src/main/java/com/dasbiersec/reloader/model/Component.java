@@ -10,12 +10,8 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="components")
 @RestResource(path = "component")
-public class Component implements Serializable
+public class Component extends AbstractEntity implements Serializable
 {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "hibernate_sequence")
-	private Integer id;
 
 	@Column(name = "name")
 	private String name;
@@ -29,16 +25,6 @@ public class Component implements Serializable
 
 	@Column(name = "total_cost")
 	private BigDecimal cost;
-
-	public Integer getId()
-	{
-		return id;
-	}
-
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
 
 	public String getName()
 	{
