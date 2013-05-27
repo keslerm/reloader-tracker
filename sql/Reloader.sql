@@ -1,7 +1,7 @@
 drop sequence if exists hibernate_sequence;
 create sequence hibernate_sequence start 1 increment 1;
 
-drop table if exists components;
+drop table if exists components cascade;
 create table components (
         id int8 primary key,
         name varchar,
@@ -12,7 +12,7 @@ create table components (
 	update_date timestamp
 );
 
-drop table if exists batches;
+drop table if exists batches cascade;
 create table batches (
         id int8 primary key,
         description varchar,
