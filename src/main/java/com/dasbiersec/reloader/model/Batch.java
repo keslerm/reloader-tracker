@@ -33,8 +33,8 @@ public class Batch extends AbstractEntity implements Serializable
 	@Column(name = "powder_charge")
 	private BigDecimal powderCharge;
 
-	@Column(name = "amount")
-	private Integer amount;
+	@Column(name = "count")
+	private Integer count;
 
 	public String getDescription()
 	{
