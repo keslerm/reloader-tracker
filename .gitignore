@@ -11,7 +11,6 @@ bin/*
 *.jar
 *.xlsx
 *.csv
-*.sql
 *.launch
 .DS_Store
 config/*
@@ -21,3 +20,4 @@ build/rev.number
 *config.properties*
 .hg*
 database.properties
+*.swp
