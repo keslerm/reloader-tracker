@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.model;
 
-import com.dasbiersec.reloader.enums.SupplyType;
+import com.dasbiersec.reloader.enums.ComponentType;
 import org.springframework.data.rest.repository.annotation.RestResource;
 
 import javax.persistence.*;
@@ -18,7 +18,7 @@ public class Component extends AbstractEntity implements Serializable
 
 	@Column(name = "type")
 	@Enumerated(EnumType.STRING)
-	private SupplyType type;
+	private ComponentType type;
 
 	@Column(name = "amount")
 	private BigDecimal amount;
@@ -36,12 +36,12 @@ public class Component extends AbstractEntity implements Serializable
 		this.name = name;
 	}
 
-	public SupplyType getType()
+	public ComponentType getType()
 	{
 		return type;
 	}
 
-	public void setType(SupplyType type)
+	public void setType(ComponentType type)
 	{
 		this.type = type;
 	}

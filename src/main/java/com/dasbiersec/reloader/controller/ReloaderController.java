@@ -1,9 +1,12 @@
 package com.dasbiersec.reloader.controller;
 
+import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.helpers.BatchHelper;
+import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.model.CostPerRound;
 import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.repos.BatchRepository;
+import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,9 @@ public class ReloaderController
 {
 	@Autowired
 	private BatchRepository batchRepository;
+
+	@Autowired
+	private ComponentRepository componentRepository;
 
 	@Autowired
 	private BatchHelper batchHelper;
@@ -58,4 +64,18 @@ public class ReloaderController
 		batchRepository.delete(id);
 	}
 
+	@RequestMapping(value = "component", method = RequestMethod.GET)
+	public @ResponseBody Iterable<Component> getComponents()
+	{
+		Iterable<Component> components = componentRepository.findAll();
+
+		for (Component component : components)
+		{
+			if (component.getType() == ComponentType.Brass)
+			{
+
+			}
+		}
+
+	}
 }
