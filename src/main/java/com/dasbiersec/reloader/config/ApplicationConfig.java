@@ -1,15 +1,13 @@
 package com.dasbiersec.reloader.config;
 
+import com.dasbiersec.reloader.auth.CustomRestSecurityFilter;
 import com.dasbiersec.reloader.controller.ReloaderController;
 import com.dasbiersec.reloader.dao.ReportingDAO;
 import com.dasbiersec.reloader.helpers.BatchHelper;
 import com.dasbiersec.reloader.service.ReloaderService;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
@@ -17,6 +15,10 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -29,6 +31,7 @@ import java.util.Properties;
 @EnableJpaRepositories("com.dasbiersec.reloader.repos")
 @EnableTransactionManagement
 @Import(ConfigProperties.class)
+@ImportResource("classpath:security-config.xml")
 public class ApplicationConfig
 {
 	@Value("${jdbc.driver}") private String jdbcDriver;
@@ -115,4 +118,5 @@ public class ApplicationConfig
 		entityManagerFactoryBean.afterPropertiesSet();
 		return entityManagerFactoryBean.getObject();
 	}
+
 }
