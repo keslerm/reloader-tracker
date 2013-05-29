@@ -3,6 +3,7 @@ package com.dasbiersec.reloader.config;
 import com.dasbiersec.reloader.controller.ReloaderController;
 import com.dasbiersec.reloader.dao.ReportingDAO;
 import com.dasbiersec.reloader.helpers.BatchHelper;
+import com.dasbiersec.reloader.service.ReloaderService;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -56,6 +57,12 @@ public class ApplicationConfig
 	public BatchHelper batchHelper()
 	{
 		return new BatchHelper();
+	}
+
+	@Bean
+	public ReloaderService reloaderService()
+	{
+		return new ReloaderService();
 	}
 
 	@Bean

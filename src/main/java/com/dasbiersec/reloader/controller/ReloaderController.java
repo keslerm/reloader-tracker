@@ -1,81 +1,46 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.helpers.BatchHelper;
-import com.dasbiersec.reloader.model.Component;
-import com.dasbiersec.reloader.model.CostPerRound;
 import com.dasbiersec.reloader.model.Batch;
-import com.dasbiersec.reloader.repos.BatchRepository;
-import com.dasbiersec.reloader.repos.ComponentRepository;
+import com.dasbiersec.reloader.model.Component;
+import com.dasbiersec.reloader.service.ReloaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.List;
-
 @Controller
 public class ReloaderController
 {
 	@Autowired
-	private BatchRepository batchRepository;
-
-	@Autowired
-	private ComponentRepository componentRepository;
-
-	@Autowired
-	private BatchHelper batchHelper;
+	private ReloaderService reloaderService;
 
 	@RequestMapping(value = "batch", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Iterable<Batch> getBatches()
 	{
-		Iterable<Batch> batches = batchRepository.findAll();
-
-		for (Batch batch : batches)
-		{
-			batchHelper.setCostPerRound(batch);
-		}
-
-		return batches;
+		return reloaderService.getAllBatches();
 	}
 
 	@RequestMapping(value = "batch/{id}", method = RequestMethod.GET)
 	public @ResponseBody Batch getBatch(@PathVariable Integer id)
 	{
-		Batch batch = batchRepository.findOne(id);
-
-		batchHelper.setCostPerRound(batch);
-
-		return batch;
+		return reloaderService.getBatchById(id);
 	}
 
 	@RequestMapping(value = "batch", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Batch saveBatch(@RequestBody Batch batch)
 	{
-		Batch rb = batchRepository.save(batch);
-		return batchRepository.findOne(rb.getId());
+		return reloaderService.saveBatch(batch);
 	}
 
 	@RequestMapping(value = "batch/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteBatch(@PathVariable("id") Integer id)
 	{
-		batchRepository.delete(id);
+		reloaderService.deleteBatchById(id);
 	}
 
 	@RequestMapping(value = "component", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Component> getComponents()
 	{
-		Iterable<Component> components = componentRepository.findAll();
-
-		for (Component component : components)
-		{
-			if (component.getType() == ComponentType.Brass)
-			{
-
-			}
-		}
-
+		return reloaderService.getAllComponents();
 	}
 }
