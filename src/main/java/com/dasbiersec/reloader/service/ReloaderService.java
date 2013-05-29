@@ -6,12 +6,17 @@ import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.repos.BatchRepository;
 import com.dasbiersec.reloader.repos.ComponentRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class ReloaderService
 {
+	private Logger log = Logger.getLogger(getClass());
+
 	@Autowired
 	private BatchRepository batchRepository;
 
@@ -60,12 +65,67 @@ public class ReloaderService
 
 		for (Component component : components)
 		{
-			if (component.getType() == ComponentType.Brass)
-			{
-
-			}
+			setRemainingComponentAmount(component);
 		}
 
 		return components;
+	}
+
+	public Component getComponentById(Integer id)
+	{
+		Component component = componentRepository.findOne(id);
+		setRemainingComponentAmount(component);
+		return component;
+	}
+
+	public Component saveComponent(Component component)
+	{
+		Component c1 = componentRepository.save(component);
+		return componentRepository.findOne(c1.getId());
+	}
+
+	public void deleteComponentById(Integer id)
+	{
+		componentRepository.delete(id);
+	}
+
+	private void setRemainingComponentAmount(Component component)
+	{
+
+		Iterable<Batch> batches = null;
+
+		switch (component.getType())
+		{
+			case Brass:
+				batches = batchRepository.findByBrass(component);
+				break;
+
+			case Primer:
+				batches = batchRepository.findByPrimer(component);
+				break;
+
+			case Bullet:
+				batches = batchRepository.findByBullet(component);
+				break;
+
+			case Powder:
+				batches = batchRepository.findByPowder(component);
+				break;
+		}
+
+		if (batches != null)
+		{
+			BigDecimal remaining = component.getAmount();
+
+			for (Batch batch : batches)
+			{
+				if (component.getType() == ComponentType.Powder)
+					remaining = remaining.subtract(new BigDecimal(batch.getCount()).multiply(batch.getPowderCharge()));
+				else
+					remaining = remaining.subtract(new BigDecimal(batch.getCount()));
+			}
+
+			component.setRemaining(remaining);
+		}
 	}
 }

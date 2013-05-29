@@ -43,4 +43,22 @@ public class ReloaderController
 	{
 		return reloaderService.getAllComponents();
 	}
+
+	@RequestMapping(value = "component/{id}", method = RequestMethod.GET)
+	public @ResponseBody Component getComponentById(@PathVariable Integer id)
+	{
+		return reloaderService.getComponentById(id);
+	}
+
+	@RequestMapping(value = "component", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody Component saveComponent(@RequestBody Component component)
+	{
+		return reloaderService.saveComponent(component);
+	}
+
+	@RequestMapping(value = "component/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteComponent(@PathVariable Integer id)
+	{
+		reloaderService.deleteComponentById(id);
+	}
 }

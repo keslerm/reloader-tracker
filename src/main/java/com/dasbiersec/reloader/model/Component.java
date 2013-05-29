@@ -26,6 +26,19 @@ public class Component extends AbstractEntity implements Serializable
 	@Column(name = "total_cost")
 	private BigDecimal cost;
 
+	@Transient
+	public BigDecimal remaining;
+
+	public BigDecimal getRemaining()
+	{
+		return remaining;
+	}
+
+	public void setRemaining(BigDecimal remaining)
+	{
+		this.remaining = remaining;
+	}
+
 	public String getName()
 	{
 		return name;
