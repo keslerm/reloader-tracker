@@ -1,23 +1,14 @@
-package com.dasbiersec.reloader.repos.impl;
+package com.dasbiersec.reloader.helpers;
 
-import com.dasbiersec.reloader.model.CostPerRound;
 import com.dasbiersec.reloader.model.Batch;
-import com.dasbiersec.reloader.repos.ComponentRepository;
-import com.dasbiersec.reloader.repos.ExtendedBatchRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dasbiersec.reloader.model.CostPerRound;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-@Resource
-public class BatchRepositoryImpl implements ExtendedBatchRepository
+public class BatchHelper
 {
-
-	@Autowired
-	ComponentRepository componentRepository;
-
-	public CostPerRound getCostPerRound(Batch batch)
+	public void setCostPerRound(Batch batch)
 	{
 		CostPerRound costPerRound = new CostPerRound();
 
@@ -34,6 +25,6 @@ public class BatchRepositoryImpl implements ExtendedBatchRepository
 		costPerRound.setCostPerPrimer(primerCost);
 		costPerRound.setCostPerRound(total);
 
-		return costPerRound;
+		batch.setCostPerRound(costPerRound);
 	}
 }

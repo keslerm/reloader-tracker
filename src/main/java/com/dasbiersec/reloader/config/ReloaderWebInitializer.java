@@ -16,19 +16,19 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 	@Override
 	public void onStartup(ServletContext context) throws ServletException
 	{
-		AnnotationConfigWebApplicationContext rootContex = new AnnotationConfigWebApplicationContext();
-		rootContex.register(ApplicationConfig.class);
+		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+		rootContext.register(ApplicationConfig.class);
 
 
-		context.addListener(new ContextLoaderListener(rootContex));
+		context.addListener(new ContextLoaderListener(rootContext));
 
-		CustomRepositoryRestDispatcherServlet exporter = new CustomRepositoryRestDispatcherServlet();
-		ServletRegistration.Dynamic reg = context.addServlet("reloader-data-tracking", exporter);
-		reg.setLoadOnStartup(1);
-		reg.addMapping("/rest/*");
+//		CustomRepositoryRestDispatcherServlet exporter = new CustomRepositoryRestDispatcherServlet();
+//		ServletRegistration.Dynamic reg = context.addServlet("reloader-data-tracking", exporter);
+//		reg.setLoadOnStartup(1);
+//		reg.addMapping("/rest/*");
 
 		DispatcherServlet dispatcherServlet = new DispatcherServlet();
-		ServletRegistration.Dynamic reg1 = context.addServlet("reporting", dispatcherServlet);
+		ServletRegistration.Dynamic reg1 = context.addServlet("reloader", dispatcherServlet);
 		reg1.setLoadOnStartup(1);
 		reg1.addMapping("/api/*");
 

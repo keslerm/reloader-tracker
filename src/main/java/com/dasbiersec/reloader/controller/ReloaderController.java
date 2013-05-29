@@ -1,5 +1,6 @@
 package com.dasbiersec.reloader.controller;
 
+import com.dasbiersec.reloader.helpers.BatchHelper;
 import com.dasbiersec.reloader.model.CostPerRound;
 import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.repos.BatchRepository;
@@ -8,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Controller
@@ -16,6 +19,9 @@ public class ReloaderController
 	@Autowired
 	private BatchRepository batchRepository;
 
+	@Autowired
+	private BatchHelper batchHelper;
+
 	@RequestMapping(value = "batch", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Iterable<Batch> getBatches()
 	{
@@ -23,7 +29,7 @@ public class ReloaderController
 
 		for (Batch batch : batches)
 		{
-			batch.setCostPerRound(batchRepository.getCostPerRound(batch));
+			batchHelper.setCostPerRound(batch);
 		}
 
 		return batches;
@@ -34,7 +40,7 @@ public class ReloaderController
 	{
 		Batch batch = batchRepository.findOne(id);
 
-		batch.setCostPerRound(batchRepository.getCostPerRound(batch));
+		batchHelper.setCostPerRound(batch);
 
 		return batch;
 	}
@@ -43,7 +49,13 @@ public class ReloaderController
 	public @ResponseBody Batch saveBatch(@RequestBody Batch batch)
 	{
 		Batch rb = batchRepository.save(batch);
-		return rb;
+		return batchRepository.findOne(rb.getId());
+	}
+
+	@RequestMapping(value = "batch/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteBatch(@PathVariable("id") Integer id)
+	{
+		batchRepository.delete(id);
 	}
 
 }
