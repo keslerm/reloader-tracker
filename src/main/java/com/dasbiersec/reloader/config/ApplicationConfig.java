@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.config;
 
-import com.dasbiersec.reloader.controller.ReportingController;
+import com.dasbiersec.reloader.controller.ReloaderController;
 import com.dasbiersec.reloader.dao.ReportingDAO;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,9 +40,9 @@ public class ApplicationConfig
 
 
 	@Bean
-	public ReportingController reportingController()
+	public ReloaderController reportingController()
 	{
-		return new ReportingController();
+		return new ReloaderController();
 	}
 
 	@Bean

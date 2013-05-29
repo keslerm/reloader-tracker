@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 @Entity
@@ -35,6 +34,29 @@ public class Batch extends AbstractEntity implements Serializable
 
 	@Column(name = "count")
 	private Integer count;
+
+	@Transient
+	private CostPerRound costPerRound;
+
+	public Integer getCount()
+	{
+		return count;
+	}
+
+	public void setCount(Integer count)
+	{
+		this.count = count;
+	}
+
+	public CostPerRound getCostPerRound()
+	{
+		return costPerRound;
+	}
+
+	public void setCostPerRound(CostPerRound costPerRound)
+	{
+		this.costPerRound = costPerRound;
+	}
 
 	public String getDescription()
 	{

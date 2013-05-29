@@ -1,26 +1,25 @@
 package com.dasbiersec.reloader.repos.impl;
 
-import com.dasbiersec.reloader.dao.CostPerRound;
+import com.dasbiersec.reloader.model.CostPerRound;
 import com.dasbiersec.reloader.model.Batch;
-import com.dasbiersec.reloader.repos.BatchRepository;
-import com.dasbiersec.reloader.repos.BatchRepositoryExtension;
 import com.dasbiersec.reloader.repos.ComponentRepository;
+import com.dasbiersec.reloader.repos.ExtendedBatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class BatchRepositoryImpl implements BatchRepositoryExtension
+@Resource
+public class BatchRepositoryImpl implements ExtendedBatchRepository
 {
 
 	@Autowired
 	ComponentRepository componentRepository;
 
-	@Override
 	public CostPerRound getCostPerRound(Batch batch)
 	{
 		CostPerRound costPerRound = new CostPerRound();
-		costPerRound.setDescription(batch.getDescription());
 
 		BigDecimal brassCost = batch.getBrass().getCost().divide((batch.getBrass().getAmount()), 4, RoundingMode.HALF_UP);
 		BigDecimal primerCost = batch.getPrimer().getCost().divide(batch.getPrimer().getAmount(), 4, RoundingMode.HALF_UP);
@@ -29,7 +28,12 @@ public class BatchRepositoryImpl implements BatchRepositoryExtension
 
 		BigDecimal total = brassCost.add(primerCost).add(bulletCost).add(powderCost);
 
-		costPerRound.setCostPerRound(total.toPlainString());
+		costPerRound.setCostPerBrass(brassCost);
+		costPerRound.setCostPerBullet(bulletCost);
+		costPerRound.setCostOfPowder(powderCost);
+		costPerRound.setCostPerPrimer(primerCost);
+		costPerRound.setCostPerRound(total);
+
 		return costPerRound;
 	}
 }

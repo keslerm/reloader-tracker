@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BatchRepository extends CrudRepository<Batch, Integer>, BatchRepositoryExtension<Batch>
+public interface BatchRepository extends CrudRepository<Batch, Integer>, ExtendedBatchRepository
 {
 
 }
