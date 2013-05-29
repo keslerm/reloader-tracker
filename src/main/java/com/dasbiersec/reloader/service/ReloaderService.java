@@ -89,6 +89,18 @@ public class ReloaderService
 		componentRepository.delete(id);
 	}
 
+	public Iterable<Component> findComponentByType(ComponentType type)
+	{
+		Iterable<Component> components = componentRepository.findComponentByType(type);
+
+		for (Component component : components)
+		{
+			setRemainingComponentAmount(component);
+		}
+
+		return components;
+	}
+
 	private void setRemainingComponentAmount(Component component)
 	{
 

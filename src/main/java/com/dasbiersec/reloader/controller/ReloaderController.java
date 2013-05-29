@@ -1,5 +1,6 @@
 package com.dasbiersec.reloader.controller;
 
+import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.service.ReloaderService;
@@ -60,5 +61,11 @@ public class ReloaderController
 	public @ResponseBody void deleteComponent(@PathVariable Integer id)
 	{
 		reloaderService.deleteComponentById(id);
+	}
+
+	@RequestMapping(value = "component/type/{type}", method = RequestMethod.GET)
+	public @ResponseBody Iterable<Component> searchForComponents(@PathVariable ComponentType type)
+	{
+		return reloaderService.findComponentByType(type);
 	}
 }
