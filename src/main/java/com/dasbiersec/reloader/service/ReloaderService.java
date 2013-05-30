@@ -26,9 +26,6 @@ public class ReloaderService
 	@Autowired
 	private BatchHelper batchHelper;
 
-	@Autowired
-	private UserService userService;
-
 	public Batch getBatchById(Integer id)
 	{
 
@@ -41,8 +38,7 @@ public class ReloaderService
 
 	public Iterable<Batch> getAllBatches()
 	{
-		//Iterable<Batch> batches = batchRepository.findAll();
-		Iterable<Batch> batches = batchRepository.findBatchesByUserId(userService.getCurrentUser().getUser().getId());
+		Iterable<Batch> batches = batchRepository.findAll();
 
 		for (Batch batch : batches)
 		{

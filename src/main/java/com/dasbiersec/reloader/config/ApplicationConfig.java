@@ -1,12 +1,9 @@
 package com.dasbiersec.reloader.config;
 
-import com.dasbiersec.reloader.auth.CustomRestSecurityFilter;
-import com.dasbiersec.reloader.auth.SecurityContextHelper;
 import com.dasbiersec.reloader.controller.ReloaderController;
 import com.dasbiersec.reloader.dao.ReportingDAO;
 import com.dasbiersec.reloader.helpers.BatchHelper;
 import com.dasbiersec.reloader.service.ReloaderService;
-import com.dasbiersec.reloader.service.UserService;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -17,10 +14,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -68,18 +61,6 @@ public class ApplicationConfig
 	public ReloaderService reloaderService()
 	{
 		return new ReloaderService();
-	}
-
-	@Bean
-	public SecurityContextHelper securityContextHelper()
-	{
-		return new SecurityContextHelper();
-	}
-
-	@Bean
-	public UserService userService()
-	{
-		return new UserService();
 	}
 
 	@Bean
