@@ -14,4 +14,6 @@ public interface BatchRepository extends CrudRepository<Batch, Integer>
 	Iterable<Batch> findByBrass(Component component);
 	Iterable<Batch> findByPrimer(Component component);
 	Iterable<Batch> findByPowder(Component component);
+
+	Iterable<Batch> findBatchesByUserId(Integer userId);
 }

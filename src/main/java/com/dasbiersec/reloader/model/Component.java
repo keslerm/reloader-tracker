@@ -1,6 +1,7 @@
 package com.dasbiersec.reloader.model;
 
 import com.dasbiersec.reloader.enums.ComponentType;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.rest.repository.annotation.RestResource;
 
 import javax.persistence.*;
@@ -28,6 +29,19 @@ public class Component extends AbstractEntity implements Serializable
 
 	@Transient
 	public BigDecimal remaining;
+
+	@Column(name = "user_id")
+	private Integer userId;
+
+	public Integer getUserId()
+	{
+		return userId;
+	}
+
+	public void setUserId(Integer userId)
+	{
+		this.userId = userId;
+	}
 
 	public BigDecimal getRemaining()
 	{

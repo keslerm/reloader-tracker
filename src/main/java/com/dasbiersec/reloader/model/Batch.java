@@ -1,5 +1,7 @@
 package com.dasbiersec.reloader.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -37,6 +39,19 @@ public class Batch extends AbstractEntity implements Serializable
 
 	@Transient
 	private CostPerRound costPerRound;
+
+	@Column(name = "user_id")
+	private Integer userId;
+
+	public Integer getUserId()
+	{
+		return userId;
+	}
+
+	public void setUserId(Integer userId)
+	{
+		this.userId = userId;
+	}
 
 	public Integer getCount()
 	{

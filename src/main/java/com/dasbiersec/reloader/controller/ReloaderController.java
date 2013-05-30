@@ -1,19 +1,27 @@
 package com.dasbiersec.reloader.controller;
 
+import com.dasbiersec.reloader.auth.RestToken;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.service.ReloaderService;
+import com.dasbiersec.reloader.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Controller
 public class ReloaderController
 {
 	@Autowired
 	private ReloaderService reloaderService;
+
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "batch", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Iterable<Batch> getBatches()
@@ -67,5 +75,13 @@ public class ReloaderController
 	public @ResponseBody Iterable<Component> searchForComponents(@PathVariable ComponentType type)
 	{
 		return reloaderService.findComponentByType(type);
+	}
+
+	@RequestMapping(value = "auth", method = RequestMethod.GET)
+	@ResponseBody
+	public String test()
+	{
+		RestToken test = userService.getCurrentUser();
+		return (String) test.getName();
 	}
 }
