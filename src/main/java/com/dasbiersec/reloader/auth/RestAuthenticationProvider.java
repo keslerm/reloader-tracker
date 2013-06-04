@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider
 		String key = (String) restToken.getPrincipal();
 		String credentials = restToken.getCredentials();
 
-		UserDetailsObject userDetails = (UserDetailsObject) userDetailsService.loadUserByUsername(key);
+		ReloaderUserDetails userDetails = (ReloaderUserDetails) userDetailsService.loadUserByUsername(key);
 
 		if (userDetails == null || !userDetails.getPassword().equals(credentials))
 		{

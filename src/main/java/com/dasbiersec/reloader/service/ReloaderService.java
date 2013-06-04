@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.service;
 
-import com.dasbiersec.reloader.auth.UserDetailsObject;
+import com.dasbiersec.reloader.auth.ReloaderUserDetails;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.helpers.BatchHelper;
 import com.dasbiersec.reloader.model.Batch;
@@ -10,7 +10,6 @@ import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -146,7 +145,7 @@ public class ReloaderService
 
     private Integer getCurrentUser()
     {
-        UserDetailsObject userDetailsObject = (UserDetailsObject) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetailsObject.getId();
+        ReloaderUserDetails reloaderUserDetails = (ReloaderUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return reloaderUserDetails.getId();
     }
 }

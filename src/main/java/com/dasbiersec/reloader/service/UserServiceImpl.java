@@ -1,13 +1,11 @@
 package com.dasbiersec.reloader.service;
 
-import com.dasbiersec.reloader.auth.UserDetailsObject;
+import com.dasbiersec.reloader.auth.ReloaderUserDetails;
 import com.dasbiersec.reloader.model.UserEntity;
 import com.dasbiersec.reloader.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ public class UserServiceImpl implements UserDetailsService
 	private UserRepository userRepository;
 
 	@Override
-	public UserDetailsObject loadUserByUsername(String s) throws UsernameNotFoundException
+	public ReloaderUserDetails loadUserByUsername(String s) throws UsernameNotFoundException
 	{
 		UserEntity userEntity = userRepository.findUserByUsername(s);
 
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserDetailsService
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-		UserDetailsObject user = new UserDetailsObject(userEntity.getUsername(), userEntity.getPassword(), true, true, true, true, authorities);
+		ReloaderUserDetails user = new ReloaderUserDetails(userEntity.getUsername(), userEntity.getPassword(), true, true, true, true, authorities);
         user.setId(userEntity.getId());
 
 		return user;
