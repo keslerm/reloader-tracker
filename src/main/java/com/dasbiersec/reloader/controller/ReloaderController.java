@@ -8,6 +8,7 @@ import com.dasbiersec.reloader.service.ReloaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,7 +76,7 @@ public class ReloaderController
 	@ResponseBody
 	public String test()
 	{
-		RestToken test = (RestToken) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return (String) test.getName();
+		UserDetails test = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return (String) test.getUsername();
 	}
 }
