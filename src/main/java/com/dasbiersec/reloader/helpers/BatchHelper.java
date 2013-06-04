@@ -2,10 +2,12 @@ package com.dasbiersec.reloader.helpers;
 
 import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.model.CostPerRound;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Component
 public class BatchHelper
 {
 	public void setCostPerRound(Batch batch)

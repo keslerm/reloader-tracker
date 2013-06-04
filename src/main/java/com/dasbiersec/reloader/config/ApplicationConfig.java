@@ -1,9 +1,6 @@
 package com.dasbiersec.reloader.config;
 
-import com.dasbiersec.reloader.controller.ReloaderController;
 import com.dasbiersec.reloader.dao.ReportingDAO;
-import com.dasbiersec.reloader.helpers.BatchHelper;
-import com.dasbiersec.reloader.service.ReloaderService;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -22,7 +19,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackageClasses = ApplicationConfig.class)
+@ComponentScan({"com.dasbiersec.reloader.service", "com.dasbiersec.reloader.exception", "com.dasbiersec.reloader.helpers", "com.dasbiersec.reloader.controller"})
 @EnableJpaRepositories("com.dasbiersec.reloader.repos")
 @EnableTransactionManagement
 @Import(ConfigProperties.class)
@@ -38,29 +35,10 @@ public class ApplicationConfig
 	@Value("${hibernate.show_sql}") private String hibernateShowSQL;
 	@Value("${hibernate.hbm2ddl}") private String hibernateHBM2DDLAuto;
 
-
-	@Bean
-	public ReloaderController reloaderController()
-	{
-		return new ReloaderController();
-	}
-
 	@Bean
 	public ReportingDAO reportingDAO()
 	{
 		return new ReportingDAO(dataSource());
-	}
-
-	@Bean
-	public BatchHelper batchHelper()
-	{
-		return new BatchHelper();
-	}
-
-	@Bean
-	public ReloaderService reloaderService()
-	{
-		return new ReloaderService();
 	}
 
 	@Bean

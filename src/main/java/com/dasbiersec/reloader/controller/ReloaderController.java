@@ -1,6 +1,5 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.auth.RestToken;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.model.Component;
@@ -11,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Controller
 public class ReloaderController
@@ -37,9 +38,14 @@ public class ReloaderController
 	}
 
 	@RequestMapping(value = "batch/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody void deleteBatch(@PathVariable("id") Integer id)
+	public @ResponseBody void deleteBatch(@PathVariable("id") Integer id) throws IOException
 	{
-		reloaderService.deleteBatchById(id);
+		Batch batch = reloaderService.getBatchById(id);
+
+		if (batch == null)
+			throw new IOException("Could not find batch with ID");
+
+		reloaderService.deleteBatchById(batch);
 	}
 
 	@RequestMapping(value = "component", method = RequestMethod.GET)

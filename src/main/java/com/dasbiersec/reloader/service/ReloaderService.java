@@ -9,6 +9,7 @@ import com.dasbiersec.reloader.repos.BatchRepository;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,8 @@ public class ReloaderService
 
 		Batch batch = batchRepository.findByIdAndUserId(id, getCurrentUser());
 
-		batchHelper.setCostPerRound(batch);
+		if (batch != null)
+			batchHelper.setCostPerRound(batch);
 
 		return batch;
 	}
@@ -50,15 +52,17 @@ public class ReloaderService
 		return batches;
 	}
 
+	@PreAuthorize("#batch.userId == principal.id")
 	public Batch saveBatch(Batch batch)
 	{
 		Batch rb = batchRepository.save(batch);
 		return getBatchById(rb.getId());
 	}
 
-	public void deleteBatchById(Integer id)
+	@PreAuthorize("#batch.userId == principal.id")
+	public void deleteBatchById(Batch batch)
 	{
-		batchRepository.delete(id);
+		batchRepository.delete(batch);
 	}
 
 	public Iterable<Component> getAllComponents()

@@ -20,17 +20,12 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
 		rootContext.register(ApplicationConfig.class);
 
-
 		context.addListener(new ContextLoaderListener(rootContext));
-
-//		context.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
-//				.addMappingForUrlPatterns(null, false, "/*");
 
 		DispatcherServlet dispatcherServlet = new DispatcherServlet();
 		ServletRegistration.Dynamic reg1 = context.addServlet("reloader", dispatcherServlet);
 		reg1.setLoadOnStartup(1);
 		reg1.addMapping("/api/*");
-
 
 	}
 }
