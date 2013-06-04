@@ -25,7 +25,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider
 		String key = (String) restToken.getPrincipal();
 		String credentials = restToken.getCredentials();
 
-		UserDetails userDetails = userDetailsService.loadUserByUsername(key);
+		UserDetailsObject userDetails = (UserDetailsObject) userDetailsService.loadUserByUsername(key);
 
 		if (userDetails == null || !userDetails.getPassword().equals(credentials))
 		{
@@ -35,7 +35,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-		RestToken rt =  new RestToken(userDetails, credentials, authorities);
+		RestToken rt = new RestToken(userDetails, credentials, authorities);
 		return rt;
 	}
 

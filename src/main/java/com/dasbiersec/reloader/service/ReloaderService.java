@@ -1,5 +1,6 @@
 package com.dasbiersec.reloader.service;
 
+import com.dasbiersec.reloader.auth.UserDetailsObject;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.helpers.BatchHelper;
 import com.dasbiersec.reloader.model.Batch;
@@ -8,6 +9,8 @@ import com.dasbiersec.reloader.repos.BatchRepository;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -29,7 +32,7 @@ public class ReloaderService
 	public Batch getBatchById(Integer id)
 	{
 
-		Batch batch = batchRepository.findOne(id);
+		Batch batch = batchRepository.findByIdAndUserId(id, getCurrentUser());
 
 		batchHelper.setCostPerRound(batch);
 
@@ -38,7 +41,7 @@ public class ReloaderService
 
 	public Iterable<Batch> getAllBatches()
 	{
-		Iterable<Batch> batches = batchRepository.findAll();
+		Iterable<Batch> batches = batchRepository.findAllByUserId(getCurrentUser());
 
 		for (Batch batch : batches)
 		{
@@ -140,4 +143,10 @@ public class ReloaderService
 			component.setRemaining(remaining);
 		}
 	}
+
+    private Integer getCurrentUser()
+    {
+        UserDetailsObject userDetailsObject = (UserDetailsObject) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetailsObject.getId();
+    }
 }

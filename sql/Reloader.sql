@@ -26,22 +26,33 @@ create table batches (
         update_date timestamp
 );
 
+drop table if exists users cascade;
+create table users (
+	id int8 primary key,
+	create_date timestamp,
+	update_date timestamp,
+	username varchar,
+	password varchar
+);
 
-insert into components (id, name, type, amount, total_cost, create_date, update_date) values
-(nextVal('hibernate_sequence'), 'CCI Large Rifle Primers', 'Primer', 5000, 182.00, now(), now()),
-(nextVal('hibernate_sequence'), 'IMR 4094', 'Powder', 42000, 161.9, now(), now()),
-(nextVal('hibernate_sequence'), '.308 Caliber 150gr Speer GS SP', 'Bullet', 500, 0, now(), now()),
-(nextVal('hibernate_sequence'), 'Once Fired 30-06', 'Brass', 100, 0, now(), now()),
-(nextVal('hibernate_sequence'), 'Once Fired .40', 'Brass', 100, 0, now(), now()),
-(nextVal('hibernate_sequence'), 'Winchester Small Pistol Primer', 'Primer', 4999, 211.00, now(), now()),
-(nextVal('hibernate_sequence'), 'FMP 165gr .40 Plated', 'Bullet', 750, 107.94, now(), now()),
-(nextVal('hibernate_sequence'), 'Hodgdon HP-38', 'Powder', 56000, 169.17, now(), now());
+insert into users (id, create_date, update_date, username, password) values
+(nextVal('hibernate_sequence'), now(), now(), 'testuser', 'testpass');
 
-insert into batches (id, description, bullet_id, powder_id, powder_charge, primer_id, brass_id, count, create_date, update_date) values 
-(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 1', 3, 2, 48, 1, 4, 10, now(), now()),
-(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 2', 3, 2, 49, 1, 4, 10, now(), now()),
-(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 3', 3, 2, 50, 1, 4, 10, now(), now()),
-(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 4', 3, 2, 51, 1, 4, 10, now(), now());
+insert into components (id, name, type, amount, total_cost, create_date, update_date, user_id) values
+(nextVal('hibernate_sequence'), 'CCI Large Rifle Primers', 'Primer', 5000, 182.00, now(), now(), 1),
+(nextVal('hibernate_sequence'), 'IMR 4094', 'Powder', 42000, 161.9, now(), now(), 1),
+(nextVal('hibernate_sequence'), '.308 Caliber 150gr Speer GS SP', 'Bullet', 500, 0, now(), now(), 1),
+(nextVal('hibernate_sequence'), 'Once Fired 30-06', 'Brass', 100, 0, now(), now(), 1),
+(nextVal('hibernate_sequence'), 'Once Fired .40', 'Brass', 100, 0, now(), now(), 1),
+(nextVal('hibernate_sequence'), 'Winchester Small Pistol Primer', 'Primer', 4999, 211.00, now(), now(), 1),
+(nextVal('hibernate_sequence'), 'FMP 165gr .40 Plated', 'Bullet', 750, 107.94, now(), now(), 1),
+(nextVal('hibernate_sequence'), 'Hodgdon HP-38', 'Powder', 56000, 128.35, now(), now(), 1);
+
+insert into batches (id, description, bullet_id, powder_id, powder_charge, primer_id, brass_id, count, create_date, update_date, user_id) values 
+(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 1', 3, 2, 48, 1, 4, 10, now(), now(), 1),
+(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 2', 3, 2, 49, 1, 4, 10, now(), now(), 1),
+(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 3', 3, 2, 50, 1, 4, 10, now(), now(), 1),
+(nextVal('hibernate_sequence'), '150 Gr Speer RN GS Test 4', 3, 2, 51, 1, 4, 10, now(), now(), 1);
 
 
 ----- reporting SQL -------
