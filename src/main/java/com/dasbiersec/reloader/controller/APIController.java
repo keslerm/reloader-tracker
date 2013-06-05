@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @Controller
-public class ReloaderController
+public class APIController
 {
 	@Autowired
 	private ReloaderService reloaderService;

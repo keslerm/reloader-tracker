@@ -13,6 +13,8 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -64,6 +66,15 @@ public class ApplicationConfig
 	public HibernateExceptionTranslator hibernateExceptionTranslator(){
 		return new HibernateExceptionTranslator();
 	}
+
+    @Bean
+    public ViewResolver viewResolver()
+    {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/pages/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
+    }
 
 	@Bean
 	public Properties getHibernateProperties()
