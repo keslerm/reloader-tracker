@@ -7,6 +7,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -27,10 +28,10 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 		reg1.setLoadOnStartup(1);
 		reg1.addMapping("/api/*");
 
-        DispatcherServlet webServlet = new DispatcherServlet();
-        ServletRegistration.Dynamic reg2 = context.addServlet("web", webServlet);
+        FacesServlet facesServlet = new FacesServlet();
+        ServletRegistration.Dynamic reg2 = context.addServlet("web", facesServlet);
         reg2.setLoadOnStartup(1);
-        reg2.addMapping("/");
+        reg2.addMapping("/pages/*.xhtml", "*.jsf");
 
 
 	}

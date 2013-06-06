@@ -5,6 +5,7 @@ import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.faces.mvc.JsfView;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -15,13 +16,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan({"com.dasbiersec.reloader.service", "com.dasbiersec.reloader.exception", "com.dasbiersec.reloader.helpers", "com.dasbiersec.reloader.controller"})
+@ComponentScan({"com.dasbiersec.reloader.service", "com.dasbiersec.reloader.exception", "com.dasbiersec.reloader.helpers", "com.dasbiersec.reloader.controller", "com.dasbiersec.reloader.beans"})
 @EnableJpaRepositories("com.dasbiersec.reloader.repos")
 @EnableTransactionManagement
 @Import(ConfigProperties.class)
@@ -70,9 +72,11 @@ public class ApplicationConfig
     @Bean
     public ViewResolver viewResolver()
     {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
         viewResolver.setPrefix("/pages/");
-        viewResolver.setSuffix(".jsp");
+        viewResolver.setSuffix(".xhtml");
+        viewResolver.setViewClass(JsfView.class);
+        viewResolver.setCache(false);
         return viewResolver;
     }
 
