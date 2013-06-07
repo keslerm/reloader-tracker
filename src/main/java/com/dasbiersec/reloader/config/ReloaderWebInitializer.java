@@ -31,7 +31,7 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
         FacesServlet facesServlet = new FacesServlet();
         ServletRegistration.Dynamic reg2 = context.addServlet("web", facesServlet);
         reg2.setLoadOnStartup(1);
-        reg2.addMapping("/pages/*.xhtml", "*.jsf");
+        reg2.addMapping("*.xhtml");
 
 
 	}
