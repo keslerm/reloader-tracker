@@ -11,7 +11,7 @@
                 <td>${batch.powder.name}</td>
                 <td>${batch.powderCharge}</td>
                 <td>${batch.count}</td>
-                <td>${batch.costPerRound.costPerRound}</td>
+                <td>${batch.costPerRound.total}</td>
             </tr>
         </c:forEach>
     </table>

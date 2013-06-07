@@ -67,10 +67,10 @@ select id, description, primer_cost, brass_Cost, powder_cost, bullet_cost,
 from (
 select 
 rs.id, rs.description,
-round(primer.total_cost / primer.amount, 4) as primer_cost,
-round(brass.total_cost / brass.amount, 4) as brass_cost,
-round(rs.powder_charge * (powder.total_cost / powder.amount), 4) as powder_cost,
-round(bullet.total_cost / bullet.amount, 4) as bullet_cost
+total(primer.total_cost / primer.amount, 4) as primer_cost,
+total(brass.total_cost / brass.amount, 4) as brass_cost,
+total(rs.powder_charge * (powder.total_cost / powder.amount), 4) as powder_cost,
+total(bullet.total_cost / bullet.amount, 4) as bullet_cost
 from rounds rs
 inner join components bullet on bullet.id = rs.bullet_id
 inner join components powder on powder.id = rs.powder_id

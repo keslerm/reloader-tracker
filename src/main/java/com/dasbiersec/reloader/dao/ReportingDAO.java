@@ -47,11 +47,11 @@ public class ReportingDAO
 			{
 				CostPerRound costPerRound = new CostPerRound();
 
-				costPerRound.setCostPerPrimer(resultSet.getBigDecimal("primer_cost"));
-				costPerRound.setCostPerBullet(resultSet.getBigDecimal("bullet_cost"));
-				costPerRound.setCostOfPowder(resultSet.getBigDecimal("powder_cost"));
-				costPerRound.setCostPerBrass(resultSet.getBigDecimal("brass_cost"));
-				costPerRound.setCostPerRound(resultSet.getBigDecimal("total_cost"));
+				costPerRound.setPrimer(resultSet.getBigDecimal("primer_cost"));
+				costPerRound.setBullet(resultSet.getBigDecimal("bullet_cost"));
+				costPerRound.setPowder(resultSet.getBigDecimal("powder_cost"));
+				costPerRound.setBrass(resultSet.getBigDecimal("brass_cost"));
+				costPerRound.setTotal(resultSet.getBigDecimal("total_cost"));
 
 				return costPerRound;
 			}

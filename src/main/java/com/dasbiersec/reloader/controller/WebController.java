@@ -15,9 +15,14 @@ public class WebController
 	private ReloaderService reloaderService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/")
-	public String printWelcome(ModelMap modelMap)
+	public String index(ModelMap map)
 	{
+		return "index";
+	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/batches")
+	public String batches(ModelMap modelMap)
+	{
 		Iterable<Batch> batches = reloaderService.getAllBatches();
 		modelMap.addAttribute("batches", batches);
 		return "batches";

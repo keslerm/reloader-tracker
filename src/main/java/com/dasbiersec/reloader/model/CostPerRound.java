@@ -4,59 +4,59 @@ import java.math.BigDecimal;
 
 public class CostPerRound
 {
-	private BigDecimal costPerBrass;
-	private BigDecimal costPerPrimer;
-	private BigDecimal costPerBullet;
-	private BigDecimal costOfPowder;
-	private BigDecimal costPerRound;
+	private BigDecimal brass;
+	private BigDecimal primer;
+	private BigDecimal bullet;
+	private BigDecimal powder;
+	private BigDecimal total;
 
-	public BigDecimal getCostPerRound()
+	public BigDecimal getTotal()
 	{
-		return costPerRound;
+		return total;
 	}
 
-	public void setCostPerRound(BigDecimal costPerRound)
+	public void setTotal(BigDecimal total)
 	{
-		this.costPerRound = costPerRound;
+		this.total = total;
 	}
 
-	public BigDecimal getCostPerBrass()
+	public BigDecimal getBrass()
 	{
-		return costPerBrass;
+		return brass;
 	}
 
-	public void setCostPerBrass(BigDecimal costPerBrass)
+	public void setBrass(BigDecimal brass)
 	{
-		this.costPerBrass = costPerBrass;
+		this.brass = brass;
 	}
 
-	public BigDecimal getCostPerPrimer()
+	public BigDecimal getPrimer()
 	{
-		return costPerPrimer;
+		return primer;
 	}
 
-	public void setCostPerPrimer(BigDecimal costPerPrimer)
+	public void setPrimer(BigDecimal primer)
 	{
-		this.costPerPrimer = costPerPrimer;
+		this.primer = primer;
 	}
 
-	public BigDecimal getCostPerBullet()
+	public BigDecimal getBullet()
 	{
-		return costPerBullet;
+		return bullet;
 	}
 
-	public void setCostPerBullet(BigDecimal costPerBullet)
+	public void setBullet(BigDecimal bullet)
 	{
-		this.costPerBullet = costPerBullet;
+		this.bullet = bullet;
 	}
 
-	public BigDecimal getCostOfPowder()
+	public BigDecimal getPowder()
 	{
-		return costOfPowder;
+		return powder;
 	}
 
-	public void setCostOfPowder(BigDecimal costOfPowder)
+	public void setPowder(BigDecimal powder)
 	{
-		this.costOfPowder = costOfPowder;
+		this.powder = powder;
 	}
 }
