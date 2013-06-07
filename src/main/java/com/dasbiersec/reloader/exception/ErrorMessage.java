@@ -1,6 +1,5 @@
 package com.dasbiersec.reloader.exception;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collections;
 import java.util.List;
 

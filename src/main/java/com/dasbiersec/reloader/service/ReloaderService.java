@@ -47,6 +47,12 @@ public class ReloaderService
 		for (Batch batch : batches)
 		{
 			batchHelper.setCostPerRound(batch);
+
+			// Set components
+			setRemainingComponentAmount(batch.getBrass());
+			setRemainingComponentAmount(batch.getPrimer());
+			setRemainingComponentAmount(batch.getPowder());
+			setRemainingComponentAmount(batch.getBullet());
 		}
 
 		return batches;

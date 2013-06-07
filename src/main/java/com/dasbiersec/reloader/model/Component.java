@@ -1,7 +1,6 @@
 package com.dasbiersec.reloader.model;
 
 import com.dasbiersec.reloader.enums.ComponentType;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.rest.repository.annotation.RestResource;
 
 import javax.persistence.*;
