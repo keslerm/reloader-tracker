@@ -58,7 +58,8 @@ insert into batches (id, description, bullet_id, powder_id, powder_charge, prime
 (nextVal('hibernate_sequence'), 'First Handgun Test 4.8', 7, 8, 4.8, 6, 5, 10, now(), now(), 1),
 (nextVal('hibernate_sequence'), 'First Handgun Test 4.9', 7, 8, 4.9, 6, 5, 10, now(), now(), 1),
 (nextVal('hibernate_sequence'), 'First Handgun Test 5.0', 7, 8, 5.0, 6, 5, 10, now(), now(), 1),
-(nextVal('hibernate_sequence'), 'First Handgun Test 5.1', 7, 8, 5.1, 6, 5, 10, now(), now(), 1);
+(nextVal('hibernate_sequence'), 'First Handgun Test 5.1', 7, 8, 5.1, 6, 5, 10, now(), now(), 1),
+(nextVal('hibernate_sequence'), 'Plinking Round Handgun', 7, 8, 4.9, 6, 5, 59, now(), now(), 1);
 
 ----- reporting SQL -------
 select id, description, primer_cost, brass_Cost, powder_cost, bullet_cost,
