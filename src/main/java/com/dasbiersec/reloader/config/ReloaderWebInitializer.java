@@ -27,12 +27,5 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 		ServletRegistration.Dynamic reg1 = context.addServlet("api", APIServlet);
 		reg1.setLoadOnStartup(1);
 		reg1.addMapping("/api/*");
-
-        FacesServlet facesServlet = new FacesServlet();
-        ServletRegistration.Dynamic reg2 = context.addServlet("web", facesServlet);
-        reg2.setLoadOnStartup(1);
-        reg2.addMapping("*.xhtml");
-
-
 	}
 }

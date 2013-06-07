@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan({"com.dasbiersec.reloader.service", "com.dasbiersec.reloader.exception", "com.dasbiersec.reloader.helpers", "com.dasbiersec.reloader.controller", "com.dasbiersec.reloader.beans"})
+@ComponentScan({"com.dasbiersec.reloader.service", "com.dasbiersec.reloader.exception", "com.dasbiersec.reloader.helpers", "com.dasbiersec.reloader.controller"})
 @EnableJpaRepositories("com.dasbiersec.reloader.repos")
 @EnableTransactionManagement
 @Import(ConfigProperties.class)
@@ -68,17 +68,6 @@ public class ApplicationConfig
 	public HibernateExceptionTranslator hibernateExceptionTranslator(){
 		return new HibernateExceptionTranslator();
 	}
-
-    @Bean
-    public ViewResolver viewResolver()
-    {
-        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
-        viewResolver.setPrefix("/pages/");
-        viewResolver.setSuffix(".xhtml");
-        viewResolver.setViewClass(JsfView.class);
-        viewResolver.setCache(false);
-        return viewResolver;
-    }
 
 	@Bean
 	public Properties getHibernateProperties()
