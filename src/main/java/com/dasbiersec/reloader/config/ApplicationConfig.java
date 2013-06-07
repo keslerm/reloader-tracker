@@ -13,6 +13,8 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -39,6 +41,15 @@ public class ApplicationConfig
 	public ReportingDAO reportingDAO()
 	{
 		return new ReportingDAO(dataSource());
+	}
+
+	@Bean
+	public ViewResolver viewResolver()
+	{
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/pages/");
+		resolver.setSuffix(".jsp");
+		return resolver;
 	}
 
 	@Bean
