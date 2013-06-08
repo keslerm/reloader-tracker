@@ -10,6 +10,7 @@
                 <td>${batch.bullet.name}</td>
                 <td>${batch.powder.name}</td>
                 <td>${batch.powderCharge}</td>
+                <td>${batch.col}</td>
                 <td>${batch.count}</td>
                 <td>${batch.costPerRound.total}</td>
             </tr>
