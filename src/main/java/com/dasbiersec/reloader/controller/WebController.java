@@ -7,9 +7,7 @@ import com.dasbiersec.reloader.service.ReloaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +46,16 @@ public class WebController
         Batch batch = new Batch();
         map.addAttribute("batch", batch);
 
-        return "addbatch";
+        return "batchform";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/batches/{id}/edit")
+    public String editBatch(ModelMap map, @PathVariable(value = "id") Integer id)
+    {
+        Batch batch = reloaderService.getBatchById(id);
+        map.addAttribute("batch", batch);
+
+        return "batchform";
     }
 
     @ModelAttribute("bullet")
