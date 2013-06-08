@@ -61,7 +61,15 @@ public class ReloaderService
 	@PreAuthorize("#batch.userId == principal.id")
 	public Batch saveBatch(Batch batch)
 	{
-		batch.setUserId(getCurrentUser());
+		// retrieve existing
+		Batch existing = batchRepository.findByIdAndUserId(batch.getId(), getCurrentUser());
+
+		if (existing != null)
+		{
+			batch.setCreateDate(existing.getCreateDate());
+			batch.setUserId(getCurrentUser());
+		}
+
 		Batch rb = batchRepository.save(batch);
 
 		return getBatchById(rb.getId());
