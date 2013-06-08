@@ -17,10 +17,26 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Powder:</td>
+                    <td>
+                        <form:select path="powder">
+                            <form:options items="${powder}" />
+                        </form:select>
+                    </td>
+                </tr>
+                <tr>
                     <td>Bullet:</td>
                     <td>
                         <form:select path="bullet">
                             <form:options items="${bullet}" />
+                        </form:select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Primer:</td>
+                    <td>
+                        <form:select path="primer">
+                            <form:options items="${primer}" />
                         </form:select>
                     </td>
                 </tr>

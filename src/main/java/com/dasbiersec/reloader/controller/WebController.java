@@ -51,34 +51,42 @@ public class WebController
         return "addbatch";
     }
 
-    @ModelAttribute("bullets")
+    @ModelAttribute("bullet")
     public Map<String, String> populateBullets()
     {
-
         Iterable<Component> components = reloaderService.getAllComponents();
-
-        Map<String, String> comps = new HashMap<String, String>();
-
-        for (Component component : components)
-        {
-            if (component.getType() == ComponentType.Bullet)
-                comps.put(String.valueOf(component.getId()), component.getName());
-        }
-
-        return comps;
+        return getComponentByType(components, ComponentType.Bullet);
     }
 
     @ModelAttribute("brass")
     public Map<String, String> populateBrass()
     {
-
         Iterable<Component> components = reloaderService.getAllComponents();
+        return getComponentByType(components, ComponentType.Brass);
+    }
 
+
+    @ModelAttribute("powder")
+    public Map<String, String> populatePowder()
+    {
+        Iterable<Component> components = reloaderService.getAllComponents();
+        return getComponentByType(components, ComponentType.Powder);
+    }
+
+    @ModelAttribute("primer")
+    public Map<String, String> populatePrimer()
+    {
+        Iterable<Component> components = reloaderService.getAllComponents();
+        return getComponentByType(components, ComponentType.Primer);
+    }
+
+    private Map<String, String> getComponentByType(Iterable<Component> components, ComponentType type)
+    {
         Map<String, String> comps = new HashMap<String, String>();
 
         for (Component component : components)
         {
-            if (component.getType() == ComponentType.Brass)
+            if (component.getType() == type)
                 comps.put(String.valueOf(component.getId()), component.getName());
         }
 
