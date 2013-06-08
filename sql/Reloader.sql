@@ -21,7 +21,8 @@ create table batches (
         powder_charge numeric(10, 2),
         primer_id int8,
         brass_id int8,
-	count int8,
+        count int8,
+        col numeric(10, 4),
         create_date timestamp,
         update_date timestamp
 );
