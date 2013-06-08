@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -59,14 +61,14 @@ public class WebController
     }
 
     @ModelAttribute("bullet")
-    public Map<String, String> populateBullets()
+    public List<Component> populateBullets()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
         return getComponentByType(components, ComponentType.Bullet);
     }
 
     @ModelAttribute("brass")
-    public Map<String, String> populateBrass()
+    public List<Component> populateBrass()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
         return getComponentByType(components, ComponentType.Brass);
@@ -74,27 +76,27 @@ public class WebController
 
 
     @ModelAttribute("powder")
-    public Map<String, String> populatePowder()
+    public List<Component> populatePowder()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
         return getComponentByType(components, ComponentType.Powder);
     }
 
     @ModelAttribute("primer")
-    public Map<String, String> populatePrimer()
+    public List<Component> populatePrimer()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
         return getComponentByType(components, ComponentType.Primer);
     }
 
-    private Map<String, String> getComponentByType(Iterable<Component> components, ComponentType type)
+    private List<Component> getComponentByType(Iterable<Component> components, ComponentType type)
     {
-        Map<String, String> comps = new HashMap<String, String>();
+	    List<Component> comps = new ArrayList<Component>();
 
         for (Component component : components)
         {
             if (component.getType() == type)
-                comps.put(String.valueOf(component.getId()), component.getName());
+                comps.add(component);
         }
 
         return comps;
