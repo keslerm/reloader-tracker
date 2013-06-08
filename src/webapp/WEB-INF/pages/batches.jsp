@@ -13,6 +13,7 @@
                 <td>${batch.col}</td>
                 <td>${batch.count}</td>
                 <td>${batch.costPerRound.total}</td>
+                <td><a href="/batches/${batch.id}/edit/">Edit</a></td>
             </tr>
         </c:forEach>
     </table>

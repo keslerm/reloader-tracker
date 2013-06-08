@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @Controller
+@RequestMapping(value = "api/")
 public class APIController
 {
 	@Autowired

@@ -31,6 +31,26 @@ public abstract class AbstractEntity implements Serializable
 		updateDate = new Date();
 	}
 
+	public Date getCreateDate()
+	{
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate)
+	{
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate()
+	{
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate)
+	{
+		this.updateDate = updateDate;
+	}
+
 	public Integer getId()
 	{
 		return id;

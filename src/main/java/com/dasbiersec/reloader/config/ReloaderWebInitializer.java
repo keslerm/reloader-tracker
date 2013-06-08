@@ -23,7 +23,7 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 		DispatcherServlet APIServlet = new DispatcherServlet();
 		ServletRegistration.Dynamic reg1 = context.addServlet("api", APIServlet);
 		reg1.setLoadOnStartup(1);
-		reg1.addMapping("/api/*");
+		reg1.addMapping("/");
 
 		DispatcherServlet webServlet = new DispatcherServlet();
 		ServletRegistration.Dynamic reg2 = context.addServlet("web", webServlet);
