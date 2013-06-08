@@ -1,5 +1,6 @@
 package com.dasbiersec.reloader.controller;
 
+import com.dasbiersec.reloader.controller.editor.ComponentEditor;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.model.Batch;
 import com.dasbiersec.reloader.model.Component;
@@ -7,7 +8,10 @@ import com.dasbiersec.reloader.service.ReloaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +23,12 @@ public class WebController
 {
 	@Autowired
 	private ReloaderService reloaderService;
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder)
+	{
+		binder.registerCustomEditor(Component.class, new ComponentEditor());
+	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/")
 	public String index(ModelMap map)
@@ -59,6 +69,16 @@ public class WebController
 
         return "batchform";
     }
+
+	@RequestMapping(method = RequestMethod.POST, value = "/batches/{id}/edit")
+	public String saveBatch(@ModelAttribute(value = "batch") Batch batch, BindingResult result, SessionStatus status, ModelMap map)
+	{
+		reloaderService.saveBatch(batch);
+
+		map.addAttribute("batch", batch);
+
+		return "batchform";
+	}
 
     @ModelAttribute("bullet")
     public List<Component> populateBullets()
