@@ -22,7 +22,7 @@ create table batches (
         primer_id int8,
         brass_id int8,
         count int8,
-        col numeric(10, 4),
+        coal numeric(10, 4),
         create_date timestamp,
         update_date timestamp
 );

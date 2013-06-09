@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title></title>
+</head>
+<body>
+<table width="100%">
+    <tr th:each="batch : ${batches}">
+        <td th:text="${batch.description}">Test</td>
+    </tr>
+</table>
+</body>
+</html>

@@ -34,8 +34,8 @@ public class Batch extends AbstractEntity implements Serializable
 	@Column(name = "count")
 	private Integer count;
 
-    @Column(name = "col")
-    private BigDecimal col;
+    @Column(name = "coal")
+    private BigDecimal coal;
 
 	@Transient
 	private CostPerRound costPerRound;
@@ -43,14 +43,14 @@ public class Batch extends AbstractEntity implements Serializable
 	@Column(name = "user_id")
 	private Integer userId;
 
-    public BigDecimal getCol()
+    public BigDecimal getCoal()
     {
-        return col;
+        return coal;
     }
 
-    public void setCol(BigDecimal col)
+    public void setCoal(BigDecimal coal)
     {
-        this.col = col;
+        this.coal = coal;
     }
 
     public Integer getUserId()

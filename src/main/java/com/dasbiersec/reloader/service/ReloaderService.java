@@ -58,7 +58,6 @@ public class ReloaderService
 		return batches;
 	}
 
-	@PreAuthorize("#batch.userId == principal.id")
 	public Batch saveBatch(Batch batch)
 	{
 		// retrieve existing
