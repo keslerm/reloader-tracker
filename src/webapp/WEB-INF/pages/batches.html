@@ -1,12 +1,18 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
-<head>
-    <title></title>
+<head th:include="fragment/layout :: headerFragment">
 </head>
 <body>
 <table width="100%">
     <tr th:each="batch : ${batches}">
         <td th:text="${batch.description}">Test</td>
+        <td th:text="${batch.brass.name}">Brass</td>
+        <td th:text="${batch.bullet.name}">Bullet</td>
+        <td th:text="${batch.primer.name}">Primer</td>
+        <td th:text="${batch.powder.name}">Powder</td>
+        <td th:text="${batch.powderCharge}">Powder Charge</td>
+        <td th:text="${batch.coal}">COAL</td>
+        <td th:text="${batch.count}">Count</td>
     </tr>
 </table>
 </body>

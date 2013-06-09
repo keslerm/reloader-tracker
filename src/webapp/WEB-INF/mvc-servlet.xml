@@ -13,6 +13,10 @@
     <context:component-scan base-package="com.dasbiersec.reloader.exception" />
     <context:component-scan base-package="com.dasbiersec.reloader.service" />
 
+    <mvc:resources mapping="/images/" location="images" />
+    <mvc:resources mapping="/js/" location="js" />
+    <mvc:resources mapping="/css/" location="css" />
+
     <mvc:annotation-driven />
 
 </beans>
