@@ -10,8 +10,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <context:component-scan base-package="com.dasbiersec.reloader.controller" />
-    <context:component-scan base-package="com.dasbiersec.reloader.service" />
     <context:component-scan base-package="com.dasbiersec.reloader.exception" />
+    <context:component-scan base-package="com.dasbiersec.reloader.service" />
 
     <mvc:annotation-driven />
 

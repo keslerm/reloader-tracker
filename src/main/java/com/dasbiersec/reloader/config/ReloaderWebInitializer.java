@@ -20,14 +20,9 @@ public class ReloaderWebInitializer implements WebApplicationInitializer
 
 		context.addListener(new ContextLoaderListener(rootContext));
 
-		DispatcherServlet APIServlet = new DispatcherServlet();
-		ServletRegistration.Dynamic reg1 = context.addServlet("api", APIServlet);
+		DispatcherServlet MVCServlet = new DispatcherServlet();
+		ServletRegistration.Dynamic reg1 = context.addServlet("mvc", MVCServlet);
 		reg1.setLoadOnStartup(1);
 		reg1.addMapping("/");
-
-		DispatcherServlet webServlet = new DispatcherServlet();
-		ServletRegistration.Dynamic reg2 = context.addServlet("web", webServlet);
-		reg2.setLoadOnStartup(1);
-		reg2.addMapping("/");
 	}
 }
