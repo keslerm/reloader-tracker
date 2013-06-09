@@ -81,14 +81,14 @@ public class WebController
 		return "batchform";
 	}
 
-    @ModelAttribute("bullet")
+    @ModelAttribute("bullets")
     public List<Component> populateBullets()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
         return getComponentByType(components, ComponentType.Bullet);
     }
 
-    @ModelAttribute("brass")
+    @ModelAttribute("allBrass")
     public List<Component> populateBrass()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
@@ -96,14 +96,14 @@ public class WebController
     }
 
 
-    @ModelAttribute("powder")
+    @ModelAttribute("powders")
     public List<Component> populatePowder()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
         return getComponentByType(components, ComponentType.Powder);
     }
 
-    @ModelAttribute("primer")
+    @ModelAttribute("primers")
     public List<Component> populatePrimer()
     {
         Iterable<Component> components = reloaderService.getAllComponents();
