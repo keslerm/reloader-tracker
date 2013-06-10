@@ -1,3 +1,23 @@
 body {
     background-color: #fff;
 }
+
+#wrapper {
+    width: 95%;
+    margin: 9px auto 9px auto;
+}
+
+#menuFragment {
+    width: 14%;
+    float: left;
+}
+
+#content {
+    width: 85%;
+    float: right;
+}
+
+#footerFragment {
+    clear: both;
+    width: 100%;
+}

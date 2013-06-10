@@ -2,9 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
 <head th:include="fragment/layout :: headerFragment">
+    <title>Reloader Data</title>
+    <link rel="stylesheet" href="../resources/css/reset.css" th:href="@{/resources/css/reset.css}" />
+    <link rel="stylesheet" href="../resources/css/style.css" th:href="@{/resources/css/style.css}" />
+    <link rel="stylesheet" href="../resources/css/dot-luv/jquery-ui-1.10.3.custom.css" th:href="@{/resources/css/style.css}" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js" ></script>
+    <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js" th:href="@{/resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js}"></script>
 </head>
 <body>
-    <p><a href="/batches/" th:href="@{/batches}">Batches</a></p>
-    <p><a href="/components/">Components</a></p>
+    <div id="wrapper">
+        <div id="menuFragment" th:include="fragment/layout :: menuFragment">
+            <ul>
+                <li><a href="/batches/">Batches</a></li>
+                <li><a href="/components/">Components</a></li>
+            </ul>
+        </div>
+        <div id="content">Page Layout!</div>
+        <div id="footerFragment" th:include="fragment/layout :: footerFragment">
+            Footer!
+        </div>
+    </div>
 </body>
 </html>
