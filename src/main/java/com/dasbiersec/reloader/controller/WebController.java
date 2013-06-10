@@ -13,10 +13,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/")
@@ -29,6 +25,12 @@ public class WebController
 	public void initBinder(WebDataBinder binder)
 	{
 		binder.registerCustomEditor(Component.class, new ComponentEditor());
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/login")
+	public String login(ModelMap map)
+	{
+		return "login";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/")
@@ -81,45 +83,28 @@ public class WebController
 		return "batchform";
 	}
 
-    @ModelAttribute("bullet")
-    public List<Component> populateBullets()
+    @ModelAttribute("allBullets")
+    public Iterable<Component> populateBullets()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Bullet);
+        return reloaderService.findComponentByType(ComponentType.Bullet);
     }
 
-    @ModelAttribute("brass")
-    public List<Component> populateBrass()
+    @ModelAttribute("allBrass")
+    public Iterable<Component> populateBrass()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Brass);
+	    return reloaderService.findComponentByType(ComponentType.Brass);
     }
 
-
-    @ModelAttribute("powder")
-    public List<Component> populatePowder()
+    @ModelAttribute("allPowders")
+    public Iterable<Component> populatePowder()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Powder);
+	    return reloaderService.findComponentByType(ComponentType.Powder);
     }
 
-    @ModelAttribute("primer")
-    public List<Component> populatePrimer()
+    @ModelAttribute("allPrimers")
+    public Iterable<Component> populatePrimer()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Primer);
+	    return reloaderService.findComponentByType(ComponentType.Primer);
     }
 
-    private List<Component> getComponentByType(Iterable<Component> components, ComponentType type)
-    {
-	    List<Component> comps = new ArrayList<Component>();
-
-        for (Component component : components)
-        {
-            if (component.getType() == type)
-                comps.add(component);
-        }
-
-        return comps;
-    }
 }

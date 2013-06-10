@@ -13,6 +13,7 @@
         <td th:text="${batch.powderCharge}">Powder Charge</td>
         <td th:text="${batch.coal}">COAL</td>
         <td th:text="${batch.count}">Count</td>
+        <td><a href="batchform.html" th:href="@{'/batches/' + ${batch.id} + '/edit'}">Edit</a></td>
     </tr>
 </table>
 </body>

@@ -1,9 +1,10 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
 <head th:include="fragment/layout :: headerFragment">
 </head>
 <body>
-    <p><a href="/batches/">Batches</a></p>
+    <p><a href="/batches/" th:href="@{/batches}">Batches</a></p>
     <p><a href="/components/">Components</a></p>
 </body>
 </html>
