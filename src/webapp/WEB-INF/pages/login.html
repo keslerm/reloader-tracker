@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head th:include="fragment/layout :: headerFragment">
+</head>
+<body>
+<h1>Login page</h1>
+<p th:if="${loginError}">Wrong user or password</p>
+<form th:action="@{/j_spring_security_check}" method="post" action="#">
+<table width="100%">
+    <tr>
+        <td><label for="j_username">Username</label>:</td>
+        <td><input type="text" id="j_username" name="j_username" /></td>
+    </tr>
+    <tr>
+        <td><label for="j_password">Password</label>:</td>
+        <td><input type="password" id="j_password" name="j_password" /></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Log in" /></td>
+        <td></td>
+    </tr>
+</table>
+
+
+</form>
+
+</body>
+</html>

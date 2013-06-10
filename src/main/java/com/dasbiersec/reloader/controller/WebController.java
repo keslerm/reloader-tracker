@@ -13,10 +13,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/")
@@ -29,6 +25,12 @@ public class WebController
 	public void initBinder(WebDataBinder binder)
 	{
 		binder.registerCustomEditor(Component.class, new ComponentEditor());
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/login")
+	public String login(ModelMap map)
+	{
+		return "login";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/")
