@@ -92,6 +92,11 @@ public class ReloaderService
 		return components;
 	}
 
+	public Iterable<Component> getComponentByType(ComponentType type)
+	{
+		return componentRepository.findComponentByType(type);
+	}
+
 	public Component getComponentById(Integer id)
 	{
 		Component component = componentRepository.findOne(id);

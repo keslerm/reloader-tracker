@@ -81,45 +81,28 @@ public class WebController
 		return "batchform";
 	}
 
-    @ModelAttribute("bullets")
-    public List<Component> populateBullets()
+    @ModelAttribute("allBullets")
+    public Iterable<Component> populateBullets()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Bullet);
+        return reloaderService.findComponentByType(ComponentType.Bullet);
     }
 
     @ModelAttribute("allBrass")
-    public List<Component> populateBrass()
+    public Iterable<Component> populateBrass()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Brass);
+	    return reloaderService.findComponentByType(ComponentType.Brass);
     }
 
-
-    @ModelAttribute("powders")
-    public List<Component> populatePowder()
+    @ModelAttribute("allPowders")
+    public Iterable<Component> populatePowder()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Powder);
+	    return reloaderService.findComponentByType(ComponentType.Powder);
     }
 
-    @ModelAttribute("primers")
-    public List<Component> populatePrimer()
+    @ModelAttribute("allPrimers")
+    public Iterable<Component> populatePrimer()
     {
-        Iterable<Component> components = reloaderService.getAllComponents();
-        return getComponentByType(components, ComponentType.Primer);
+	    return reloaderService.findComponentByType(ComponentType.Primer);
     }
 
-    private List<Component> getComponentByType(Iterable<Component> components, ComponentType type)
-    {
-	    List<Component> comps = new ArrayList<Component>();
-
-        for (Component component : components)
-        {
-            if (component.getType() == type)
-                comps.add(component);
-        }
-
-        return comps;
-    }
 }
