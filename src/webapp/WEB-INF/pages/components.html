@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head th:include="fragment/layout :: headerFragment">
+</head>
+<body>
+<table width="100%">
+    <tr th:each="component : ${components}">
+        <td th:text="${component.name}">Name</td>
+        <td th:text="${component.type}">Type</td>
+        <td th:text="${component.amount}">Amount</td>
+        <td th:text="${component.remaining}">Remaining</td>
+        <td th:text="${component.cost}">Cost</td>
+        <td><a href="batchform.html" th:href="@{'/components/' + ${component.id} + '/edit'}">Edit</a></td>
+    </tr>
+</table>
+</body>
+</html>
