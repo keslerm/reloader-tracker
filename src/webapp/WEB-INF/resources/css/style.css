@@ -1,12 +1,10 @@
 body {
     background-color: #363636;
-    font-family: Helvetica;
-    font-size: 12pt;
 }
 
-li {
+body, td, li {
     font-family: Helvetica;
-    font-size: 12pt;
+    font-size: 10pt;
 }
 
 #wrapper {
@@ -45,8 +43,6 @@ li {
 td {
     color: #fff;
     padding: 3px;
-    font-family: Helvetica;
-    font-size: 10pt;
 }
 
 #content {
