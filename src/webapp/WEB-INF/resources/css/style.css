@@ -38,6 +38,17 @@ li {
     float: left;
 }
 
+.ui-content table {
+    margin: 8px;
+}
+
+td {
+    color: #fff;
+    padding: 3px;
+    font-family: Helvetica;
+    font-size: 10pt;
+}
+
 #content {
     width: 85%;
     float: right;
