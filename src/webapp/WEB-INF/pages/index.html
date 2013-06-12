@@ -12,12 +12,21 @@
 <body>
     <div id="wrapper">
         <div id="menuFragment" th:include="fragment/layout :: menuFragment">
-            <ul>
-                <li><a href="/batches/">Batches</a></li>
-                <li><a href="/components/">Components</a></li>
-            </ul>
+            <div id="menu" class="ui-widget ui-corner-all ui-widget-content">
+                <h1 class="ui-widget ui-widget-header ui-corner-all">Menu</h1>
+                <div>
+                    <ul>
+                        <li><a href="/batches/">Batches</a></li>
+                        <li><a href="/components/">Components</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div id="content">Page Layout!</div>
+        <div id="content">
+            <div class="ui-widget ui-widget-content">
+                <p>Page Layout!</p>
+            </div>
+        </div>
         <div id="footerFragment" th:include="fragment/layout :: footerFragment">
             Footer!
         </div>

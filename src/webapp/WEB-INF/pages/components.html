@@ -3,15 +3,23 @@
 <head th:include="fragment/layout :: headerFragment">
 </head>
 <body>
-<table width="100%">
-    <tr th:each="component : ${components}">
-        <td th:text="${component.name}">Name</td>
-        <td th:text="${component.type}">Type</td>
-        <td th:text="${component.amount}">Amount</td>
-        <td th:text="${component.remaining}">Remaining</td>
-        <td th:text="${component.cost}">Cost</td>
-        <td><a href="batchform.html" th:href="@{'/components/' + ${component.id} + '/edit'}">Edit</a></td>
-    </tr>
-</table>
+<div id="wrapper">
+    <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
+    <div id="content">
+        <div class="ui-widget ui-widget-content">
+            <table width="100%">
+                <tr th:each="component : ${components}">
+                    <td th:text="${component.name}">Name</td>
+                    <td th:text="${component.type}">Type</td>
+                    <td th:text="${component.amount}">Amount</td>
+                    <td th:text="${component.remaining}">Remaining</td>
+                    <td th:text="${component.cost}">Cost</td>
+                    <td><a href="batchform.html" th:href="@{'/components/' + ${component.id} + '/edit'}">Edit</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="footerFragment" th:include="fragment/layout :: footerFragment"></div>
+</div>
 </body>
 </html>

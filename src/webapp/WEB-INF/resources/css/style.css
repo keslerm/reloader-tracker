@@ -1,5 +1,12 @@
 body {
-    background-color: #fff;
+    background-color: #363636;
+    font-family: Helvetica;
+    font-size: 12pt;
+}
+
+li {
+    font-family: Helvetica;
+    font-size: 12pt;
 }
 
 #wrapper {
@@ -39,4 +46,20 @@ body {
 #footerFragment {
     clear: both;
     width: 100%;
+}
+
+#menu {
+    margin: 4px;
+}
+
+#menu ul {
+    padding: 4px;
+}
+
+h1.ui-widget-header {
+    padding: 2px 4px;
+}
+
+p {
+    padding: 2px 4px;
 }
