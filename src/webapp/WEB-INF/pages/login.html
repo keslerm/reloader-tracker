@@ -2,28 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
 <head th:include="fragment/layout :: headerFragment">
+    <title>Reloader Data</title>
+    <link rel="stylesheet" href="../resources/css/reset.css" th:href="@{/resources/css/reset.css}"/>
+    <link rel="stylesheet" href="../resources/css/style.css" th:href="@{/resources/css/style.css}"/>
+    <link rel="stylesheet" href="../resources/css/dot-luv/jquery-ui-1.10.3.custom.css"
+          th:href="@{/resources/css/style.css}"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js"
+            th:href="@{/resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js}"></script>
 </head>
 <body>
-<h1>Login page</h1>
-<p th:if="${loginError}">Wrong user or password</p>
-<form th:action="@{/j_spring_security_check}" method="post" action="#">
-<table width="100%">
-    <tr>
-        <td><label for="j_username">Username</label>:</td>
-        <td><input type="text" id="j_username" name="j_username" /></td>
-    </tr>
-    <tr>
-        <td><label for="j_password">Password</label>:</td>
-        <td><input type="password" id="j_password" name="j_password" /></td>
-    </tr>
-    <tr>
-        <td><input type="submit" value="Log in" /></td>
-        <td></td>
-    </tr>
-</table>
+
+<div id="login-wrapper" class="ui-widget ui-widget-content ui-corner-all">
+    <h1 class="rt-header ui-widget ui-widget-header">Login</h1>
+    <div id="login-form">
+    <p th:if="${loginError}" class="rt-login-error">Wrong user or password</p>
 
 
-</form>
+    <form th:action="@{/j_spring_security_check}" method="post" action="#">
+        <table width="100%">
+            <tr>
+                <td><label for="j_username">Username</label>:</td>
+                <td><input type="text" id="j_username" name="j_username"/></td>
+            </tr>
+            <tr>
+                <td><label for="j_password">Password</label>:</td>
+                <td><input type="password" id="j_password" name="j_password"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Log in"/></td>
+                <td></td>
+            </tr>
+        </table>
 
+
+    </form>
+
+</div>
+
+</div><div id="footerFragment" th:fragment="/fragment/layout :: footerFragment"></div>
 </body>
 </html>
