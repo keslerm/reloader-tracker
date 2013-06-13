@@ -2,7 +2,7 @@ body {
     background-color: #363636;
 }
 
-body, td, li {
+body, td, li, p {
     font-family: Helvetica;
     font-size: 10pt;
 }
