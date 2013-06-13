@@ -15,31 +15,34 @@
 
 <div id="login-wrapper" class="ui-widget ui-widget-content ui-corner-all">
     <h1 class="rt-header ui-widget ui-widget-header">Login</h1>
+
     <div id="login-form">
-    <p th:if="${loginError}" class="rt-login-error">Wrong user or password</p>
+        <p th:if="${loginError}" class="rt-login-error">Wrong user or password</p>
 
 
-    <form th:action="@{/j_spring_security_check}" method="post" action="#">
-        <table width="100%">
-            <tr>
-                <td><label for="j_username">Username</label>:</td>
-                <td><input type="text" id="j_username" name="j_username"/></td>
-            </tr>
-            <tr>
-                <td><label for="j_password">Password</label>:</td>
-                <td><input type="password" id="j_password" name="j_password"/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Log in"/></td>
-                <td></td>
-            </tr>
-        </table>
+        <form th:action="@{/j_spring_security_check}" method="post" action="#">
+            <table width="100%">
+                <tr>
+                    <td><label for="j_username">Username</label>:</td>
+                    <td><input type="text" id="j_username" name="j_username"/></td>
+                </tr>
+                <tr>
+                    <td><label for="j_password">Password</label>:</td>
+                    <td><input type="password" id="j_password" name="j_password"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Log in"/></td>
+                    <td></td>
+                </tr>
+            </table>
 
 
-    </form>
+        </form>
+
+    </div>
 
 </div>
 
-</div><div id="footerFragment" th:fragment="/fragment/layout :: footerFragment"></div>
+<div id="footerFragment" th:fragment="/fragment/layout :: footerFragment"></div>
 </body>
 </html>
