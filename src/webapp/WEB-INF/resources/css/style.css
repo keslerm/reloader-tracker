@@ -1,26 +1,41 @@
-html, body
-{
-    margin: 0px;
-    padding: 0px;
-}
-
 body {
     background-color: #363636;
 }
 
 body, td, li, p {
     font-family: Helvetica;
-    font-size: 10pt;
-    height: 100%;
+    font-size: 100%;
 }
 
 #wrapper {
     width:100%;
-    margin: 0;
-    padding: 0;
 }
 
 #menuFragment {
+}
+
+#menu {
+    width: 100%;
+    margin-bottom: 5px;
+    background-color: #3f3f3f;
+    border-width: 0px;
+    border-bottom: 1px solid black;
+}
+
+#menu ul {
+    padding: 4px;
+}
+
+#menu li {
+    display: inline;
+}
+
+#menu li:hover {
+    background-color: #d3d3d3;
+}
+
+#menu a:hover {
+    color: black;
 }
 
 #login-wrapper {
@@ -49,13 +64,6 @@ body, td, li, p {
     text-align: center;
 }
 
-#menu {
-    margin: 4px 0px;
-    width: 100%;
-    padding: 0;
-    background-color: #3f3f3f;
-    border-width: 0px;
-}
 
 .rt-header {
     padding: 3px;
@@ -77,18 +85,10 @@ td {
 }
 
 
-#menu ul {
-    padding: 4px;
-}
-
-#menu li {
-    display: inline;
-}
-
 h1.ui-widget-header {
     padding: 2px 4px;
 }
 
 p {
-    padding: 2px 4px;
+    padding: 4px 2px;
 }
