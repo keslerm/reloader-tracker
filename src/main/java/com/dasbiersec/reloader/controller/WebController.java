@@ -13,6 +13,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 @Controller
 @RequestMapping(value = "/")
@@ -62,6 +65,25 @@ public class WebController
         return "components";
     }
 
+	@RequestMapping(method = RequestMethod.GET, value = "components/{id}/edit")
+	public String editComponent(ModelMap map, @PathVariable(value = "id") Integer id)
+	{
+		Component component = reloaderService.getComponentById(id);
+		map.addAttribute("component", component);
+
+		return "componentform";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "components/{id}/edit")
+	public String saveComponent(@ModelAttribute(value = "component") Component component, BindingResult result, SessionStatus status, ModelMap map)
+	{
+		reloaderService.saveComponent(component);
+
+		map.addAttribute("component", component);
+
+		return "componentform";
+	}
+
     @RequestMapping(method = RequestMethod.GET, value = "/batches/add")
     public String addBatch(ModelMap map)
     {
@@ -88,6 +110,12 @@ public class WebController
 		map.addAttribute("batch", batch);
 
 		return "batchform";
+	}
+
+	@ModelAttribute("componentTypes")
+	public List<ComponentType> componentList()
+	{
+		return Arrays.asList(ComponentType.values());
 	}
 
     @ModelAttribute("allBullets")
