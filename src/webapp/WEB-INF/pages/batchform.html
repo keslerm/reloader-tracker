@@ -14,30 +14,36 @@
     <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
 
     <div id="content">
-        <div class="ui-widget ui-widget-content" style="width: 49%; float: left ;">
-            <h1 class="ui-widget ui-widget-header">Details</h1>
-            <table width="100%">
-                <tr>
-                    <td>Cost Per Brass: </td>
-                    <td th:text="'$' + ${batch.costPerRound.brass}">$0.00</td>
-                </tr>
-                <tr>
-                    <td>Cost Per Bullet: </td>
-                    <td th:text="'$' + ${batch.costPerRound.Bullet}"></td>
-                </tr>
-                <tr>
-                    <td>Cost Per Powder Charge: </td>
-                    <td th:text="'$' + ${batch.costPerRound.Powder}"></td>
-                </tr>
-                <tr>
-                    <td>Cost Per Primer: </td>
-                    <td th:text="'$' + ${batch.costPerRound.Primer}"></td>
-                </tr>
-                <tr>
-                    <td>Cost Per Round: </td>
-                    <td th:text="'$' + ${batch.costPerRound.Total}"></td>
-                </tr>
-            </table>
+        <div style="width: 49%; float: left ;">
+            <div class="ui-widget ui-widget-content">
+                <h1 class="ui-widget ui-widget-header">Cost Details</h1>
+                <table width="100%">
+                    <tr>
+                        <td>Cost Per Brass:</td>
+                        <td th:text="'$' + ${batch.costPerRound.brass}">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Cost Per Bullet:</td>
+                        <td th:text="'$' + ${batch.costPerRound.Bullet}"></td>
+                    </tr>
+                    <tr>
+                        <td>Cost Per Powder Charge:</td>
+                        <td th:text="'$' + ${batch.costPerRound.Powder}"></td>
+                    </tr>
+                    <tr>
+                        <td>Cost Per Primer:</td>
+                        <td th:text="'$' + ${batch.costPerRound.Primer}"></td>
+                    </tr>
+                    <tr>
+                        <td>Cost Per Round:</td>
+                        <td th:text="'$' + ${batch.costPerRound.Total}"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Cost for Batch:</td>
+                        <td th:text="'$' + ${batch.costForBatch}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <div class="ui-widget ui-widget-content" style="width: 49%; float: right;">
@@ -115,7 +121,7 @@
 
             </form>
         </div>
-        <div style="clear: both" />
+        <div style="clear: both"/>
     </div>
     <div id="footerFragment" th:include="fragment/layout :: footerFragment"></div>
 

@@ -105,10 +105,8 @@ public class WebController
 	@RequestMapping(method = RequestMethod.POST, value = "/batches/{id}/edit")
 	public String saveBatch(@ModelAttribute(value = "batch") Batch batch, BindingResult result, SessionStatus status, ModelMap map)
 	{
-		reloaderService.saveBatch(batch);
-
-		map.addAttribute("batch", batch);
-
+		Batch newBatch = reloaderService.saveBatch(batch);
+		map.addAttribute("batch", newBatch);
 		return "batchform";
 	}
 

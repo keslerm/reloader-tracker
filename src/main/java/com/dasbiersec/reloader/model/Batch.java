@@ -40,10 +40,23 @@ public class Batch extends AbstractEntity implements Serializable
 	@Transient
 	private CostPerRound costPerRound;
 
+	@Transient
+	private BigDecimal costForBatch;
+
 	@Column(name = "user_id")
 	private Integer userId;
 
-    public BigDecimal getCoal()
+	public BigDecimal getCostForBatch()
+	{
+		return costForBatch;
+	}
+
+	public void setCostForBatch(BigDecimal costForBatch)
+	{
+		this.costForBatch = costForBatch;
+	}
+
+	public BigDecimal getCoal()
     {
         return coal;
     }

@@ -28,5 +28,6 @@ public class BatchHelper
 		costPerRound.setTotal(total.setScale(2, RoundingMode.HALF_UP));
 
 		batch.setCostPerRound(costPerRound);
+		batch.setCostForBatch(total.multiply(new BigDecimal(batch.getCount())).setScale(2, RoundingMode.HALF_UP));
 	}
 }
