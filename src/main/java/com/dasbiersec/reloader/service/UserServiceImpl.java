@@ -30,6 +30,9 @@ public class UserServiceImpl implements UserDetailsService
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
+		if (userEntity.isApiEnabled())
+			authorities.add(new SimpleGrantedAuthority("ROLE_API"));
+
 		ReloaderUserDetails user = new ReloaderUserDetails(userEntity.getUsername(), userEntity.getPassword(), true, true, true, true, authorities);
         user.setId(userEntity.getId());
 

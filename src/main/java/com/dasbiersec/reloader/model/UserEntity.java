@@ -15,31 +15,20 @@ public class UserEntity extends AbstractEntity
 	@Column(name = "password")
 	private String password;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Batch> batch;
+	@Column(name = "is_api")
+	private boolean isApiEnabled;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Component> component;
+	public boolean isApiEnabled()
+	{
+		return isApiEnabled;
+	}
 
-    public List<Batch> getBatch() {
-        return batch;
-    }
+	public void setApiEnabled(boolean apiEnabled)
+	{
+		isApiEnabled = apiEnabled;
+	}
 
-    public void setBatch(List<Batch> batch) {
-        this.batch = batch;
-    }
-
-    public List<Component> getComponent() {
-        return component;
-    }
-
-    public void setComponent(List<Component> component) {
-        this.component = component;
-    }
-
-    public String getUsername()
+	public String getUsername()
 	{
 		return username;
 	}

@@ -3,15 +3,14 @@
 <head th:include="fragment/layout :: headerFragment">
 </head>
 <body>
-<div id="wrapper">
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#datatable").dataTable({
-                "bJQueryUI": true
-            });
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#datatable").dataTable({
+            "bJQueryUI": true
         });
-    </script>
-
+    });
+</script>
+<div id="wrapper">
     <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
 
     <div id="content">
