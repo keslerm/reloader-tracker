@@ -1,28 +1,69 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
 <head th:include="fragment/layout :: headerFragment">
+    <title>Reloader Data</title>
+    <link rel="stylesheet" href="../resources/css/reset.css" th:href="@{/resources/css/reset.css}" />
+    <link rel="stylesheet" href="../resources/css/style.css" th:href="@{/resources/css/style.css}" />
+    <link rel="stylesheet" href="../resources/js/DataTables-1.9.4/media/css/jquery.dataTables_rt.css" th:href="@{/resources/js/DataTables-1.9.4/media/css/jquery.dataTables_rt.css}" />
+    <link rel="stylesheet" href="../resources/css/dot-luv/jquery-ui-1.10.3.custom.css" th:href="@{/resources/css/dot-luv/jquery-ui-1.10.3.custom.css}" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js" ></script>
+    <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js" th:href="@{/resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js}"></script>
+    <script type="text/javascript" src="../resources/js/DataTables-1.9.4/media/js/jquery.dataTables.js" th:href="@{/resources/js/DataTables-1.9.4/media/js/jquery.dataTables.js}"></script>
 </head>
 <body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#datatable").dataTable({
+                "bJQueryUI": true
+            });
+        });
+    </script>
     <div id="wrapper">
-        <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
+        <div id="menuFragment" th:include="fragment/layout :: menuFragment">
+            <div id="menu" class="ui-widget ui-corner-all ui-widget-content">
+                <ul>
+                    <li><a href="/batches/">Batches</a></li>
+                    <li><a href="/components/">Components</a></li>
+                </ul>
+            </div>
+        </div>
+
         <div id="content">
-            <div class="ui-widget ui-widget-content">
-                <table width="100%">
-                    <tr th:each="batch : ${batches}">
-                        <td th:text="${batch.description}">Test</td>
-                        <td th:text="${batch.brass.name}">Brass</td>
-                        <td th:text="${batch.bullet.name}">Bullet</td>
-                        <td th:text="${batch.primer.name}">Primer</td>
-                        <td th:text="${batch.powder.name}">Powder</td>
-                        <td th:text="${batch.powderCharge}">Powder Charge</td>
-                        <td th:text="${batch.coal}">COAL</td>
-                        <td th:text="${batch.count}">Count</td>
-                        <td><a href="batchform.html" th:href="@{'/batches/' + ${batch.id} + '/edit'}">Edit</a></td>
-                    </tr>
+            <div class="ui-widget ui-widget-content ui-corner-all">
+                <table width="100%" id="datatable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Brass</th>
+                            <th>Bullet</th>
+                            <th>Primer</th>
+                            <th>Powder</th>
+                            <th>Powder Charge</th>
+                            <th>COAL</th>
+                            <th>Count</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="batch : ${batches}">
+                            <td th:text="${batch.description}">Test</td>
+                            <td th:text="${batch.brass.name}">Brass</td>
+                            <td th:text="${batch.bullet.name}">Bullet</td>
+                            <td th:text="${batch.primer.name}">Primer</td>
+                            <td th:text="${batch.powder.name}">Powder</td>
+                            <td th:text="${batch.powderCharge}">Powder Charge</td>
+                            <td th:text="${batch.coal}">COAL</td>
+                            <td th:text="${batch.count}">Count</td>
+                            <td><a href="batchform.html" th:href="@{'/batches/' + ${batch.id} + '/edit'}">Edit</a></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
-        <div id="footerFragment" th:include="fragment/layout :: footerFragment"></div>
+
+        <div id="footerFragment" th:include="fragment/layout :: footerFragment">
+            (C) 2012 Blahblah
+        </div>
     </div>
 </body>
 </html>

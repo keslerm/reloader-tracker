@@ -21,12 +21,13 @@
 
 
     <security:http pattern="/login" security="none" />
+    <security:http pattern="/login/error" security="none" />
     <security:http pattern="/favicon.ico" security="none" />
 
     <security:http auto-config="true">
+        <security:form-login login-page="/login" authentication-failure-url="/login/error" />
         <security:intercept-url pattern="/api/*" access="ROLE_API" />
         <security:intercept-url pattern="/*" access="ROLE_USER" />
-        <security:form-login login-page="/login" authentication-failure-url="/login-error" />
         <security:logout />
     </security:http>
 

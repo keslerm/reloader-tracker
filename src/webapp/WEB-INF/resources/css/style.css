@@ -32,8 +32,8 @@ body, td, li, p {
 }
 
 #menuFragment {
-    width: 14%;
-    float: left;
+    width: 100%;
+    clear: both;
 }
 
 .ui-content table {
@@ -46,8 +46,8 @@ td {
 }
 
 #content {
-    width: 85%;
-    float: right;
+    width: 100%;
+    clear: both;
 }
 
 #footerFragment {
@@ -61,11 +61,15 @@ td {
 }
 
 #menu {
-    margin: 4px;
+    margin: 4px 0px;
 }
 
 #menu ul {
     padding: 4px;
+}
+
+#menu li {
+    display: inline;
 }
 
 h1.ui-widget-header {

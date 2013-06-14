@@ -33,6 +33,13 @@ public class WebController
 		return "login";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/login/error")
+	public String loginError(ModelMap map)
+	{
+		map.addAttribute("loginError", true);
+		return "login";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/")
 	public String index(ModelMap map)
 	{
