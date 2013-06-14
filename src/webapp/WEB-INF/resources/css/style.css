@@ -51,6 +51,7 @@ td {
 }
 
 #footerFragment {
+    margin-top: 12px;
     text-align: center;
     clear: both;
     width: 100%;
