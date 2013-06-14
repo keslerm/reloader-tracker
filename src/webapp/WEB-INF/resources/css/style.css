@@ -1,3 +1,9 @@
+html, body
+{
+    margin: 0px;
+    padding: 0px;
+}
+
 body {
     background-color: #363636;
 }
@@ -5,11 +11,16 @@ body {
 body, td, li, p {
     font-family: Helvetica;
     font-size: 10pt;
+    height: 100%;
 }
 
 #wrapper {
-    width: 95%;
-    margin: 9px auto 9px auto;
+    width:100%;
+    margin: 0;
+    padding: 0;
+}
+
+#menuFragment {
 }
 
 #login-wrapper {
@@ -21,32 +32,9 @@ body, td, li, p {
     margin: 10px;
 }
 
-.rt-header {
-    padding: 3px;
-}
-
-.rt-login-error {
-    margin: 5px 0 10px 0;
-    color: red;
-    text-align: center;
-}
-
-#menuFragment {
-    width: 100%;
-    clear: both;
-}
-
-.ui-content table {
-    margin: 8px;
-}
-
-td {
-    color: #fff;
-    padding: 3px;
-}
-
 #content {
-    width: 100%;
+    width: 98%;
+    margin: 2px auto 10px auto;
     clear: both;
 }
 
@@ -63,7 +51,31 @@ td {
 
 #menu {
     margin: 4px 0px;
+    width: 100%;
+    padding: 0;
+    background-color: #3f3f3f;
+    border-width: 0px;
 }
+
+.rt-header {
+    padding: 3px;
+}
+
+.rt-login-error {
+    margin: 5px 0 10px 0;
+    color: red;
+    text-align: center;
+}
+
+.ui-content table {
+    margin: 8px;
+}
+
+td {
+    color: #fff;
+    padding: 3px;
+}
+
 
 #menu ul {
     padding: 4px;
