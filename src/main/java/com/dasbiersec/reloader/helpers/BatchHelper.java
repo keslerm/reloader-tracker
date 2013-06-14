@@ -21,11 +21,11 @@ public class BatchHelper
 
 		BigDecimal total = brassCost.add(primerCost).add(bulletCost).add(powderCost);
 
-		costPerRound.setBrass(brassCost);
-		costPerRound.setBullet(bulletCost);
-		costPerRound.setPowder(powderCost);
-		costPerRound.setPrimer(primerCost);
-		costPerRound.setTotal(total);
+		costPerRound.setBrass(brassCost.setScale(2, RoundingMode.HALF_UP));
+		costPerRound.setBullet(bulletCost.setScale(2, RoundingMode.HALF_UP));
+		costPerRound.setPowder(powderCost.setScale(2, RoundingMode.HALF_UP));
+		costPerRound.setPrimer(primerCost.setScale(2, RoundingMode.HALF_UP));
+		costPerRound.setTotal(total.setScale(2, RoundingMode.HALF_UP));
 
 		batch.setCostPerRound(costPerRound);
 	}

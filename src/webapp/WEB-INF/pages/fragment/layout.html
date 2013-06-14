@@ -10,6 +10,16 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js" ></script>
     <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js" th:href="@{/resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js}"></script>
     <script type="text/javascript" src="../resources/js/DataTables-1.9.4/jquery.dataTables.js" th:href="@{/resources/js/DataTables-1.9.4/jquery.dataTables.js}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.extend( $.fn.dataTable.defaults, {
+                "bJQueryUI": true,
+                "bAutoWidth": false,
+                "iDisplayLength" : 50
+            });
+        });
+    </script>
 </head>
 <body>
     <div id="menuFragment" th:fragment="menuFragment">

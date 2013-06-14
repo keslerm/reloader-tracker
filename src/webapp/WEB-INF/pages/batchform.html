@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragment/layout :: headerFragment">
 </head>
 <body>
@@ -14,80 +14,108 @@
     <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
 
     <div id="content">
-        <div class="ui-widget ui-widget-content">
-            <h1 class="ui-widget ui-widget-header">Edit Batch</h1>
-        <form action="#" th:object="${batch}" method="post">
-
+        <div class="ui-widget ui-widget-content" style="width: 49%; float: left ;">
+            <h1 class="ui-widget ui-widget-header">Details</h1>
             <table width="100%">
-
                 <tr>
-                    <td>Description</td>
-                    <td><input type="text" th:field="*{description}"/></td>
+                    <td>Cost Per Brass: </td>
+                    <td th:text="'$' + ${batch.costPerRound.brass}">$0.00</td>
                 </tr>
                 <tr>
-                    <td>Count</td>
-                    <td><input type="text" th:field="*{count}"/></td>
+                    <td>Cost Per Bullet: </td>
+                    <td th:text="'$' + ${batch.costPerRound.Bullet}"></td>
                 </tr>
                 <tr>
-                    <td>COAL</td>
-                    <td><input type="text" th:field="*{coal}"/></td>
+                    <td>Cost Per Powder Charge: </td>
+                    <td th:text="'$' + ${batch.costPerRound.Powder}"></td>
                 </tr>
                 <tr>
-                    <td>Brass</td>
-                    <td>
-                        <select th:field="*{brass.id}">
-                            <option th:each="brass : ${allBrass}"
-                                    th:value="${brass.id}"
-                                    th:text="${brass.name}">Wireframe
-                            </option>
-                        </select>
-                    </td>
+                    <td>Cost Per Primer: </td>
+                    <td th:text="'$' + ${batch.costPerRound.Primer}"></td>
                 </tr>
                 <tr>
-                    <td>Bullet</td>
-                    <td>
-                        <select th:field="*{bullet.id}">
-                            <option th:each="bullet : ${allBullets}"
-                                    th:value="${bullet.id}"
-                                    th:text="${bullet.name}">Wireframe
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Powder</td>
-                    <td>
-                        <select th:field="*{powder.id}">
-                            <option th:each="powder : ${allPowders}"
-                                    th:value="${powder.id}"
-                                    th:text="${powder.name}">Wireframe
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Powder Charge</td>
-                    <td><input type="text" th:field="*{powderCharge}"/></td>
-                </tr>
-                <tr>
-                    <td>Primer</td>
-                    <td>
-                        <select th:field="*{primer.id}">
-                            <option th:each="primer : ${allPrimers}"
-                                    th:value="${primer.id}"
-                                    th:text="${primer.name}">Wireframe
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Save"/></td>
-                    <td><input type="button" value="Back" id="back"/></td>
+                    <td>Cost Per Round: </td>
+                    <td th:text="'$' + ${batch.costPerRound.Total}"></td>
                 </tr>
             </table>
-
-        </form>
         </div>
+
+        <div class="ui-widget ui-widget-content" style="width: 49%; float: right;">
+            <h1 class="ui-widget ui-widget-header">Edit Batch</h1>
+
+            <form action="#" th:object="${batch}" method="post">
+
+                <table width="100%">
+
+                    <tr>
+                        <td>Description</td>
+                        <td><input type="text" th:field="*{description}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Count</td>
+                        <td><input type="text" th:field="*{count}"/></td>
+                    </tr>
+                    <tr>
+                        <td>COAL</td>
+                        <td><input type="text" th:field="*{coal}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Brass</td>
+                        <td>
+                            <select th:field="*{brass.id}">
+                                <option th:each="brass : ${allBrass}"
+                                        th:value="${brass.id}"
+                                        th:text="${brass.name}">Wireframe
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bullet</td>
+                        <td>
+                            <select th:field="*{bullet.id}">
+                                <option th:each="bullet : ${allBullets}"
+                                        th:value="${bullet.id}"
+                                        th:text="${bullet.name}">Wireframe
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Powder</td>
+                        <td>
+                            <select th:field="*{powder.id}">
+                                <option th:each="powder : ${allPowders}"
+                                        th:value="${powder.id}"
+                                        th:text="${powder.name}">Wireframe
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Powder Charge</td>
+                        <td><input type="text" th:field="*{powderCharge}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Primer</td>
+                        <td>
+                            <select th:field="*{primer.id}">
+                                <option th:each="primer : ${allPrimers}"
+                                        th:value="${primer.id}"
+                                        th:text="${primer.name}">Wireframe
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Save"/></td>
+                        <td><input type="button" value="Back" id="back"/></td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+        <div style="clear: both" />
     </div>
     <div id="footerFragment" th:include="fragment/layout :: footerFragment"></div>
 
