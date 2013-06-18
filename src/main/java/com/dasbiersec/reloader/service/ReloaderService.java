@@ -66,8 +66,9 @@ public class ReloaderService
 		if (existing != null)
 		{
 			batch.setCreateDate(existing.getCreateDate());
-			batch.setUserId(getCurrentUser());
 		}
+
+        batch.setUserId(getCurrentUser());
 
 		Batch rb = batchRepository.save(batch);
 

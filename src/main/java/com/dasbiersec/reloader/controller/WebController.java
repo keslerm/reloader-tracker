@@ -93,6 +93,14 @@ public class WebController
         return "batchform";
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/batches/add")
+    public String addBatch(@ModelAttribute(value = "batch") Batch batch, ModelMap map, BindingResult result, SessionStatus status)
+    {
+        Batch x = reloaderService.saveBatch(batch);
+        //map.addAttribute("batch", x);
+        return "batchform";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/batches/{id}/edit")
     public String editBatch(ModelMap map, @PathVariable(value = "id") Integer id)
     {
