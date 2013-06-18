@@ -45,6 +45,7 @@
                     <th>Powder Charge</th>
                     <th>COAL</th>
                     <th>Count</th>
+                    <th>Remaining</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -58,6 +59,7 @@
                     <td th:text="${batch.powderCharge}">Powder Charge</td>
                     <td th:text="${batch.coal}">COAL</td>
                     <td th:text="${batch.count}">Count</td>
+                    <td th:text="${batch.remaining}">Count</td>
                     <td><a href="batchform.html" th:href="@{'/batches/' + ${batch.id} + '/edit'}">Edit</a></td>
                 </tr>
                 </tbody>
