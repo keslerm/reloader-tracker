@@ -34,6 +34,9 @@ public class Batch extends AbstractEntity implements Serializable
 	@Column(name = "count")
 	private Integer count;
 
+    @Column(name = "remaining")
+    private Integer remaining;
+
     @Column(name = "coal")
     private BigDecimal coal;
 
@@ -46,7 +49,17 @@ public class Batch extends AbstractEntity implements Serializable
 	@Column(name = "user_id")
 	private Integer userId;
 
-	public BigDecimal getCostForBatch()
+    public Integer getRemaining()
+    {
+        return remaining;
+    }
+
+    public void setRemaining(Integer remaining)
+    {
+        this.remaining = remaining;
+    }
+
+    public BigDecimal getCostForBatch()
 	{
 		return costForBatch;
 	}
