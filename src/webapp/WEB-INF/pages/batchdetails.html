@@ -11,11 +11,19 @@
     <script type="text/javascript" src="../resources/js/DataTables-1.9.4/jquery.dataTables.js" th:src="@{/resources/js/DataTables-1.9.4/jquery.dataTables.js}"></script>
 </head>
 <body>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
     $(document).ready(function () {
         $("#edit").button().click(function () {
-            var url = window.location.href.replace("details", "edit");
-            //var url = window.location.href.replace("details", "form");
+
+            // Prototyping code:
+
+            /*[- */
+            var url = window.location.href.replace("details", "form");
+            /* -]*/
+
+            /*[+
+             url = window.location.href.replace("details", "edit");
+             +]*/
 
             $("#dialog-form").load(url, function () {
                 $("#dialog-form").dialog({
