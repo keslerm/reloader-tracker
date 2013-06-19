@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="../resources/css/jquery.dataTables_rt.css" th:href="@{/resources/css/jquery.dataTables_rt.css}" />
     <link rel="stylesheet" href="../resources/css/dot-luv/jquery-ui-1.10.3.custom.css" th:href="@{/resources/css/dot-luv/jquery-ui-1.10.3.custom.css}" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js" ></script>
-    <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js" th:href="@{/resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js}"></script>
-    <script type="text/javascript" src="../resources/js/DataTables-1.9.4/jquery.dataTables.js" th:href="@{/resources/js/DataTables-1.9.4/jquery.dataTables.js}"></script>
+    <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js" th:src="@{/resources/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js}"></script>
+    <script type="text/javascript" src="../resources/js/DataTables-1.9.4/jquery.dataTables.js" th:src="@{/resources/js/DataTables-1.9.4/jquery.dataTables.js}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="menuFragment" th:fragment="menuFragment">
-        <div id="menu" class="ui-widget-content">
+        <div id="menu" class="ui-widget-content ui-widget-header">
             <ul>
                 <li><a href="/batches/">Batches</a></li>
                 <li><a href="/components/">Components</a></li>
@@ -32,7 +32,9 @@
     </div>
 
     <div id="footerFragment" th:fragment="footerFragment">
-        (C) 2012 Blahblah
+        <div class="ui-widget ui-widget-header">
+            <span>(C) 2013 Reloader Tracker</span>
+        </div>
     </div>
 </body>
 </html>

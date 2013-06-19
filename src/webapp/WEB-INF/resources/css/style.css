@@ -53,15 +53,29 @@ body, td, li, p {
     clear: both;
 }
 
+#content-detail {
+    width: 50%;
+    margin: 2px auto 10px auto;
+    clear: both;
+}
+
 #footerFragment {
-    margin-top: 12px;
-    text-align: center;
     clear: both;
     width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#footer {
+    padding: 3px;
+    border: 0px;
+    border-top: 1px solid black;
 }
 
 #footerFragment * {
     text-align: center;
+    font-size: 13px;
 }
 
 

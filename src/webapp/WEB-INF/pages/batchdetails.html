@@ -1,0 +1,127 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment/layout :: headerFragment">
+</head>
+<body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("button").button().click(function () {
+
+        });
+
+        $("#back").click(function () {
+            window.location.href = "/batches/";
+        });
+
+        $("#edit").click(function () {
+            var url = window.location.href.replace("details", "edit");
+            window.location.href = url;
+        });
+
+    });
+</script>
+<div id="wrapper">
+    <div id="menuFragment" th:include="fragment/layout :: menuFragment">
+        <div id="menu" class="ui-widget-content ui-widget-header">
+            <ul>
+                <li><a href="/batches/">Batches</a></li>
+                <li><a href="/components/">Components</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="content-detail" th:object="${batch}">
+
+        <div style="float: left; width: 49%">
+            <div class="ui-widget ui-widget-content">
+                <h1 class="ui-widget ui-widget-header">Batch Details</h1>
+
+                <table width="100%">
+
+                    <tr>
+                        <td>Description</td>
+                        <td th:text="*{description}">Test Batch 1</td>
+                    </tr>
+                    <tr>
+                        <td>Count</td>
+                        <td th:text="*{count}">10</td>
+                    </tr>
+                    <tr>
+                        <td>Remaining</td>
+                        <td th:text="*{remaining}">5</td>
+                    </tr>
+                    <tr>
+                        <td>COAL</td>
+                        <td th:text="*{coal}">1.125</td>
+                    </tr>
+                    <tr>
+                        <td>Brass</td>
+                        <td th:text="*{brass.name}">Brass #1</td>
+                    </tr>
+                    <tr>
+                        <td>Bullet</td>
+                        <td th:text="*{bullet.name}">Bullet #1</td>
+                    </tr>
+                    <tr>
+                        <td>Powder</td>
+                        <td th:text="*{powder.name}"></td>
+                    </tr>
+                    <tr>
+                        <td>Powder Charge</td>
+                        <td th:text="*{powderCharge}"></td>
+                    </tr>
+                    <tr>
+                        <td>Primer</td>
+                        <td th:text="*{primer.name}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div style="float: right; width:49%;">
+            <div class="ui-widget ui-widget-content">
+                <h1 class="ui-widget ui-widget-header">Cost Per Round</h1>
+
+                <table width="100%">
+                    <tr>
+                        <td>Brass Cost</td>
+                        <td th:text="'$' + *{costPerRound.brass}"></td>
+                    </tr>
+                    <tr>
+                        <td>Powder Cost</td>
+                        <td th:text="'$' + *{costPerRound.powder}"></td>
+                    </tr>
+                    <tr>
+                        <td>Primer Cost</td>
+                        <td th:text="'$' + *{costPerRound.primer}"></td>
+                    </tr>
+                    <tr>
+                        <td>Bullet Cost</td>
+                        <td th:text="'$' + *{costPerRound.bullet}"></td>
+                    </tr>
+                    <tr>
+                        <td>Cost Per Round</td>
+                        <td th:text="'$' + *{costPerRound.total}"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Cost for Batch</td>
+                        <td th:text="'$' + *{costForBatch}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="clear: both; text-align: center; padding-top: 15px;">
+        <button id="edit">Edit</button>
+        <button id="back">Back</button>
+    </div>
+
+    <div id="footerFragment" th:include="fragment/layout :: footerFragment">
+    </div>
+</div>
+
+
+</body>
+</html>

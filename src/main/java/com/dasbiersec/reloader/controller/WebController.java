@@ -43,13 +43,15 @@ public class WebController
 		return "login";
 	}
 
+	/*
 	@RequestMapping(method = RequestMethod.GET, value = "/")
 	public String index(ModelMap map)
 	{
 		return "index";
 	}
+	*/
 
-	@RequestMapping(method = RequestMethod.GET, value = "/batches")
+	@RequestMapping(method = RequestMethod.GET, value = {"/", "/batches"})
 	public String batches(ModelMap modelMap)
 	{
 		Iterable<Batch> batches = reloaderService.getAllBatches();
@@ -100,6 +102,15 @@ public class WebController
         //map.addAttribute("batch", x);
         return "batchform";
     }
+
+	@RequestMapping(method = RequestMethod.GET, value = "/batches/{id}/details")
+	public String batchDetails(ModelMap map, @PathVariable(value = "id") Integer id)
+	{
+		Batch batch = reloaderService.getBatchById(id);
+		map.addAttribute("batch", batch);
+
+		return "batchdetails";
+	}
 
     @RequestMapping(method = RequestMethod.GET, value = "/batches/{id}/edit")
     public String editBatch(ModelMap map, @PathVariable(value = "id") Integer id)
