@@ -78,6 +78,9 @@ body, td, li, p {
     font-size: 13px;
 }
 
+.rt-content-block {
+    margin-bottom: 10px;
+}
 
 .rt-header {
     padding: 3px;
