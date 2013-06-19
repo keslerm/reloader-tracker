@@ -59,6 +59,12 @@ body, td, li, p {
     clear: both;
 }
 
+#content-form {
+    width: 35%;
+    margin: 2px auto 10px auto;
+    clear: both;
+}
+
 #footerFragment {
     clear: both;
     width: 100%;

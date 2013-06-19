@@ -13,21 +13,43 @@
 <body>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("button").button().click(function () {
-
-        });
-
-        $("#back").click(function () {
-            window.location.href = "/batches/";
-        });
-
-        $("#edit").click(function () {
+        $("#edit").button().click(function () {
             var url = window.location.href.replace("details", "edit");
+
+            $("#dialog-form").load(url, function () {
+                $("#dialog-form").dialog({
+                    autoOpen: true,
+                    height: 450,
+                    width: 500,
+                    modal: true,
+                    buttons: {
+                        "Save" : function () {
+                            // nothing
+                            alert("Save!");
+
+                        },
+                        "Cancel": function () {
+                            $("#dialog-form").content("");
+                            $(this).dialog('destroy');
+                        }
+                    },
+                    close: function () {
+                        $("#dialog-form").content("");
+                        $(this).dialog('destroy');
+                    }
+                });
+            });
+        });
+
+        $("#back").button().click(function () {
+            var url = window.location.href.replace("details/", "");
             window.location.href = url;
         });
-
     });
 </script>
+<script type="text/javascript">
+</script>
+<div id="dialog-form"></div>
 <div id="wrapper">
     <div id="menuFragment" th:include="fragment/layout :: menuFragment">
         <div id="menu" class="ui-widget-content ui-widget-header">
@@ -47,7 +69,7 @@
 
         <div style="float: left; width: 49%">
             <div class="ui-widget ui-widget-content rt-content-block">
-                <h1 class="ui-widget ui-widget-header">Component Details</h1>
+                <h1 class="ui-widget ui-widget-header">Batch Details</h1>
 
                 <table width="100%">
 
@@ -64,7 +86,7 @@
                         <td th:text="*{remaining}">5</td>
                     </tr>
                     <tr>
-                        <td>Overall Length</td>
+                        <td>COAL</td>
                         <td th:text="*{coal}">1.125</td>
                     </tr>
                     <tr>
@@ -77,15 +99,15 @@
                     </tr>
                     <tr>
                         <td>Powder</td>
-                        <td th:text="*{powder.name}">Powder #1</td>
+                        <td th:text="*{powder.name}"></td>
                     </tr>
                     <tr>
                         <td>Powder Charge</td>
-                        <td th:text="*{powderCharge}">4.950</td>
+                        <td th:text="*{powderCharge}"></td>
                     </tr>
                     <tr>
                         <td>Primer</td>
-                        <td th:text="*{primer.name}">Primer #1</td>
+                        <td th:text="*{primer.name}"></td>
                     </tr>
                 </table>
             </div>

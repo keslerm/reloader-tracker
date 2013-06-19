@@ -1,103 +1,79 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragment/layout :: headerFragment">
+<head>
 </head>
 <body>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#back").click(function () {
-            window.location.href = "/batches/";
-        });
-    });
-</script>
-<div id="wrapper">
-    <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
+<form action="#" th:object="${batch}" method="post" id="batchform">
 
-    <div id="content">
-        <div class="ui-widget ui-widget-content">
-            <h1 class="ui-widget ui-widget-header">Edit Batch</h1>
+    <table width="100%">
 
-            <form action="#" th:object="${batch}" method="post">
-
-                <table width="100%">
-
-                    <tr>
-                        <td>Description</td>
-                        <td><input type="text" th:field="*{description}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Count</td>
-                        <td><input type="text" th:field="*{count}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Remaining</td>
-                        <td><input type="text" th:field="*{remaining}"/></td>
-                    </tr>
-                    <tr>
-                        <td>COAL</td>
-                        <td><input type="text" th:field="*{coal}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Brass</td>
-                        <td>
-                            <select th:field="*{brass.id}">
-                                <option th:each="brass : ${allBrass}"
-                                        th:value="${brass.id}"
-                                        th:text="${brass.name}">Wireframe
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Bullet</td>
-                        <td>
-                            <select th:field="*{bullet.id}">
-                                <option th:each="bullet : ${allBullets}"
-                                        th:value="${bullet.id}"
-                                        th:text="${bullet.name}">Wireframe
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Powder</td>
-                        <td>
-                            <select th:field="*{powder.id}">
-                                <option th:each="powder : ${allPowders}"
-                                        th:value="${powder.id}"
-                                        th:text="${powder.name}">Wireframe
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Powder Charge</td>
-                        <td><input type="text" th:field="*{powderCharge}"/></td>
-                    </tr>
-                    <tr>
-                        <td>Primer</td>
-                        <td>
-                            <select th:field="*{primer.id}">
-                                <option th:each="primer : ${allPrimers}"
-                                        th:value="${primer.id}"
-                                        th:text="${primer.name}">Wireframe
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Save"/></td>
-                        <td><input type="button" value="Back" id="back"/></td>
-                    </tr>
-                </table>
-
-            </form>
-        </div>
-    </div>
-
-    <div id="footerFragment" th:include="fragment/layout :: footerFragment"></div>
-</div>
-
-
+        <tr>
+            <td>Description</td>
+            <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td>Count</td>
+            <td><input type="text" th:field="*{count}"/></td>
+        </tr>
+        <tr>
+            <td>Remaining</td>
+            <td><input type="text" th:field="*{remaining}"/></td>
+        </tr>
+        <tr>
+            <td>COAL</td>
+            <td><input type="text" th:field="*{coal}"/></td>
+        </tr>
+        <tr>
+            <td>Brass</td>
+            <td>
+                <select th:field="*{brass.id}">
+                    <option th:each="brass : ${allBrass}"
+                            th:value="${brass.id}"
+                            th:text="${brass.name}">Wireframe
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Bullet</td>
+            <td>
+                <select th:field="*{bullet.id}">
+                    <option th:each="bullet : ${allBullets}"
+                            th:value="${bullet.id}"
+                            th:text="${bullet.name}">Wireframe
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Powder</td>
+            <td>
+                <select th:field="*{powder.id}">
+                    <option th:each="powder : ${allPowders}"
+                            th:value="${powder.id}"
+                            th:text="${powder.name}">Wireframe
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Powder Charge</td>
+            <td><input type="text" th:field="*{powderCharge}"/></td>
+        </tr>
+        <tr>
+            <td>Primer</td>
+            <td>
+                <select th:field="*{primer.id}">
+                    <option th:each="primer : ${allPrimers}"
+                            th:value="${primer.id}"
+                            th:text="${primer.name}">Wireframe
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
