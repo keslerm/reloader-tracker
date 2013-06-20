@@ -2,23 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
 <head th:include="fragment/layout :: headerFragment">
-    <title>Reloader Data</title>
-    <link rel="stylesheet" href="../resources/css/reset.css" th:href="@{/resources/css/reset.css}" />
-    <link rel="stylesheet" href="../resources/css/style.css" th:href="@{/resources/css/style.css}" />
-    <link rel="stylesheet" href="../resources/css/jquery.dataTables_rt.css" th:href="@{/resources/css/jquery.dataTables_rt.css}" />
-    <link rel="stylesheet" href="../resources/css/dot-luv/jquery-ui-1.10.3.custom.css" th:href="@{/resources/css/dot-luv/jquery-ui-1.10.3.custom.css}" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js" ></script>
-    <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js" th:href="@{/resources/js/jquery-ui-1.10.3.custom/development-bundle/jquery-1.9.1.js}"></script>
-    <script type="text/javascript" src="../resources/js/DataTables-1.9.4/jquery.dataTables.js" th:href="@{/resources/js/DataTables-1.9.4/jquery.dataTables.js}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $.extend( $.fn.dataTable.defaults, {
-                "bJQueryUI": true,
-                "bAutoWidth": false,
-                "iDisplayLength" : 50
-            });
-        });
-    </script>
 </head>
 <body>
 
@@ -30,7 +13,8 @@
 </script>
 
 <div id="wrapper">
-    <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
+    <div id="menuFragment" th:include="fragment/layout :: menuFragment">
+    </div>
 
     <div id="content">
         <div class="ui-widget ui-widget-content ui-corner-all">
@@ -51,7 +35,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="batch : ${batches}">
-                    <td th:text="${batch.description}">Test</td>
+                    <td th:text="${batch.description}" >Test</td>
                     <td th:text="${batch.brass.name}">Brass</td>
                     <td th:text="${batch.bullet.name}">Bullet</td>
                     <td th:text="${batch.primer.name}">Primer</td>
