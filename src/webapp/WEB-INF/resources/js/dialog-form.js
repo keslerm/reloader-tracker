@@ -17,12 +17,12 @@ $(function () {
                         });
                     },
                     "Cancel": function () {
-                        $("#dialog-form").empty();
+                        $("#dialog-form").remove();
                         $(this).dialog('destroy');
                     }
                 },
                 close: function () {
-                    $("#dialog-form").empty();
+                    $("#dialog-form").remove();
                     $(this).dialog('destroy');
                 }
             });
