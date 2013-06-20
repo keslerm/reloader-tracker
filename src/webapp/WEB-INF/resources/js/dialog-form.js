@@ -1,9 +1,12 @@
 $(function () {
-    var url = document.location.href.replace("details", "edit");
+    var pathArray = window.location.pathname.split('/');
+
+    var formURL = window.location.href.replace("details", "edit");
+    var saveURL = '/' + pathArray[0] + '/save/';
 
     $("#edit").button().click(function () {
         $("body").append("<div id=\"dialog-form\"></div>")
-        $("#dialog-form").load(url, function () {
+        $("#dialog-form").load(formURL, function () {
             $("#dialog-form").dialog({
                 autoOpen: true,
                 height: 'auto',
@@ -12,7 +15,7 @@ $(function () {
                 title: "Edit",
                 buttons: {
                     "Save" : function () {
-                        $.post(url, $("#edit-form").serialize(), function () {
+                        $.post($("#edit-form").attr("action"), $("#edit-form").serialize(), function () {
                             window.location.reload();
                         });
                     },
@@ -30,7 +33,6 @@ $(function () {
     });
 
     $("#back").button().click(function () {
-        var url = window.location.href = "/batches/";
-        window.location.href = url;
+        window.location.href = '/' + pathArray[0];
     });
 });

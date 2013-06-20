@@ -9,7 +9,7 @@
         $("select").addClass('ui-widget').addClass('ui-state-default');
     });
 </script>
-<form action="#" th:object="${batch}" method="post" id="edit-form">
+<form action="/batches/save/" th:object="${batch}" method="post" id="edit-form">
 
     <table width="100%">
 
@@ -76,8 +76,6 @@
                     </option>
                 </select>
             </td>
-        </tr>
-        <tr>
         </tr>
     </table>
 </form>
