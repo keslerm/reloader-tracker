@@ -1,60 +1,36 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<head th:include="fragment/layout :: headerFragment">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
 </head>
 <body>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#back").click(function () {
-            window.location.href = "/components/";
-        });
-    });
-</script>
-<div id="wrapper">
-    <div id="menuFragment" th:include="fragment/layout :: menuFragment"></div>
+    <form action="#" th:object="${component}" method="post" id="edit-form">
 
-    <div id="content">
-        <div class="ui-widget ui-widget-content">
-            <h1 class="ui-widget ui-widget-header">Edit Component</h1>
-        <form action="#" th:object="${component}" method="post">
+        <table width="100%">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="*{name}"/></td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>
+                    <select th:field="*{type}">
+                        <option th:each="type : ${componentTypes}"
+                                th:value="${type}"
+                                th:text="${type}">Wireframe
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td><input type="text" th:field="*{amount}"/></td>
+            </tr>
+            <tr>
+                <td>Cost</td>
+                <td><input type="text" th:field="*{cost}"/></td>
+            </tr>
+        </table>
 
-            <table width="100%">
-                <tr>
-                    <td>Name</td>
-                    <td><input type="text" th:field="*{name}"/></td>
-                </tr>
-                <tr>
-                    <td>Type</td>
-                    <td>
-                        <select th:field="*{type}">
-                            <option th:each="type : ${componentTypes}"
-                                    th:value="${type}"
-                                    th:text="${type}">Wireframe
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Amount</td>
-                    <td><input type="text" th:field="*{amount}"/></td>
-                </tr>
-                <tr>
-                    <td>Cost</td>
-                    <td>$<input type="text" th:field="*{cost}"/></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Save"/></td>
-                    <td><input type="button" value="Back" id="back"/></td>
-                </tr>
-            </table>
-
-        </form>
-        </div>
-    </div>
-    <div id="footerFragment" th:include="fragment/layout :: footerFragment"></div>
-
-</div>
-
-
+    </form>
 </body>
 </html>

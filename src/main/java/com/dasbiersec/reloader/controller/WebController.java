@@ -76,6 +76,15 @@ public class WebController
 		return "componentform";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "components/{id}/details")
+	public String componentDetails(ModelMap map, @PathVariable(value = "id") Integer id)
+	{
+		Component component = reloaderService.getComponentById(id);
+		map.addAttribute("component", component);
+
+		return "componentdetails";
+	}
+
 	@RequestMapping(method = RequestMethod.POST, value = "components/{id}/edit")
 	public String saveComponent(@ModelAttribute(value = "component") Component component, BindingResult result, SessionStatus status, ModelMap map)
 	{

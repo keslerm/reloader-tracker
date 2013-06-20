@@ -1,48 +1,12 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragment/layout :: headerFragment">
-    <title>Reloader Data</title>
-    <link rel="stylesheet" href="../resources/css/reset.css" th:href="@{/resources/css/reset.css}" />
-    <link rel="stylesheet" href="../resources/css/style.css" th:href="@{/resources/css/style.css}" />
-    <link rel="stylesheet" href="../resources/css/rt-superfish.css" th:href="@{/resources/css/rt-superfish.css}" />
-    <link rel="stylesheet" href="../resources/css/jquery.dataTables_rt.css" th:href="@{/resources/css/jquery.dataTables_rt.css}" />
-    <link rel="stylesheet" href="../resources/css/dot-luv/jquery-ui-1.10.3.custom.css" th:href="@{/resources/css/dot-luv/jquery-ui-1.10.3.custom.css}" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js" ></script>
-    <script type="text/javascript" src="../resources/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js" th:src="@{/resources/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js}"></script>
-    <script type="text/javascript" src="../resources/js/DataTables-1.9.4/jquery.dataTables.js" th:src="@{/resources/js/DataTables-1.9.4/jquery.dataTables.js}"></script>
-    <script type="text/javascript" src="../resources/js/superfish/js/superfish.js" th:src="@{/resources/js/superfish/js/superfish.js}"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $.extend( $.fn.dataTable.defaults, {
-                "bJQueryUI": true,
-                "bAutoWidth": false,
-                "iDisplayLength" : 50
-            });
-
-            $("#superfish-menu").superfish();
-            $("ul.sf-menu li").addClass("ui-state-default");
-            $("ul.sf-menu li").hover(function () { $(this).addClass('ui-state-hover'); },
-                    function () { $(this).removeClass('ui-state-hover'); });
-        });
-    </script>
 </head>
 <body>
 <script type="text/javascript" src="../resources/js/dialog-form.js" th:src="@{/resources/js/dialog-form.js}"></script>
+
 <div id="wrapper">
     <div id="menuFragment" th:include="fragment/layout :: menuFragment">
-        <div id="menu" class="ui-widget ui-widget-header">
-            <ul class="sf-menu" id="superfish-menu">
-                <li>
-                    <a href="/batches/">Batches</a>
-                    <ul>
-                        <li><a href="/batches/add">Add Batch</a></li>
-                    </ul>
-                </li>
-                <li><a href="/components/">Components</a></li>
-                <li><a href="/logout/">Logout</a></li>
-            </ul>
-        </div>
     </div>
 
     <div id="content-detail" th:object="${batch}">

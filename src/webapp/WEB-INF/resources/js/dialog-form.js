@@ -6,7 +6,7 @@ $(function () {
         $("#dialog-form").load(url, function () {
             $("#dialog-form").dialog({
                 autoOpen: true,
-                height: 375,
+                height: 'auto',
                 width: 400,
                 modal: true,
                 title: "Edit",
