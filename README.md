@@ -21,4 +21,4 @@ TODO
 * Easy way for dealing with a pool of once fired brass
 * Distance from lands
 * Fix the fields that should be integers that are showing up as double/float (like count)
-
+* Add component
