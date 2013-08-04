@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "batches")
-public class Batch extends AbstractEntity implements Serializable
+public class Recipe extends AbstractEntity implements Serializable
 {
 	@Column(name = "description")
 	private String description;
