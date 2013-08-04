@@ -2,10 +2,10 @@ package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.ReloaderUserDetails;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.helpers.BatchHelper;
-import com.dasbiersec.reloader.model.Batch;
+import com.dasbiersec.reloader.helpers.RecipeHelper;
+import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
-import com.dasbiersec.reloader.repos.BatchRepository;
+import com.dasbiersec.reloader.repos.RecipeRepository;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,72 +13,70 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 public class ReloaderService
 {
 	private Logger log = Logger.getLogger(getClass());
 
 	@Autowired
-	private BatchRepository batchRepository;
+	private RecipeRepository recipeRepository;
 
 	@Autowired
 	private ComponentRepository componentRepository;
 
 	@Autowired
-	private BatchHelper batchHelper;
+	private RecipeHelper recipeHelper;
 
-	public Batch getBatchById(Integer id)
+	public Recipe getRecipeById(Integer id)
 	{
 
-		Batch batch = batchRepository.findByIdAndUserId(id, getCurrentUser());
+		Recipe recipe = recipeRepository.findByIdAndUserId(id, getCurrentUser());
 
-		if (batch != null)
-			batchHelper.setCostPerRound(batch);
+		if (recipe != null)
+			recipeHelper.setCostPerRound(recipe);
 
-		return batch;
+		return recipe;
 	}
 
-	public Iterable<Batch> getAllBatches()
+	public Iterable<Recipe> getAllRecipes()
 	{
-		Iterable<Batch> batches = batchRepository.findAllByUserId(getCurrentUser());
+		Iterable<Recipe> recipes = recipeRepository.findAllByUserId(getCurrentUser());
 
-		for (Batch batch : batches)
+		for (Recipe recipe : recipes)
 		{
-			batchHelper.setCostPerRound(batch);
+			recipeHelper.setCostPerRound(recipe);
 
 			// Set components
-			setRemainingComponentAmount(batch.getBrass());
-			setRemainingComponentAmount(batch.getPrimer());
-			setRemainingComponentAmount(batch.getPowder());
-			setRemainingComponentAmount(batch.getBullet());
+			setRemainingComponentAmount(recipe.getBrass());
+			setRemainingComponentAmount(recipe.getPrimer());
+			setRemainingComponentAmount(recipe.getPowder());
+			setRemainingComponentAmount(recipe.getBullet());
 		}
 
-		return batches;
+		return recipes;
 	}
 
-	public Batch saveBatch(Batch batch)
+	public Recipe saveRecipe(Recipe recipe)
 	{
 		// retrieve existing
-		Batch existing = batchRepository.findByIdAndUserId(batch.getId(), getCurrentUser());
+		Recipe existing = recipeRepository.findByIdAndUserId(recipe.getId(), getCurrentUser());
 
 		if (existing != null)
 		{
-			batch.setCreateDate(existing.getCreateDate());
+			recipe.setCreateDate(existing.getCreateDate());
 		}
 
-        batch.setUserId(getCurrentUser());
+        recipe.setUserId(getCurrentUser());
 
-		Batch rb = batchRepository.save(batch);
+		Recipe rb = recipeRepository.save(recipe);
 
-		return getBatchById(rb.getId());
+		return getRecipeById(rb.getId());
 	}
 
-	@PreAuthorize("#batch.userId == principal.id")
-	public void deleteBatchById(Batch batch)
+	@PreAuthorize("#recipe.userId == principal.id")
+	public void deleteRecipeById(Recipe recipe)
 	{
-		batchRepository.delete(batch);
+		recipeRepository.delete(recipe);
 	}
 
 	public Iterable<Component> getAllComponents()
@@ -131,40 +129,25 @@ public class ReloaderService
 	private void setRemainingComponentAmount(Component component)
 	{
 
-		Iterable<Batch> batches = null;
+		Iterable<Recipe> batches = null;
 
 		switch (component.getType())
 		{
 			case Brass:
-				batches = batchRepository.findByBrass(component);
+				batches = recipeRepository.findByBrass(component);
 				break;
 
 			case Primer:
-				batches = batchRepository.findByPrimer(component);
+				batches = recipeRepository.findByPrimer(component);
 				break;
 
 			case Bullet:
-				batches = batchRepository.findByBullet(component);
+				batches = recipeRepository.findByBullet(component);
 				break;
 
 			case Powder:
-				batches = batchRepository.findByPowder(component);
+				batches = recipeRepository.findByPowder(component);
 				break;
-		}
-
-		if (batches != null)
-		{
-			BigDecimal remaining = component.getAmount();
-
-			for (Batch batch : batches)
-			{
-				if (component.getType() == ComponentType.Powder)
-					remaining = remaining.subtract(new BigDecimal(batch.getCount()).multiply(batch.getPowderCharge()));
-				else
-					remaining = remaining.subtract(new BigDecimal(batch.getCount()));
-			}
-
-			component.setRemaining(remaining);
 		}
 	}
 

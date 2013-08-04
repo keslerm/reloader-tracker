@@ -1,12 +1,11 @@
 package com.dasbiersec.reloader.controller;
 
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.model.Batch;
+import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.service.ReloaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -21,33 +20,35 @@ public class APIController
 	@Autowired
 	private ReloaderService reloaderService;
 
-	@RequestMapping(value = "batch", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Iterable<Batch> getBatches()
+	@RequestMapping(value = "recipe", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody Iterable<Recipe> getRecipes()
 	{
-		return reloaderService.getAllBatches();
+		return reloaderService.getAllRecipes();
 	}
 
-	@RequestMapping(value = "batch/{id}", method = RequestMethod.GET)
-	public @ResponseBody Batch getBatch(@PathVariable Integer id)
+	@RequestMapping(value = "recipe/{id}", method = RequestMethod.GET)
+	public @ResponseBody
+    Recipe getRecipe(@PathVariable Integer id)
 	{
-		return reloaderService.getBatchById(id);
+		return reloaderService.getRecipeById(id);
 	}
 
-	@RequestMapping(value = "batch", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Batch saveBatch(@RequestBody Batch batch)
+	@RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody
+    Recipe saveRecipe(@RequestBody Recipe recipe)
 	{
-		return reloaderService.saveBatch(batch);
+		return reloaderService.saveRecipe(recipe);
 	}
 
-	@RequestMapping(value = "batch/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody void deleteBatch(@PathVariable("id") Integer id) throws IOException
+	@RequestMapping(value = "recipe/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody void deleteRecipe(@PathVariable("id") Integer id) throws IOException
 	{
-		Batch batch = reloaderService.getBatchById(id);
+		Recipe recipe = reloaderService.getRecipeById(id);
 
-		if (batch == null)
-			throw new IOException("Could not find batch with ID");
+		if (recipe == null)
+			throw new IOException("Could not find recipe with ID");
 
-		reloaderService.deleteBatchById(batch);
+		reloaderService.deleteRecipeById(recipe);
 	}
 
 	@RequestMapping(value = "component", method = RequestMethod.GET)
@@ -85,6 +86,6 @@ public class APIController
 	public String test()
 	{
 		UserDetails test = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return (String) test.getUsername();
+		return test.getUsername();
 	}
 }

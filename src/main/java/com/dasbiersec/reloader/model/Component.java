@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name="components")
+@Table(name="component")
 @RestResource(path = "component")
 public class Component extends AbstractEntity implements Serializable
 {

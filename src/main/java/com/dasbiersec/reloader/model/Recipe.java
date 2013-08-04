@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 
 @Entity
-@Table(name = "batches")
+@Table(name = "recipe")
 public class Recipe extends AbstractEntity implements Serializable
 {
 	@Column(name = "description")
@@ -31,43 +31,14 @@ public class Recipe extends AbstractEntity implements Serializable
 	@Column(name = "powder_charge")
 	private BigDecimal powderCharge;
 
-	@Column(name = "count")
-	private Integer count;
-
-    @Column(name = "remaining")
-    private Integer remaining;
-
     @Column(name = "coal")
     private BigDecimal coal;
 
 	@Transient
 	private CostPerRound costPerRound;
 
-	@Transient
-	private BigDecimal costForBatch;
-
 	@Column(name = "user_id")
 	private Integer userId;
-
-    public Integer getRemaining()
-    {
-        return remaining;
-    }
-
-    public void setRemaining(Integer remaining)
-    {
-        this.remaining = remaining;
-    }
-
-    public BigDecimal getCostForBatch()
-	{
-		return costForBatch;
-	}
-
-	public void setCostForBatch(BigDecimal costForBatch)
-	{
-		this.costForBatch = costForBatch;
-	}
 
 	public BigDecimal getCoal()
     {
@@ -87,16 +58,6 @@ public class Recipe extends AbstractEntity implements Serializable
 	public void setUserId(Integer userId)
 	{
 		this.userId = userId;
-	}
-
-	public Integer getCount()
-	{
-		return count;
-	}
-
-	public void setCount(Integer count)
-	{
-		this.count = count;
 	}
 
 	public CostPerRound getCostPerRound()
