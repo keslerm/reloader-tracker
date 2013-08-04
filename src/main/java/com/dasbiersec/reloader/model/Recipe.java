@@ -3,6 +3,7 @@ package com.dasbiersec.reloader.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Entity
@@ -40,7 +41,21 @@ public class Recipe extends AbstractEntity implements Serializable
 	@Column(name = "user_id")
 	private Integer userId;
 
-	public BigDecimal getCoal()
+    //@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Embedded
+    private List<Batch> batches;
+
+    public List<Batch> getBatches()
+    {
+        return batches;
+    }
+
+    public void setBatches(List<Batch> batches)
+    {
+        this.batches = batches;
+    }
+
+    public BigDecimal getCoal()
     {
         return coal;
     }
