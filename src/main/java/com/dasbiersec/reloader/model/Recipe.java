@@ -41,8 +41,8 @@ public class Recipe extends AbstractEntity implements Serializable
 	@Column(name = "user_id")
 	private Integer userId;
 
-    //@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Embedded
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     private List<Batch> batches;
 
     public List<Batch> getBatches()
