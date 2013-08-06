@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 @Component
 public class RecipeHelper
 {
-	public void setCostPerRound(Recipe recipe)
+	public static CostPerRound getCostPerRound(Recipe recipe)
 	{
 		CostPerRound costPerRound = new CostPerRound();
 
@@ -27,6 +27,6 @@ public class RecipeHelper
 		costPerRound.setPrimer(primerCost.setScale(2, RoundingMode.HALF_UP));
 		costPerRound.setTotal(total.setScale(2, RoundingMode.HALF_UP));
 
-		recipe.setCostPerRound(costPerRound);
+        return costPerRound;
 	}
 }

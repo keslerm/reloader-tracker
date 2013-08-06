@@ -35,9 +35,6 @@ public class Recipe extends AbstractEntity implements Serializable
     @Column(name = "coal")
     private BigDecimal coal;
 
-	@Transient
-	private CostPerRound costPerRound;
-
 	@Column(name = "user_id")
 	private Integer userId;
 
@@ -73,16 +70,6 @@ public class Recipe extends AbstractEntity implements Serializable
 	public void setUserId(Integer userId)
 	{
 		this.userId = userId;
-	}
-
-	public CostPerRound getCostPerRound()
-	{
-		return costPerRound;
-	}
-
-	public void setCostPerRound(CostPerRound costPerRound)
-	{
-		this.costPerRound = costPerRound;
 	}
 
 	public String getDescription()

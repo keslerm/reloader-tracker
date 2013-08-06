@@ -32,27 +32,12 @@ public class ReloaderService
 
 		Recipe recipe = recipeRepository.findByIdAndUserId(id, getCurrentUser());
 
-		if (recipe != null)
-			recipeHelper.setCostPerRound(recipe);
-
 		return recipe;
 	}
 
 	public Iterable<Recipe> getAllRecipes()
 	{
 		Iterable<Recipe> recipes = recipeRepository.findAllByUserId(getCurrentUser());
-
-		for (Recipe recipe : recipes)
-		{
-			recipeHelper.setCostPerRound(recipe);
-
-			// Set components
-			setRemainingComponentAmount(recipe.getBrass());
-			setRemainingComponentAmount(recipe.getPrimer());
-			setRemainingComponentAmount(recipe.getPowder());
-			setRemainingComponentAmount(recipe.getBullet());
-		}
-
 		return recipes;
 	}
 

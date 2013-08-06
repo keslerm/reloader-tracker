@@ -1,6 +1,8 @@
 package com.dasbiersec.reloader.controller;
 
 import com.dasbiersec.reloader.enums.ComponentType;
+import com.dasbiersec.reloader.helpers.RecipeHelper;
+import com.dasbiersec.reloader.model.CostPerRound;
 import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.service.ReloaderService;
@@ -32,6 +34,13 @@ public class APIController
 	{
 		return reloaderService.getRecipeById(id);
 	}
+
+    @RequestMapping(value = "recipe/{id}/cost", method = RequestMethod.GET)
+    public @ResponseBody CostPerRound costPerRound(@PathVariable Integer id)
+    {
+        Recipe recipe = reloaderService.getRecipeById(id);
+        return RecipeHelper.getCostPerRound(recipe);
+    }
 
 	@RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody
