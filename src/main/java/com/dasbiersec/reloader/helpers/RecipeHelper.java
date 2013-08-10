@@ -1,7 +1,7 @@
 package com.dasbiersec.reloader.helpers;
 
 import com.dasbiersec.reloader.model.Recipe;
-import com.dasbiersec.reloader.model.CostPerRound;
+import com.dasbiersec.reloader.resources.CostPerRound;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

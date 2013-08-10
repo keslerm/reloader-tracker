@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends AbstractEntity
+public class Account extends AbstractEntity
 {
 
 	@Column(name = "username")

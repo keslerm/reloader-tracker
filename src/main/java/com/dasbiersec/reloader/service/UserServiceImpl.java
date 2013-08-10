@@ -1,7 +1,7 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.ReloaderUserDetails;
-import com.dasbiersec.reloader.model.UserEntity;
+import com.dasbiersec.reloader.model.Account;
 import com.dasbiersec.reloader.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,19 +22,19 @@ public class UserServiceImpl implements UserDetailsService
 	@Override
 	public ReloaderUserDetails loadUserByUsername(String s) throws UsernameNotFoundException
 	{
-		UserEntity userEntity = userRepository.findUserByUsername(s);
+		Account account = userRepository.findUserByUsername(s);
 
-		if (userEntity == null)
+		if (account == null)
 			throw new UsernameNotFoundException("Enter a username and password");
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-		if (userEntity != null && userEntity.isApiEnabled())
+		if (account != null && account.isApiEnabled())
 			authorities.add(new SimpleGrantedAuthority("ROLE_API"));
 
-		ReloaderUserDetails user = new ReloaderUserDetails(userEntity.getUsername(), userEntity.getPassword(), true, true, true, true, authorities);
-        user.setId(userEntity.getId());
+		ReloaderUserDetails user = new ReloaderUserDetails(account.getUsername(), account.getPassword(), true, true, true, true, authorities);
+        user.setId(account.getId());
 
 		return user;
 	}

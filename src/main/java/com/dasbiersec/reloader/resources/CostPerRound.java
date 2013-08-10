@@ -1,4 +1,4 @@
-package com.dasbiersec.reloader.model;
+package com.dasbiersec.reloader.resources;
 
 import java.math.BigDecimal;
 

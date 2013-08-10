@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.dao;
 
-import com.dasbiersec.reloader.model.CostPerRound;
+import com.dasbiersec.reloader.resources.CostPerRound;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

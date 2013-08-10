@@ -2,7 +2,7 @@ package com.dasbiersec.reloader.controller;
 
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.helpers.RecipeHelper;
-import com.dasbiersec.reloader.model.CostPerRound;
+import com.dasbiersec.reloader.resources.CostPerRound;
 import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.service.ReloaderService;
