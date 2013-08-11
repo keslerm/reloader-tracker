@@ -1,8 +1,8 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.domain.ComponentDTO;
+import com.dasbiersec.reloader.dto.ComponentDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.domain.CostDTO;
+import com.dasbiersec.reloader.dto.CostDTO;
 import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.service.ReloaderService;

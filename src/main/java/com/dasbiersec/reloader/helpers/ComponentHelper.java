@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.helpers;
 
-import com.dasbiersec.reloader.domain.ComponentDTO;
+import com.dasbiersec.reloader.dto.ComponentDTO;
 import com.dasbiersec.reloader.model.Component;
 import org.springframework.stereotype.Service;
 

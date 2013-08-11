@@ -1,8 +1,11 @@
 package com.dasbiersec.reloader.model;
 
+import com.dasbiersec.reloader.dto.CostDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 
@@ -41,6 +44,26 @@ public class Recipe extends AbstractEntity implements Serializable
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     private List<Batch> batches;
+
+    public CostDTO getCost()
+    {
+        CostDTO dto = new CostDTO();
+
+        BigDecimal brassCost = getBrass().getCost().divide((getBrass().getAmount()), 4, RoundingMode.HALF_UP);
+        BigDecimal primerCost = getPrimer().getCost().divide(getPrimer().getAmount(), 4, RoundingMode.HALF_UP);
+        BigDecimal bulletCost = getBullet().getCost().divide(getBullet().getAmount(), 4, RoundingMode.HALF_UP);
+        BigDecimal powderCost = getPowder().getCost().divide(getPowder().getAmount(), 4, RoundingMode.HALF_UP).multiply(getPowderCharge());
+
+        BigDecimal total = brassCost.add(primerCost).add(bulletCost).add(powderCost);
+
+        dto.setBrass(brassCost.setScale(2, RoundingMode.HALF_UP));
+        dto.setBullet(bulletCost.setScale(2, RoundingMode.HALF_UP));
+        dto.setPowder(powderCost.setScale(2, RoundingMode.HALF_UP));
+        dto.setPrimer(primerCost.setScale(2, RoundingMode.HALF_UP));
+        dto.setTotal(total.setScale(2, RoundingMode.HALF_UP));
+
+        return dto;
+    }
 
     public List<Batch> getBatches()
     {

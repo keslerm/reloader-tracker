@@ -1,8 +1,8 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.ReloaderUserDetails;
-import com.dasbiersec.reloader.domain.ComponentDTO;
-import com.dasbiersec.reloader.domain.CostDTO;
+import com.dasbiersec.reloader.dto.ComponentDTO;
+import com.dasbiersec.reloader.dto.CostDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.helpers.ComponentHelper;
 import com.dasbiersec.reloader.model.Recipe;
@@ -46,7 +46,7 @@ public class ReloaderService
     public CostDTO getCost(Integer recipeId)
     {
         Recipe recipe = recipeRepository.findOne(recipeId);
-        return new CostDTO(recipe);
+        return recipe.getCost();
     }
 
 	public Recipe saveRecipe(Recipe recipe)

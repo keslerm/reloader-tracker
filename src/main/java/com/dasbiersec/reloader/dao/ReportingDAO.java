@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.dao;
 
-import com.dasbiersec.reloader.domain.CostDTO;
+import com.dasbiersec.reloader.dto.CostDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

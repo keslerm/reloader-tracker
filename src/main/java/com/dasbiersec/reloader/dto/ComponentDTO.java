@@ -1,4 +1,4 @@
-package com.dasbiersec.reloader.domain;
+package com.dasbiersec.reloader.dto;
 
 import com.dasbiersec.reloader.enums.ComponentType;
 
