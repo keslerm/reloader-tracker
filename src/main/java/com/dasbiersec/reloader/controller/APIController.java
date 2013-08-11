@@ -2,13 +2,15 @@ package com.dasbiersec.reloader.controller;
 
 import com.dasbiersec.reloader.dto.ComponentDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.dto.CostDTO;
-import com.dasbiersec.reloader.model.Recipe;
-import com.dasbiersec.reloader.model.Component;
+import com.dasbiersec.reloader.domain.Cost;
+import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.domain.Component;
 import com.dasbiersec.reloader.service.ComponentService;
 import com.dasbiersec.reloader.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -40,10 +42,11 @@ public class APIController
 	}
 
     @RequestMapping(value = "recipe/{id}/cost", method = RequestMethod.GET)
-    public @ResponseBody CostDTO getCost(@PathVariable Integer id)
+    @ResponseBody
+    public ResponseEntity<Cost> getCost(@PathVariable Integer id)
     {
-        CostDTO cost = recipeService.getCost(id);
-        return cost;
+        Cost cost = recipeService.getCost(id);
+        return new ResponseEntity<Cost>(cost, HttpStatus.OK);
     }
 
 	@RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })

@@ -4,7 +4,7 @@ import com.dasbiersec.reloader.auth.AccountDetails;
 import com.dasbiersec.reloader.dto.ComponentDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.helpers.ComponentHelper;
-import com.dasbiersec.reloader.model.Component;
+import com.dasbiersec.reloader.domain.Component;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

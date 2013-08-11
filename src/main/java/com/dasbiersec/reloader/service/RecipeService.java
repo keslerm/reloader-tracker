@@ -1,8 +1,8 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
-import com.dasbiersec.reloader.dto.CostDTO;
-import com.dasbiersec.reloader.model.Recipe;
+import com.dasbiersec.reloader.domain.Cost;
+import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.repos.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class RecipeService
         return recipes;
     }
 
-    public CostDTO getCost(Integer recipeId)
+    public Cost getCost(Integer recipeId)
     {
         Recipe recipe = recipeRepository.findOne(recipeId);
         return recipe.getCost();

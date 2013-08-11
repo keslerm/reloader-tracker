@@ -1,9 +1,9 @@
-package com.dasbiersec.reloader.dto;
+package com.dasbiersec.reloader.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class CostDTO implements Serializable
+public class Cost implements Serializable
 {
 	private BigDecimal brass;
 	private BigDecimal primer;

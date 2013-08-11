@@ -1,4 +1,4 @@
-package com.dasbiersec.reloader.model;
+package com.dasbiersec.reloader.domain;
 
 import com.dasbiersec.reloader.enums.ComponentType;
 import org.springframework.data.rest.repository.annotation.RestResource;

@@ -1,6 +1,4 @@
-package com.dasbiersec.reloader.model;
-
-import com.dasbiersec.reloader.dto.CostDTO;
+package com.dasbiersec.reloader.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -45,9 +43,9 @@ public class Recipe extends AbstractEntity implements Serializable
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     private List<Batch> batches;
 
-    public CostDTO getCost()
+    public Cost getCost()
     {
-        CostDTO dto = new CostDTO();
+        Cost dto = new Cost();
 
         BigDecimal brassCost = getBrass().getCost().divide((getBrass().getAmount()), 4, RoundingMode.HALF_UP);
         BigDecimal primerCost = getPrimer().getCost().divide(getPrimer().getAmount(), 4, RoundingMode.HALF_UP);

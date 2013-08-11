@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.dao;
 
-import com.dasbiersec.reloader.dto.CostDTO;
+import com.dasbiersec.reloader.domain.Cost;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -22,7 +22,7 @@ public class ReportingDAO
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public Collection<CostDTO> getCPR()
+	public Collection<Cost> getCPR()
 	{
 		String query = "select id, description, primer_cost, brass_Cost, powder_cost, bullet_cost,\n" +
 				"(primer_cost + brass_cost + powder_cost + bullet_cost) as total_cost\n" +
@@ -45,15 +45,15 @@ public class ReportingDAO
 			@Override
 			public Object mapRow(ResultSet resultSet, int i) throws SQLException
 			{
-				CostDTO costDTO = new CostDTO();
+				Cost cost = new Cost();
 
-				costDTO.setPrimer(resultSet.getBigDecimal("primer_cost"));
-				costDTO.setBullet(resultSet.getBigDecimal("bullet_cost"));
-				costDTO.setPowder(resultSet.getBigDecimal("powder_cost"));
-				costDTO.setBrass(resultSet.getBigDecimal("brass_cost"));
-				costDTO.setTotal(resultSet.getBigDecimal("total_cost"));
+				cost.setPrimer(resultSet.getBigDecimal("primer_cost"));
+				cost.setBullet(resultSet.getBigDecimal("bullet_cost"));
+				cost.setPowder(resultSet.getBigDecimal("powder_cost"));
+				cost.setBrass(resultSet.getBigDecimal("brass_cost"));
+				cost.setTotal(resultSet.getBigDecimal("total_cost"));
 
-				return costDTO;
+				return cost;
 			}
 		});
 

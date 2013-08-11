@@ -1,7 +1,7 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.model.Recipe;
-import com.dasbiersec.reloader.model.Component;
+import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.domain.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;

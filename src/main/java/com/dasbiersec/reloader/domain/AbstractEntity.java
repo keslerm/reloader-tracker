@@ -1,4 +1,4 @@
-package com.dasbiersec.reloader.model;
+package com.dasbiersec.reloader.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
