@@ -66,7 +66,6 @@ public class ReloaderService
 		return getRecipeById(rb.getId());
 	}
 
-	@PreAuthorize("#recipe.userId == principal.id")
 	public void deleteRecipeById(Recipe recipe)
 	{
 		recipeRepository.delete(recipe);
@@ -75,12 +74,6 @@ public class ReloaderService
 	public Iterable<Component> getAllComponents()
 	{
 		Iterable<Component> components = componentRepository.findAll();
-
-		for (Component component : components)
-		{
-			setRemainingComponentAmount(component);
-		}
-
 		return components;
 	}
 
@@ -92,7 +85,6 @@ public class ReloaderService
 	public Component getComponentById(Integer id)
 	{
 		Component component = componentRepository.findOne(id);
-		setRemainingComponentAmount(component);
 		return component;
 	}
 
@@ -112,38 +104,7 @@ public class ReloaderService
 	public Iterable<Component> findComponentByType(ComponentType type)
 	{
 		Iterable<Component> components = componentRepository.findComponentByType(type);
-
-		for (Component component : components)
-		{
-			setRemainingComponentAmount(component);
-		}
-
 		return components;
-	}
-
-	private void setRemainingComponentAmount(Component component)
-	{
-
-		Iterable<Recipe> batches = null;
-
-		switch (component.getType())
-		{
-			case Brass:
-				batches = recipeRepository.findByBrass(component);
-				break;
-
-			case Primer:
-				batches = recipeRepository.findByPrimer(component);
-				break;
-
-			case Bullet:
-				batches = recipeRepository.findByBullet(component);
-				break;
-
-			case Powder:
-				batches = recipeRepository.findByPowder(component);
-				break;
-		}
 	}
 
     private Integer getCurrentUser()
