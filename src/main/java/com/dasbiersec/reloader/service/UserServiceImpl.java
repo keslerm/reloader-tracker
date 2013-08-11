@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.service;
 
-import com.dasbiersec.reloader.auth.ReloaderUserDetails;
+import com.dasbiersec.reloader.auth.AccountDetails;
 import com.dasbiersec.reloader.model.Account;
 import com.dasbiersec.reloader.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserDetailsService
 	private UserRepository userRepository;
 
 	@Override
-	public ReloaderUserDetails loadUserByUsername(String s) throws UsernameNotFoundException
+	public AccountDetails loadUserByUsername(String s) throws UsernameNotFoundException
 	{
 		Account account = userRepository.findUserByUsername(s);
 
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserDetailsService
 		if (account != null && account.isApiEnabled())
 			authorities.add(new SimpleGrantedAuthority("ROLE_API"));
 
-		ReloaderUserDetails user = new ReloaderUserDetails(account.getUsername(), account.getPassword(), true, true, true, true, authorities);
+		AccountDetails user = new AccountDetails(account.getUsername(), account.getPassword(), true, true, true, true, authorities);
         user.setId(account.getId());
 
 		return user;

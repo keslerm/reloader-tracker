@@ -5,11 +5,11 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
-public class ReloaderUserDetails extends User
+public class AccountDetails extends User
 {
     private Integer id;
 
-    public ReloaderUserDetails(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities)
+    public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities)
     {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }

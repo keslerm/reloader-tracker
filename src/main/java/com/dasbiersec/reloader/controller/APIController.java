@@ -5,7 +5,8 @@ import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.dto.CostDTO;
 import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
-import com.dasbiersec.reloader.service.ReloaderService;
+import com.dasbiersec.reloader.service.ComponentService;
+import com.dasbiersec.reloader.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,25 +21,28 @@ import java.io.IOException;
 public class APIController
 {
 	@Autowired
-	private ReloaderService reloaderService;
+	private ComponentService componentService;
+
+    @Autowired
+    private RecipeService recipeService;
 
 	@RequestMapping(value = "recipe", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Iterable<Recipe> getRecipes()
 	{
-		return reloaderService.getAllRecipes();
+		return recipeService.getAllRecipes();
 	}
 
 	@RequestMapping(value = "recipe/{id}", method = RequestMethod.GET)
 	public @ResponseBody
     Recipe getRecipe(@PathVariable Integer id)
 	{
-		return reloaderService.getRecipeById(id);
+		return recipeService.getRecipeById(id);
 	}
 
     @RequestMapping(value = "recipe/{id}/cost", method = RequestMethod.GET)
     public @ResponseBody CostDTO getCost(@PathVariable Integer id)
     {
-        CostDTO cost = reloaderService.getCost(id);
+        CostDTO cost = recipeService.getCost(id);
         return cost;
     }
 
@@ -46,42 +50,42 @@ public class APIController
 	public @ResponseBody
     Recipe saveRecipe(@RequestBody Recipe recipe)
 	{
-		return reloaderService.saveRecipe(recipe);
+		return recipeService.saveRecipe(recipe);
 	}
 
 	@RequestMapping(value = "recipe/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteRecipe(@PathVariable("id") Integer id) throws IOException
 	{
-		Recipe recipe = reloaderService.getRecipeById(id);
+		Recipe recipe = recipeService.getRecipeById(id);
 
 		if (recipe == null)
 			throw new IOException("Could not find recipe with ID");
 
-		reloaderService.deleteRecipeById(recipe);
+		recipeService.deleteRecipeById(recipe);
 	}
 
 	@RequestMapping(value = "component", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Component> getComponents()
 	{
-		return reloaderService.getAllComponents();
+		return componentService.getAllComponents();
 	}
 
 	@RequestMapping(value = "component/{id}", method = RequestMethod.GET)
 	public @ResponseBody Component getComponentById(@PathVariable Integer id)
 	{
-		return reloaderService.getComponentById(id);
+		return componentService.getComponentById(id);
 	}
 
 	@RequestMapping(value = "component", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ComponentDTO createComponent(@RequestBody ComponentDTO componentDTO)
 	{
-		return reloaderService.saveComponent(componentDTO);
+		return componentService.saveComponent(componentDTO);
 	}
 
     @RequestMapping(value = "component/{id}", method = RequestMethod.PUT)
     public @ResponseBody ComponentDTO saveComponent(@PathVariable Integer id, @RequestBody ComponentDTO componentDTO)
     {
-        reloaderService.saveComponent(componentDTO);
+        componentService.saveComponent(componentDTO);
 
         return componentDTO;
     }
@@ -89,13 +93,13 @@ public class APIController
 	@RequestMapping(value = "component/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteComponent(@PathVariable Integer id)
 	{
-		reloaderService.deleteComponentById(id);
+		componentService.deleteComponentById(id);
 	}
 
 	@RequestMapping(value = "component/type/{type}", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Component> searchForComponents(@PathVariable ComponentType type)
 	{
-		return reloaderService.findComponentByType(type);
+		return componentService.findComponentByType(type);
 	}
 
 	@RequestMapping(value = "auth", method = RequestMethod.GET)
