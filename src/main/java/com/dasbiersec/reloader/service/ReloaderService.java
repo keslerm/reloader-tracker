@@ -1,8 +1,10 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.ReloaderUserDetails;
+import com.dasbiersec.reloader.domain.ComponentDTO;
+import com.dasbiersec.reloader.domain.CostDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.helpers.RecipeHelper;
+import com.dasbiersec.reloader.helpers.ComponentHelper;
 import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.repos.RecipeRepository;
@@ -24,8 +26,8 @@ public class ReloaderService
 	@Autowired
 	private ComponentRepository componentRepository;
 
-	@Autowired
-	private RecipeHelper recipeHelper;
+    @Autowired
+    private ComponentHelper componentHelper;
 
 	public Recipe getRecipeById(Integer id)
 	{
@@ -40,6 +42,12 @@ public class ReloaderService
 		Iterable<Recipe> recipes = recipeRepository.findAllByUserId(getCurrentUser());
 		return recipes;
 	}
+
+    public CostDTO getCost(Integer recipeId)
+    {
+        Recipe recipe = recipeRepository.findOne(recipeId);
+        return new CostDTO(recipe);
+    }
 
 	public Recipe saveRecipe(Recipe recipe)
 	{
@@ -88,10 +96,12 @@ public class ReloaderService
 		return component;
 	}
 
-	public Component saveComponent(Component component)
+	public ComponentDTO saveComponent(ComponentDTO componentDTO)
 	{
-		Component c1 = componentRepository.save(component);
-		return componentRepository.findOne(c1.getId());
+        Component component = componentRepository.findOne(componentDTO.getId());
+        componentHelper.copyPropsFromDTO(component, componentDTO);
+
+        return componentDTO;
 	}
 
 	public void deleteComponentById(Integer id)

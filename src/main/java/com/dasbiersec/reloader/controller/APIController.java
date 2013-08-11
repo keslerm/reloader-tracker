@@ -1,8 +1,8 @@
 package com.dasbiersec.reloader.controller;
 
+import com.dasbiersec.reloader.domain.ComponentDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.helpers.RecipeHelper;
-import com.dasbiersec.reloader.resources.CostPerRound;
+import com.dasbiersec.reloader.domain.CostDTO;
 import com.dasbiersec.reloader.model.Recipe;
 import com.dasbiersec.reloader.model.Component;
 import com.dasbiersec.reloader.service.ReloaderService;
@@ -36,10 +36,10 @@ public class APIController
 	}
 
     @RequestMapping(value = "recipe/{id}/cost", method = RequestMethod.GET)
-    public @ResponseBody CostPerRound costPerRound(@PathVariable Integer id)
+    public @ResponseBody CostDTO getCost(@PathVariable Integer id)
     {
-        Recipe recipe = reloaderService.getRecipeById(id);
-        return RecipeHelper.getCostPerRound(recipe);
+        CostDTO cost = reloaderService.getCost(id);
+        return cost;
     }
 
 	@RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
@@ -72,11 +72,19 @@ public class APIController
 		return reloaderService.getComponentById(id);
 	}
 
-	@RequestMapping(value = "component", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Component saveComponent(@RequestBody Component component)
+	@RequestMapping(value = "component", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ComponentDTO createComponent(@RequestBody ComponentDTO componentDTO)
 	{
-		return reloaderService.saveComponent(component);
+		return reloaderService.saveComponent(componentDTO);
 	}
+
+    @RequestMapping(value = "component/{id}", method = RequestMethod.PUT)
+    public @ResponseBody ComponentDTO saveComponent(@PathVariable Integer id, @RequestBody ComponentDTO componentDTO)
+    {
+        reloaderService.saveComponent(componentDTO);
+
+        return componentDTO;
+    }
 
 	@RequestMapping(value = "component/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody void deleteComponent(@PathVariable Integer id)
