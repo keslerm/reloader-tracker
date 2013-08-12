@@ -1,9 +1,7 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
-import com.dasbiersec.reloader.dto.ComponentDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.helpers.ComponentHelper;
 import com.dasbiersec.reloader.domain.Component;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
@@ -18,10 +16,6 @@ public class ComponentService
 
 	@Autowired
 	private ComponentRepository componentRepository;
-
-    @Autowired
-    private ComponentHelper componentHelper;
-
 
 	public Iterable<Component> getAllComponents()
 	{
@@ -40,12 +34,10 @@ public class ComponentService
 		return component;
 	}
 
-	public ComponentDTO saveComponent(ComponentDTO componentDTO)
+	public Component saveComponent(Component component)
 	{
-        Component component = componentRepository.findOne(componentDTO.getId());
-        componentHelper.copyPropsFromDTO(component, componentDTO);
-
-        return componentDTO;
+        componentRepository.save(component);
+        return component;
 	}
 
 	public void deleteComponentById(Integer id)
