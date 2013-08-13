@@ -1,10 +1,11 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.dto.ComponentDTO;
+import com.dasbiersec.reloader.domain.Batch;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.domain.Component;
+import com.dasbiersec.reloader.service.BatchService;
 import com.dasbiersec.reloader.service.ComponentService;
 import com.dasbiersec.reloader.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "api/")
@@ -28,7 +30,10 @@ public class APIController
     @Autowired
     private RecipeService recipeService;
 
-	@RequestMapping(value = "recipe", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @Autowired
+    private BatchService batchService;
+
+	@RequestMapping(value = "recipes", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody Iterable<Recipe> getRecipes()
 	{
 		return recipeService.getAllRecipes();
@@ -49,6 +54,24 @@ public class APIController
         return new ResponseEntity<Cost>(cost, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "recipe/{id}/batches", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<Batch>> getBatches(@PathVariable Integer id)
+    {
+        List<Batch> batches = batchService.getBatches(id);
+        return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "recipe/{id}/batch", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Batch> createBatch(@PathVariable Integer id, @RequestBody Batch batch)
+    {
+        batch.setRecipeId(id);
+        Batch in = batchService.createBatch(batch);
+
+        return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
+    }
+
 	@RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody
     Recipe saveRecipe(@RequestBody Recipe recipe)
@@ -67,7 +90,7 @@ public class APIController
 		recipeService.deleteRecipeById(recipe);
 	}
 
-	@RequestMapping(value = "component", method = RequestMethod.GET)
+	@RequestMapping(value = "components", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Component> getComponents()
 	{
 		return componentService.getAllComponents();
@@ -80,13 +103,13 @@ public class APIController
 	}
 
 	@RequestMapping(value = "component", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ComponentDTO createComponent(@RequestBody ComponentDTO componentDTO)
+	public @ResponseBody Component createComponent(@RequestBody Component componentDTO)
 	{
 		return componentService.saveComponent(componentDTO);
 	}
 
     @RequestMapping(value = "component/{id}", method = RequestMethod.PUT)
-    public @ResponseBody ComponentDTO saveComponent(@PathVariable Integer id, @RequestBody ComponentDTO componentDTO)
+    public @ResponseBody Component saveComponent(@PathVariable Integer id, @RequestBody Component componentDTO)
     {
         componentService.saveComponent(componentDTO);
 

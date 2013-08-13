@@ -1,10 +1,11 @@
 package com.dasbiersec.reloader.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
 
 
 @Entity
@@ -39,10 +40,10 @@ public class Recipe extends AbstractEntity implements Serializable
 	@Column(name = "user_id")
 	private Integer userId;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
-    private List<Batch> batches;
+    @Column(name = "caliber")
+    private String caliber;
 
+    @JsonIgnore
     public Cost getCost()
     {
         Cost dto = new Cost();
@@ -63,14 +64,14 @@ public class Recipe extends AbstractEntity implements Serializable
         return dto;
     }
 
-    public List<Batch> getBatches()
+    public String getCaliber()
     {
-        return batches;
+        return caliber;
     }
 
-    public void setBatches(List<Batch> batches)
+    public void setCaliber(String caliber)
     {
-        this.batches = batches;
+        this.caliber = caliber;
     }
 
     public BigDecimal getCoal()
