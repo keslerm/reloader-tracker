@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 
 @Entity
@@ -42,6 +43,20 @@ public class Recipe extends AbstractEntity implements Serializable
 
     @Column(name = "caliber")
     private String caliber;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
+    private List<Batch> batchList;
+
+    public List<Batch> getBatchList()
+    {
+        return batchList;
+    }
+
+    public void setBatchList(List<Batch> batchList)
+    {
+        this.batchList = batchList;
+    }
 
     @JsonIgnore
     public Cost getCost()

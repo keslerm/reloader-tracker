@@ -23,4 +23,14 @@ public class BatchService
         Batch saved = batchRepository.save(batch);
         return saved;
     }
+
+    public Batch saveBatch(Batch batch)
+    {
+        return batchRepository.save(batch);
+    }
+
+    public Batch getBatch(Integer batchId)
+    {
+        return batchRepository.findOne(batchId);
+    }
 }

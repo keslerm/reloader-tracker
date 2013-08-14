@@ -1,5 +1,7 @@
 package com.dasbiersec.reloader.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,11 +20,10 @@ public abstract class AbstractEntity implements Serializable
 	@Column(name = "update_date")
 	private Date updateDate;
 
-
 	@PrePersist
 	public void onCreate()
 	{
-		createDate = new Date();
+		createDate = updateDate = new Date();
 	}
 
 	@PreUpdate
@@ -36,19 +37,9 @@ public abstract class AbstractEntity implements Serializable
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate)
-	{
-		this.createDate = createDate;
-	}
-
 	public Date getUpdateDate()
 	{
 		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate)
-	{
-		this.updateDate = updateDate;
 	}
 
 	public Integer getId()
@@ -56,8 +47,18 @@ public abstract class AbstractEntity implements Serializable
 		return id;
 	}
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public void setCreateDate(Date createDate)
+    {
+        this.createDate = createDate;
+    }
+
+    public void setUpdateDate(Date updateDate)
+    {
+        this.updateDate = updateDate;
+    }
 }

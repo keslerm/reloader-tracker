@@ -15,9 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -62,14 +64,29 @@ public class APIController
         return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "recipe/{id}/batch", method = RequestMethod.POST)
+    @RequestMapping(value = "recipe/{recipeId}/batch", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Batch> createBatch(@PathVariable Integer id, @RequestBody Batch batch)
+    public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
     {
-        batch.setRecipeId(id);
+        Recipe recipe = recipeService.getRecipeById(recipeId);
+        batch.setRecipe(recipe);
+
         Batch in = batchService.createBatch(batch);
 
         return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "recipe/{recipeId}/batch/{batchId}", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseEntity<Batch> updateBatch(@PathVariable Integer recipeId, @PathVariable Integer batchId, @RequestBody Batch batch)
+    {
+        Batch existing = batchService.getBatch(batchId);
+        batch.setId(batchId);
+        batch.setCreateDate(existing.getCreateDate());
+
+        Batch in = batchService.saveBatch(batch);
+
+        return new ResponseEntity<Batch>(in, HttpStatus.OK);
     }
 
 	@RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })

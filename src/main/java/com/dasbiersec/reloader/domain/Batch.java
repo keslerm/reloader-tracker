@@ -1,26 +1,29 @@
 package com.dasbiersec.reloader.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "batch")
 public class Batch extends AbstractEntity
 {
-    @Column(name = "recipe_id")
-    private Integer recipeId;
+    @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    @JsonIgnore
+    private Recipe recipe;
+
     private int count;
     private int remaining;
 
-    public Integer getRecipeId()
+    public Recipe getRecipe()
     {
-        return recipeId;
+        return recipe;
     }
 
-    public void setRecipeId(Integer recipeId)
+    public void setRecipe(Recipe recipe)
     {
-        this.recipeId = recipeId;
+        this.recipe = recipe;
     }
 
     public int getRemaining()

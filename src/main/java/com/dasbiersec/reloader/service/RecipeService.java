@@ -40,12 +40,7 @@ public class RecipeService
     public Recipe saveRecipe(Recipe recipe)
     {
         // retrieve existing
-        Recipe existing = recipeRepository.findByIdAndUserId(recipe.getId(), getCurrentUser());
-
-        if (existing != null)
-        {
-            recipe.setCreateDate(existing.getCreateDate());
-        }
+        //Recipe existing = recipeRepository.findByIdAndUserId(recipe.getId(), getCurrentUser());
 
         recipe.setUserId(getCurrentUser());
 
