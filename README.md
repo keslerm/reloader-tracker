@@ -10,7 +10,7 @@ TODO
 	* Allow recording multiple entires into a recipe to report standard deviation, average fps, ect
 
 * Group size
-* Recipe cartridge type (For sorting)
+* ~~Recipe cartridge type (For sorting)~~
 * Remove the "Current Amount/Count" for batches, really not useful
 * Specific component data:
 	* Bullet diameter/type
