@@ -2,6 +2,7 @@ package com.dasbiersec.reloader.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Cost implements Serializable
 {
@@ -10,6 +11,22 @@ public class Cost implements Serializable
 	private BigDecimal bullet;
 	private BigDecimal powder;
 	private BigDecimal total;
+
+    public Cost(Recipe recipe)
+    {
+        BigDecimal brassCost = recipe.getBrass().getCost().divide((recipe.getBrass().getAmount()), 4, RoundingMode.HALF_UP);
+        BigDecimal primerCost = recipe.getPrimer().getCost().divide(recipe.getPrimer().getAmount(), 4, RoundingMode.HALF_UP);
+        BigDecimal bulletCost = recipe.getBullet().getCost().divide(recipe.getBullet().getAmount(), 4, RoundingMode.HALF_UP);
+        BigDecimal powderCost = recipe.getPowder().getCost().divide(recipe.getPowder().getAmount(), 4, RoundingMode.HALF_UP).multiply(recipe.getPowderCharge());
+
+        BigDecimal total = brassCost.add(primerCost).add(bulletCost).add(powderCost);
+
+        setBrass(brassCost.setScale(2, RoundingMode.HALF_UP));
+        setBullet(bulletCost.setScale(2, RoundingMode.HALF_UP));
+        setPowder(powderCost.setScale(2, RoundingMode.HALF_UP));
+        setPrimer(primerCost.setScale(2, RoundingMode.HALF_UP));
+        setTotal(total.setScale(2, RoundingMode.HALF_UP));
+    }
 
 	public BigDecimal getTotal()
 	{

@@ -79,6 +79,9 @@ public class APIController
     {
         Batch in = batchService.saveBatch(batchId, batch);
 
+        if (in == null)
+            return new ResponseEntity<Batch>(HttpStatus.NOT_FOUND);
+
         return new ResponseEntity<Batch>(in, HttpStatus.OK);
     }
 

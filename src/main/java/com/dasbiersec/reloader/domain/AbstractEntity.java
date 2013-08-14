@@ -12,9 +12,10 @@ public abstract class AbstractEntity implements Serializable
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "hibernate_sequence")
+    @Column(name = "id", insertable = true, updatable = false)
 	private Integer id;
 
-	@Column(name = "create_date")
+	@Column(name = "create_date", insertable = true, updatable = false)
 	private Date createDate;
 
 	@Column(name = "update_date")

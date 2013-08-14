@@ -61,22 +61,7 @@ public class Recipe extends AbstractEntity implements Serializable
     @JsonIgnore
     public Cost getCost()
     {
-        Cost dto = new Cost();
-
-        BigDecimal brassCost = getBrass().getCost().divide((getBrass().getAmount()), 4, RoundingMode.HALF_UP);
-        BigDecimal primerCost = getPrimer().getCost().divide(getPrimer().getAmount(), 4, RoundingMode.HALF_UP);
-        BigDecimal bulletCost = getBullet().getCost().divide(getBullet().getAmount(), 4, RoundingMode.HALF_UP);
-        BigDecimal powderCost = getPowder().getCost().divide(getPowder().getAmount(), 4, RoundingMode.HALF_UP).multiply(getPowderCharge());
-
-        BigDecimal total = brassCost.add(primerCost).add(bulletCost).add(powderCost);
-
-        dto.setBrass(brassCost.setScale(2, RoundingMode.HALF_UP));
-        dto.setBullet(bulletCost.setScale(2, RoundingMode.HALF_UP));
-        dto.setPowder(powderCost.setScale(2, RoundingMode.HALF_UP));
-        dto.setPrimer(primerCost.setScale(2, RoundingMode.HALF_UP));
-        dto.setTotal(total.setScale(2, RoundingMode.HALF_UP));
-
-        return dto;
+        return new Cost(this);
     }
 
     public String getCaliber()
