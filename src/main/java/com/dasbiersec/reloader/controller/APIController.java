@@ -68,10 +68,7 @@ public class APIController
     @ResponseBody
     public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
     {
-        Recipe recipe = recipeService.getRecipeById(recipeId);
-        batch.setRecipe(recipe);
-
-        Batch in = batchService.createBatch(batch);
+        Batch in = batchService.createBatch(recipeId, batch);
 
         return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
     }
@@ -80,11 +77,7 @@ public class APIController
     @ResponseBody
     public ResponseEntity<Batch> updateBatch(@PathVariable Integer recipeId, @PathVariable Integer batchId, @RequestBody Batch batch)
     {
-        Batch existing = batchService.getBatch(batchId);
-        batch.setId(batchId);
-        batch.setCreateDate(existing.getCreateDate());
-
-        Batch in = batchService.saveBatch(batch);
+        Batch in = batchService.saveBatch(batchId, batch);
 
         return new ResponseEntity<Batch>(in, HttpStatus.OK);
     }
