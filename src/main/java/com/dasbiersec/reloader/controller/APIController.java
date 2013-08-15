@@ -48,6 +48,24 @@ public class APIController
 		return recipeService.getRecipeById(id);
 	}
 
+    @RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
+    public @ResponseBody
+    Recipe saveRecipe(@RequestBody Recipe recipe)
+    {
+        return recipeService.saveRecipe(recipe);
+    }
+
+    @RequestMapping(value = "recipe/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody void deleteRecipe(@PathVariable("id") Integer id) throws IOException
+    {
+        Recipe recipe = recipeService.getRecipeById(id);
+
+        if (recipe == null)
+            throw new IOException("Could not find recipe with ID");
+
+        recipeService.deleteRecipeById(recipe);
+    }
+
     @RequestMapping(value = "recipe/{id}/cost", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Cost> getCost(@PathVariable Integer id)
@@ -73,9 +91,9 @@ public class APIController
         return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "recipe/{recipeId}/batch/{batchId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "recipe/*/batch/{batchId}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<Batch> updateBatch(@PathVariable Integer recipeId, @PathVariable Integer batchId, @RequestBody Batch batch)
+    public ResponseEntity<Batch> updateBatch(@PathVariable Integer batchId, @RequestBody Batch batch)
     {
         Batch in = batchService.saveBatch(batchId, batch);
 
@@ -84,24 +102,6 @@ public class APIController
 
         return new ResponseEntity<Batch>(in, HttpStatus.OK);
     }
-
-	@RequestMapping(value = "recipe", method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody
-    Recipe saveRecipe(@RequestBody Recipe recipe)
-	{
-		return recipeService.saveRecipe(recipe);
-	}
-
-	@RequestMapping(value = "recipe/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody void deleteRecipe(@PathVariable("id") Integer id) throws IOException
-	{
-		Recipe recipe = recipeService.getRecipeById(id);
-
-		if (recipe == null)
-			throw new IOException("Could not find recipe with ID");
-
-		recipeService.deleteRecipeById(recipe);
-	}
 
 	@RequestMapping(value = "components", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Component> getComponents()
