@@ -88,7 +88,6 @@ public class APIController
     public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
     {
         Batch in = batchService.createBatch(recipeId, batch);
-
         return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
     }
 
@@ -97,10 +96,6 @@ public class APIController
     public ResponseEntity<Batch> updateBatch(@PathVariable Integer batchId, @RequestBody Batch batch)
     {
         Batch in = batchService.saveBatch(batchId, batch);
-
-        if (in == null)
-            return new ResponseEntity<Batch>(HttpStatus.NOT_FOUND);
-
         return new ResponseEntity<Batch>(in, HttpStatus.OK);
     }
 

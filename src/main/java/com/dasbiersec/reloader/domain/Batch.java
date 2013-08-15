@@ -45,4 +45,5 @@ public class Batch extends AbstractEntity
     {
         this.count = count;
     }
+
 }

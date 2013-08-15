@@ -26,10 +26,6 @@ public class BatchService
 
     public Batch createBatch(Integer recipeId, Batch batch)
     {
-        // does batch exist
-        if (batch.getId() != null)
-            throw new EntityExistsException("Batch id exists in database");
-
         batch.setRecipe(recipeRepository.findOne(recipeId));
         Batch saved = batchRepository.save(batch);
         return saved;
@@ -42,8 +38,8 @@ public class BatchService
         if (existingBatch == null)
             throw new EntityNotFoundException("Could not find existing batch");
 
-        // Don't overwrite these fields
-        batch.setId(batchId);
+	    batch.setId(batchId);
+	    batch.setRecipe(existingBatch.getRecipe());
 
         return batchRepository.save(batch);
     }
