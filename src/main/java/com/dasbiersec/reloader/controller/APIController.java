@@ -27,34 +27,35 @@ import java.util.List;
 public class APIController
 {
 	@Autowired
-	private ComponentService componentService;
+	protected ComponentService componentService;
 
     @Autowired
-    private RecipeService recipeService;
+    protected RecipeService recipeService;
 
     @Autowired
-    private BatchService batchService;
+    protected BatchService batchService;
 
 	@RequestMapping(value = "recipes", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Iterable<Recipe> getRecipes()
+	public @ResponseBody
+	Iterable<Recipe> getRecipes()
 	{
 		return recipeService.getAllRecipes();
 	}
 
 	@RequestMapping(value = "recipe/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-    Recipe getRecipe(@PathVariable Integer id)
+	Recipe getRecipe(@PathVariable Integer id)
 	{
 		return recipeService.getRecipeById(id);
 	}
 
-    @RequestMapping(value = "recipe/{id}/cost", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<Cost> getCost(@PathVariable Integer id)
-    {
-        Cost cost = recipeService.getCost(id);
-        return new ResponseEntity<Cost>(cost, HttpStatus.OK);
-    }
+	@RequestMapping(value = "recipe/{id}/cost", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Cost> getCost(@PathVariable Integer id)
+	{
+		Cost cost = recipeService.getCost(id);
+		return new ResponseEntity<Cost>(cost, HttpStatus.OK);
+	}
 
     @RequestMapping(value = "recipe/{id}/batches", method = RequestMethod.GET)
     @ResponseBody
