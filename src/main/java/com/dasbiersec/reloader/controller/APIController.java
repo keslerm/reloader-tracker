@@ -27,23 +27,24 @@ import java.util.List;
 public class APIController
 {
 	@Autowired
-	private ComponentService componentService;
+	protected ComponentService componentService;
 
     @Autowired
-    private RecipeService recipeService;
+    protected RecipeService recipeService;
 
     @Autowired
-    private BatchService batchService;
+    protected BatchService batchService;
 
 	@RequestMapping(value = "recipes", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Iterable<Recipe> getRecipes()
+	public @ResponseBody
+	Iterable<Recipe> getRecipes()
 	{
 		return recipeService.getAllRecipes();
 	}
 
 	@RequestMapping(value = "recipe/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-    Recipe getRecipe(@PathVariable Integer id)
+	Recipe getRecipe(@PathVariable Integer id)
 	{
 		return recipeService.getRecipeById(id);
 	}
