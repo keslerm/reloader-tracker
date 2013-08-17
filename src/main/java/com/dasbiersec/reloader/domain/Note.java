@@ -1,25 +1,31 @@
 package com.dasbiersec.reloader.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 public class Note extends AbstractEntity
 {
-    @Column(name = "recipe_id")
-    private Integer recipeId;
+	@ManyToOne
+	@JoinColumn(name = "recipe_id")
+	@JsonIgnore
+	private Recipe recipe;
 
     private String note;
 
-    public Integer getRecipeId()
-    {
-        return recipeId;
-    }
+	public Recipe getRecipe()
+	{
+		return recipe;
+	}
 
-    public void setRecipeId(Integer recipeId)
-    {
-        this.recipeId = recipeId;
-    }
+	public void setRecipe(Recipe recipe)
+	{
+		this.recipe = recipe;
+	}
 
-    public String getNote()
+	public String getNote()
     {
         return note;
     }

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 
@@ -46,19 +45,33 @@ public class Recipe extends AbstractEntity implements Serializable
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
-    private List<Batch> batchList;
+    private List<Batch> batches;
 
-    public List<Batch> getBatchList()
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
+	private List<Note> notes;
+
+    public List<Batch> getBatches()
     {
-        return batchList;
+        return batches;
     }
 
-    public void setBatchList(List<Batch> batchList)
+    public void setBatches(List<Batch> batches)
     {
-        this.batchList = batchList;
+        this.batches = batches;
     }
 
-    @JsonIgnore
+	public List<Note> getNotes()
+	{
+		return notes;
+	}
+
+	public void setNotes(List<Note> notes)
+	{
+		this.notes = notes;
+	}
+
+	@JsonIgnore
     public Cost getCost()
     {
         return new Cost(this);
