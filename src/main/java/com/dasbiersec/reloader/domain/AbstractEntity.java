@@ -14,7 +14,6 @@ public abstract class AbstractEntity implements Serializable
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "hibernate_sequence")
     @Column(name = "id", insertable = true, updatable = false)
-	@JsonIgnore
 	private Integer id;
 
 	@Column(name = "create_date", insertable = true, updatable = false, nullable = false)
@@ -49,13 +48,11 @@ public abstract class AbstractEntity implements Serializable
 		return updateDate;
 	}
 
-	@JsonProperty("id")
 	public Integer getId()
 	{
 		return id;
 	}
 
-	@JsonIgnore
     public void setId(Integer id)
     {
         this.id = id;

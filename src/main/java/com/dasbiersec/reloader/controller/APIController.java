@@ -1,7 +1,6 @@
 package com.dasbiersec.reloader.controller;
 
 import com.dasbiersec.reloader.domain.Batch;
-import com.dasbiersec.reloader.dto.RecipeDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Recipe;
@@ -57,7 +56,7 @@ public class APIController
 
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public void deleteRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
+    public void deleteRecipe(@PathVariable("id") Integer id, @RequestBody Recipe recipe)
     {
         recipeService.saveRecipe(id, recipe);
     }

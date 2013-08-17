@@ -3,7 +3,7 @@ package com.dasbiersec.reloader.service;
 import com.dasbiersec.reloader.auth.AccountDetails;
 import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Recipe;
-import com.dasbiersec.reloader.dto.RecipeDTO;
+import com.dasbiersec.reloader.repos.ComponentRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,9 @@ public class RecipeService
 
     @Autowired
     private RecipeRepository recipeRepository;
+
+	@Autowired
+	private ComponentRepository componentRepository;
 
     public Recipe getRecipe(Integer id)
     {
@@ -42,26 +45,19 @@ public class RecipeService
         Recipe saved = recipeRepository.save(recipe);
         return saved;
     }
-    public Recipe saveRecipe(Integer recipeId, RecipeDTO recipeDTO)
-    {
-        Recipe existing = recipeRepository.findOne(recipeId);
-
-        // INCOMPLETE -----
-        return existing;
-
-    }
 
     public Recipe saveRecipe(Integer recipeId, Recipe recipe)
     {
         Recipe existing = recipeRepository.findOne(recipeId);
 
-        existing.setBrass(recipe.getBrass());
-        existing.setBullet(recipe.getBullet());
-        existing.setPrimer(recipe.getPrimer());
+        existing.setBullet(componentRepository.findOne(recipe.getBullet().getId()));
+        existing.setPrimer(componentRepository.findOne(recipe.getPrimer().getId()));
+	    existing.setPowder(componentRepository.findOne(recipe.getPowder().getId()));
+	    existing.setBrass(componentRepository.findOne(recipe.getBrass().getId()));
+
         existing.setCaliber(recipe.getCaliber());
         existing.setCoal(recipe.getCoal());
         existing.setDescription(recipe.getDescription());
-        existing.setPowder(recipe.getPowder());
         existing.setPowderCharge(recipe.getPowderCharge());
 
         recipeRepository.save(existing);
