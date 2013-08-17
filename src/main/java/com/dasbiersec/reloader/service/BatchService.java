@@ -41,7 +41,9 @@ public class BatchService
 	    batch.setId(batchId);
 	    batch.setRecipe(existingBatch.getRecipe());
 
-        return batchRepository.save(batch);
+        batchRepository.save(batch);
+
+        return batchRepository.findOne(batchId);
     }
 
     public Batch getBatch(Integer batchId)
