@@ -26,6 +26,7 @@ public class BatchService
 
     public Batch createBatch(Integer recipeId, Batch batch)
     {
+	    batch.setId(null);
         batch.setRecipe(recipeRepository.findOne(recipeId));
         Batch saved = batchRepository.save(batch);
         return saved;

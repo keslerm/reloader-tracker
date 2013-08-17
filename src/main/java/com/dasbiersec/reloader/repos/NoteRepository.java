@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface NoteRepository extends CrudRepository<Note, Integer>
 {
-    public List<Batch> findNoteByRecipeId(Integer id);
 }
