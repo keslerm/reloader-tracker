@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 
 @Service
@@ -103,6 +104,19 @@ public class RecipeService
 
 		return note;
 	}
+
+    public Note saveNote(Integer noteId, Note note)
+    {
+        Note existing = noteRepository.findOne(noteId);
+
+        if (existing == null)
+            throw new EntityNotFoundException("No note found");
+
+        existing.setNote(note.getNote());
+        noteRepository.save(note);
+
+        return noteRepository.findOne(noteId);
+    }
 
     private Integer getCurrentUser()
     {
