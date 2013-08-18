@@ -2,13 +2,17 @@ package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
 import com.dasbiersec.reloader.domain.Cost;
+import com.dasbiersec.reloader.domain.Note;
 import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.repos.ComponentRepository;
+import com.dasbiersec.reloader.repos.NoteRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class RecipeService
@@ -17,6 +21,9 @@ public class RecipeService
 
     @Autowired
     private RecipeRepository recipeRepository;
+
+	@Autowired
+	private NoteRepository noteRepository;
 
 	@Autowired
 	private ComponentRepository componentRepository;
@@ -78,6 +85,24 @@ public class RecipeService
     {
         recipeRepository.delete(recipe);
     }
+
+	public Iterable<Note> getNotes(Integer recipeId)
+	{
+		Recipe recipe = recipeRepository.findOne(recipeId);
+		return recipe.getNotes();
+	}
+
+	public Note createNote(Integer recipeId, Note note)
+	{
+		Recipe recipe = recipeRepository.findOne(recipeId);
+		if (recipe.getNotes() == null)
+			recipe.setNotes(new ArrayList<Note>());
+
+		recipe.getNotes().add(note);
+		recipeRepository.save(recipe);
+
+		return note;
+	}
 
     private Integer getCurrentUser()
     {

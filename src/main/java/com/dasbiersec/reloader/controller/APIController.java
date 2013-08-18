@@ -1,10 +1,7 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.domain.Batch;
+import com.dasbiersec.reloader.domain.*;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.domain.Cost;
-import com.dasbiersec.reloader.domain.Recipe;
-import com.dasbiersec.reloader.domain.Component;
 import com.dasbiersec.reloader.service.BatchService;
 import com.dasbiersec.reloader.service.ComponentService;
 import com.dasbiersec.reloader.service.RecipeService;
@@ -89,12 +86,12 @@ public class APIController
         return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "recipes/{recipeId}/batches", method = RequestMethod.POST)
+    @RequestMapping(value = "recipes/{recipeId}/notes", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
+    public ResponseEntity<Note> createBatch(@PathVariable Integer recipeId, @RequestBody Note note)
     {
-        Batch in = batchService.createBatch(recipeId, batch);
-        return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
+        Note in = recipeService.createNote(recipeId, note);
+        return new ResponseEntity<Note>(in, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "recipes/*/batches/{batchId}", method = RequestMethod.PUT)
@@ -105,6 +102,29 @@ public class APIController
         return new ResponseEntity<Batch>(in, HttpStatus.OK);
     }
 
+	@RequestMapping(value = "recipes/{id}/notes", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Iterable<Note>> getNotes(@PathVariable Integer id)
+	{
+		Iterable<Note> notes = recipeService.getNotes(id);
+		return new ResponseEntity<Iterable<Note>>(notes, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "recipes/{recipeId}/batches", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
+	{
+		Batch in = batchService.createBatch(recipeId, batch);
+		return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
+	}
+
+	@RequestMapping(value = "recipes/*/batches/{batchId}", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<Batch> updateBatch(@PathVariable Integer batchId, @RequestBody Batch batch)
+	{
+		Batch in = batchService.saveBatch(batchId, batch);
+		return new ResponseEntity<Batch>(in, HttpStatus.OK);
+	}
 	@RequestMapping(value = "components", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Component> getComponents()
 	{
