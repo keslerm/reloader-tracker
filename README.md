@@ -5,7 +5,8 @@ For tracking reloading data
 
 TODO
 ==============
-* Load notes and shooting notes (Ability to upload targets to a specific recipe)
+* ~~Load notes and shooting notes~~
+* Ability to upload targets to a specific recipe
 * Chronograph data (FPS)
 	* Allow recording multiple entires into a recipe to report standard deviation, average fps, ect
 

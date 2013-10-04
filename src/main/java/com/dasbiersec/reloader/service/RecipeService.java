@@ -100,6 +100,7 @@ public class RecipeService
 			recipe.setNotes(new ArrayList<Note>());
 
 		recipe.getNotes().add(note);
+		note.setRecipe(recipe);
 		recipeRepository.save(recipe);
 
 		return note;

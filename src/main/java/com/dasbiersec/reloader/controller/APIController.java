@@ -110,17 +110,17 @@ public class APIController
 		return new ResponseEntity<Iterable<Note>>(notes, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "recipes/{recipeId}/notes", method = RequestMethod.POST)
+	@RequestMapping(value = "recipes/{recipeId}/notes", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public ResponseEntity<Batch> createNote(@PathVariable Integer recipeId, @RequestBody Batch batch)
+	public ResponseEntity<Note> createNote(@PathVariable Integer recipeId, @RequestBody Note note)
 	{
-		Batch in = batchService.createBatch(recipeId, batch);
-		return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
+		Note in = recipeService.createNote(recipeId, note);
+		return new ResponseEntity<Note>(in, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "recipes/*/notes/{noteId}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<Note> updateBatch(@PathVariable Integer noteId, @RequestBody Note note)
+	public ResponseEntity<Note> updateNote(@PathVariable Integer noteId, @RequestBody Note note)
 	{
 		Note in = recipeService.saveNote(noteId, note);
 		return new ResponseEntity<Note>(in, HttpStatus.OK);
