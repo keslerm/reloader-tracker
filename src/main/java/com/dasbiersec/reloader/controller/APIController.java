@@ -110,7 +110,7 @@ public class APIController
 		return new ResponseEntity<Iterable<Log>>(notes, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "recipes/{recipeId}/notes", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "recipes/{recipeId}/logs", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public ResponseEntity<Log> createNote(@PathVariable Integer recipeId, @RequestBody Log log)
 	{
@@ -118,11 +118,11 @@ public class APIController
 		return new ResponseEntity<Log>(in, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "recipes/*/notes/{noteId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "recipes/*/logs/{logId}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<Log> updateNote(@PathVariable Integer noteId, @RequestBody Log log)
+	public ResponseEntity<Log> updateNote(@PathVariable Integer logId, @RequestBody Log log)
 	{
-		Log in = recipeService.saveLog(noteId, log);
+		Log in = recipeService.saveLog(logId, log);
 		return new ResponseEntity<Log>(in, HttpStatus.OK);
 	}
 

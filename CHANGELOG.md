@@ -1,3 +1,8 @@
+## 1.1.1 (2013-10-04)
+
+Bug Fixes:
+  - Fixed a missing entry for notes to logs when updating a log entry
+
 ## 1.1 (2013-10-04)
 
 Features:
