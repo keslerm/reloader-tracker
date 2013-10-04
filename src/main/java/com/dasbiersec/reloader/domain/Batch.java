@@ -14,7 +14,6 @@ public class Batch extends AbstractEntity
     private Recipe recipe;
 
     private int count;
-    private int remaining;
 
     public Recipe getRecipe()
     {
@@ -24,16 +23,6 @@ public class Batch extends AbstractEntity
     public void setRecipe(Recipe recipe)
     {
         this.recipe = recipe;
-    }
-
-    public int getRemaining()
-    {
-        return remaining;
-    }
-
-    public void setRemaining(int remaining)
-    {
-        this.remaining = remaining;
     }
 
     public int getCount()

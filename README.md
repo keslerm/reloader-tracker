@@ -8,7 +8,7 @@ TODO
 * ~~Load notes and shooting notes~~
 * Group size
 * ~~Recipe cartridge type (For sorting)~~
-* Remove the "Current Amount/Count" for batches, really not useful
+* ~~Remove the "Current Amount/Count" for batches, really not useful~~
 * Specific component data:
 	* Bullet diameter/type
 	* Bullet weight
