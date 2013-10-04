@@ -86,7 +86,7 @@ public class APIController
         return new ResponseEntity<List<Batch>>(batches, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "recipes/{recipeId}/notes", method = RequestMethod.POST)
+    @RequestMapping(value = "recipes/{recipeId}/batches", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Note> createBatch(@PathVariable Integer recipeId, @RequestBody Note note)
     {
@@ -125,6 +125,7 @@ public class APIController
 		Note in = recipeService.saveNote(noteId, note);
 		return new ResponseEntity<Note>(in, HttpStatus.OK);
 	}
+
 	@RequestMapping(value = "components", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Component> getComponents()
 	{
