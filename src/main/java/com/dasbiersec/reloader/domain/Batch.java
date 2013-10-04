@@ -14,8 +14,19 @@ public class Batch extends AbstractEntity
     private Recipe recipe;
 
     private int count;
+	private String note;
 
-    public Recipe getRecipe()
+	public String getNote()
+	{
+		return note;
+	}
+
+	public void setNote(String note)
+	{
+		this.note = note;
+	}
+
+	public Recipe getRecipe()
     {
         return recipe;
     }

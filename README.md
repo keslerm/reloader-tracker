@@ -6,21 +6,27 @@ For tracking reloading data
 TODO
 ==============
 * ~~Load notes and shooting notes~~
-* Group size
 * ~~Recipe cartridge type (For sorting)~~
-* ~~Remove the "Current Amount/Count" for batches, really not useful~~
 * Specific component data:
 	* Bullet diameter/type
 	* Bullet weight
 	* Bullet coeffecient
 	* Case length
+	* Powder lot
 
 * Compressed load flag
 * Easy way for dealing with a pool of once fired brass
 * Distance from lands
-* Fix the fields that should be integers that are showing up as double/float (like count)
-* Change Notes to Report - Store Firearm used, range location, and description
-* Add Chronograph - Take X shots, Report: High, Low, Average, Std Deviation
+* Change Notes to Log
+	* Firearm
+	* Chronograph Data
+		* Store FPS - Calculate: High, Low, Average, Std Deviation
+	* Range location
+	* Notes
+	* Number of shots and Group size 
+	* Target Distance
+	* Weather??
+* ~~Add notes to batch~~
 
 Notes
 ==============
