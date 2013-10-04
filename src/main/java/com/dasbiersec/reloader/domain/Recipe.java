@@ -49,7 +49,7 @@ public class Recipe extends AbstractEntity implements Serializable
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
-	private List<Note> notes;
+	private List<Log> logs;
 
     public List<Batch> getBatches()
     {
@@ -61,14 +61,14 @@ public class Recipe extends AbstractEntity implements Serializable
         this.batches = batches;
     }
 
-	public List<Note> getNotes()
+	public List<Log> getLogs()
 	{
-		return notes;
+		return logs;
 	}
 
-	public void setNotes(List<Note> notes)
+	public void setLogs(List<Log> logs)
 	{
-		this.notes = notes;
+		this.logs = logs;
 	}
 
 	@JsonIgnore

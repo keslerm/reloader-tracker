@@ -88,10 +88,10 @@ public class APIController
 
     @RequestMapping(value = "recipes/{recipeId}/batches", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Note> createBatch(@PathVariable Integer recipeId, @RequestBody Note note)
+    public ResponseEntity<Log> createBatch(@PathVariable Integer recipeId, @RequestBody Log log)
     {
-        Note in = recipeService.createNote(recipeId, note);
-        return new ResponseEntity<Note>(in, HttpStatus.CREATED);
+        Log in = recipeService.createLog(recipeId, log);
+        return new ResponseEntity<Log>(in, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "recipes/*/batches/{batchId}", method = RequestMethod.PUT)
@@ -102,28 +102,28 @@ public class APIController
         return new ResponseEntity<Batch>(in, HttpStatus.OK);
     }
 
-	@RequestMapping(value = "recipes/{id}/notes", method = RequestMethod.GET)
+	@RequestMapping(value = "recipes/{id}/logs", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Iterable<Note>> getNotes(@PathVariable Integer id)
+	public ResponseEntity<Iterable<Log>> getLogs(@PathVariable Integer id)
 	{
-		Iterable<Note> notes = recipeService.getNotes(id);
-		return new ResponseEntity<Iterable<Note>>(notes, HttpStatus.OK);
+		Iterable<Log> notes = recipeService.getLogs(id);
+		return new ResponseEntity<Iterable<Log>>(notes, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "recipes/{recipeId}/notes", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public ResponseEntity<Note> createNote(@PathVariable Integer recipeId, @RequestBody Note note)
+	public ResponseEntity<Log> createNote(@PathVariable Integer recipeId, @RequestBody Log log)
 	{
-		Note in = recipeService.createNote(recipeId, note);
-		return new ResponseEntity<Note>(in, HttpStatus.CREATED);
+		Log in = recipeService.createLog(recipeId, log);
+		return new ResponseEntity<Log>(in, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "recipes/*/notes/{noteId}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<Note> updateNote(@PathVariable Integer noteId, @RequestBody Note note)
+	public ResponseEntity<Log> updateNote(@PathVariable Integer noteId, @RequestBody Log log)
 	{
-		Note in = recipeService.saveNote(noteId, note);
-		return new ResponseEntity<Note>(in, HttpStatus.OK);
+		Log in = recipeService.saveLog(noteId, log);
+		return new ResponseEntity<Log>(in, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components", method = RequestMethod.GET)

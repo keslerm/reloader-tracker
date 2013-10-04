@@ -2,10 +2,10 @@ package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
 import com.dasbiersec.reloader.domain.Cost;
-import com.dasbiersec.reloader.domain.Note;
+import com.dasbiersec.reloader.domain.Log;
 import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.repos.ComponentRepository;
-import com.dasbiersec.reloader.repos.NoteRepository;
+import com.dasbiersec.reloader.repos.LogRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class RecipeService
     private RecipeRepository recipeRepository;
 
 	@Autowired
-	private NoteRepository noteRepository;
+	private LogRepository logRepository;
 
 	@Autowired
 	private ComponentRepository componentRepository;
@@ -87,36 +87,42 @@ public class RecipeService
         recipeRepository.delete(recipe);
     }
 
-	public Iterable<Note> getNotes(Integer recipeId)
+	public Iterable<Log> getLogs(Integer recipeId)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
-		return recipe.getNotes();
+		return recipe.getLogs();
 	}
 
-	public Note createNote(Integer recipeId, Note note)
+	public Log createLog(Integer recipeId, Log log)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
-		if (recipe.getNotes() == null)
-			recipe.setNotes(new ArrayList<Note>());
+		if (recipe.getLogs() == null)
+			recipe.setLogs(new ArrayList<Log>());
 
-		recipe.getNotes().add(note);
-		note.setRecipe(recipe);
+		recipe.getLogs().add(log);
+		log.setRecipe(recipe);
 		recipeRepository.save(recipe);
 
-		return note;
+		return log;
 	}
 
-    public Note saveNote(Integer noteId, Note note)
+    public Log saveLog(Integer noteId, Log log)
     {
-        Note existing = noteRepository.findOne(noteId);
+        Log existing = logRepository.findOne(noteId);
 
         if (existing == null)
-            throw new EntityNotFoundException("No note found");
+            throw new EntityNotFoundException("No log found");
 
-        existing.setNote(note.getNote());
-        noteRepository.save(note);
+        existing.setNote(log.getNote());
+	    existing.setFirearm(log.getFirearm());
+	    existing.setRange(log.getRange());
+	    existing.setGroupSize(log.getGroupSize());
+	    existing.setShotsInGroup(log.getShotsInGroup());
+	    existing.setTargetDistance(log.getTargetDistance());
 
-        return noteRepository.findOne(noteId);
+        logRepository.save(log);
+
+        return logRepository.findOne(noteId);
     }
 
     private Integer getCurrentUser()
