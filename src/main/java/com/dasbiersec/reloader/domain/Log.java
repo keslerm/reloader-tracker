@@ -1,8 +1,10 @@
 package com.dasbiersec.reloader.domain;
 
+import com.dasbiersec.reloader.domain.chronograph.FPS;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "log")
@@ -19,6 +21,20 @@ public class Log extends AbstractEntity
 	private String groupSize;
 	private String shotsInGroup;
 	private String targetDistance;
+
+	@OneToMany
+	@JoinColumn(name = "log_id")
+	private List<FPS> fps;
+
+	public List<FPS> getFps()
+	{
+		return fps;
+	}
+
+	public void setFps(List<FPS> fps)
+	{
+		this.fps = fps;
+	}
 
 	public String getGroupSize()
 	{
