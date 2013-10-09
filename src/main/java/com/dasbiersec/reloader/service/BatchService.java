@@ -1,12 +1,11 @@
 package com.dasbiersec.reloader.service;
 
-import com.dasbiersec.reloader.domain.Batch;
+import com.dasbiersec.reloader.entity.Batch;
 import com.dasbiersec.reloader.repos.BatchRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 

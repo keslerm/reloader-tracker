@@ -1,9 +1,13 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
-import com.dasbiersec.reloader.domain.Cost;
-import com.dasbiersec.reloader.domain.Log;
-import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.domain.recipe.Cost;
+import com.dasbiersec.reloader.domain.log.Chronograph;
+import com.dasbiersec.reloader.domain.log.Log;
+import com.dasbiersec.reloader.entity.Batch;
+import com.dasbiersec.reloader.entity.LogEntity;
+import com.dasbiersec.reloader.entity.Recipe;
+import com.dasbiersec.reloader.mapper.LogMapper;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import com.dasbiersec.reloader.repos.LogRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RecipeService
@@ -73,6 +78,11 @@ public class RecipeService
         return recipeRepository.findOne(recipeId);
     }
 
+	public Batch createBatch(Integer recipeId, Batch batch)
+	{
+		return batch;
+	}
+
     public Recipe saveRecipe(Recipe recipe)
     {
         recipe.setUserId(getCurrentUser());
@@ -90,25 +100,36 @@ public class RecipeService
 	public Iterable<Log> getLogs(Integer recipeId)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
-		return recipe.getLogs();
+
+		List<Log> logs = new ArrayList<Log>();
+
+		for (LogEntity entity : recipe.getLogs())
+		{
+			Log log = LogMapper.entityToDomain(entity);
+			logs.add(log);
+		}
+
+		return logs;
 	}
 
 	public Log createLog(Integer recipeId, Log log)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
 		if (recipe.getLogs() == null)
-			recipe.setLogs(new ArrayList<Log>());
+			recipe.setLogs(new ArrayList<LogEntity>());
 
-		recipe.getLogs().add(log);
-		log.setRecipe(recipe);
+		LogEntity entity = LogMapper.domainToEntity(log);
+
+		recipe.getLogs().add(entity);
+		entity.setRecipe(recipe);
 		recipeRepository.save(recipe);
 
 		return log;
 	}
 
-    public Log saveLog(Integer noteId, Log log)
+    public LogEntity saveLog(Integer noteId, LogEntity log)
     {
-        Log existing = logRepository.findOne(noteId);
+        LogEntity existing = logRepository.findOne(noteId);
 
         if (existing == null)
             throw new EntityNotFoundException("No log found");

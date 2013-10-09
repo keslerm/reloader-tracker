@@ -1,4 +1,6 @@
-package com.dasbiersec.reloader.domain;
+package com.dasbiersec.reloader.domain.recipe;
+
+import com.dasbiersec.reloader.entity.Recipe;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

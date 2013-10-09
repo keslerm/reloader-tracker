@@ -1,4 +1,4 @@
-package com.dasbiersec.reloader.domain;
+package com.dasbiersec.reloader.entity;
 
 
 import javax.persistence.*;

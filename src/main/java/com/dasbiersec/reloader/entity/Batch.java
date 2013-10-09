@@ -1,4 +1,4 @@
-package com.dasbiersec.reloader.domain;
+package com.dasbiersec.reloader.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

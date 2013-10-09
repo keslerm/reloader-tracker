@@ -1,7 +1,7 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
-import com.dasbiersec.reloader.domain.Account;
+import com.dasbiersec.reloader.entity.Account;
 import com.dasbiersec.reloader.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

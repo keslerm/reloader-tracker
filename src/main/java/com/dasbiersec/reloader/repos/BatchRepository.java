@@ -1,7 +1,6 @@
 package com.dasbiersec.reloader.repos;
 
-import com.dasbiersec.reloader.domain.Batch;
-import com.dasbiersec.reloader.domain.Component;
+import com.dasbiersec.reloader.entity.Batch;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

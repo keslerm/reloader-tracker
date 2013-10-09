@@ -1,6 +1,11 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.domain.*;
+import com.dasbiersec.reloader.domain.log.Log;
+import com.dasbiersec.reloader.domain.recipe.Cost;
+import com.dasbiersec.reloader.entity.Batch;
+import com.dasbiersec.reloader.entity.Component;
+import com.dasbiersec.reloader.entity.LogEntity;
+import com.dasbiersec.reloader.entity.Recipe;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.service.BatchService;
 import com.dasbiersec.reloader.service.ComponentService;
@@ -88,10 +93,10 @@ public class APIController
 
     @RequestMapping(value = "recipes/{recipeId}/batches", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Log> createBatch(@PathVariable Integer recipeId, @RequestBody Log log)
+    public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
     {
-        Log in = recipeService.createLog(recipeId, log);
-        return new ResponseEntity<Log>(in, HttpStatus.CREATED);
+        Batch in = recipeService.createBatch(recipeId, batch);
+        return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "recipes/*/batches/{batchId}", method = RequestMethod.PUT)
@@ -120,10 +125,10 @@ public class APIController
 
 	@RequestMapping(value = "recipes/*/logs/{logId}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<Log> updateNote(@PathVariable Integer logId, @RequestBody Log log)
+	public ResponseEntity<LogEntity> updateNote(@PathVariable Integer logId, @RequestBody LogEntity log)
 	{
-		Log in = recipeService.saveLog(logId, log);
-		return new ResponseEntity<Log>(in, HttpStatus.OK);
+		LogEntity in = recipeService.saveLog(logId, log);
+		return new ResponseEntity<LogEntity>(in, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components", method = RequestMethod.GET)

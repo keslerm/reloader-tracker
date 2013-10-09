@@ -1,18 +1,14 @@
-package com.dasbiersec.reloader.domain;
-
-import com.dasbiersec.reloader.domain.chronograph.FPS;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.dasbiersec.reloader.entity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "log")
-public class Log extends AbstractEntity
+public class LogEntity extends AbstractEntity
 {
 	@ManyToOne
 	@JoinColumn(name = "recipe_id")
-	@JsonIgnore
 	private Recipe recipe;
 
     private String note;
@@ -22,16 +18,15 @@ public class Log extends AbstractEntity
 	private String shotsInGroup;
 	private String targetDistance;
 
-	@OneToMany
-	@JoinColumn(name = "log_id")
-	private List<FPS> fps;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<Integer> fps;
 
-	public List<FPS> getFps()
+	public List<Integer> getFps()
 	{
 		return fps;
 	}
 
-	public void setFps(List<FPS> fps)
+	public void setFps(List<Integer> fps)
 	{
 		this.fps = fps;
 	}
