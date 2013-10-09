@@ -23,6 +23,10 @@ public class Chronograph
 		}
 	}
 
+	public Chronograph()
+	{
+	}
+
 	public void setLow(Integer low)
 	{
 		this.low = low;

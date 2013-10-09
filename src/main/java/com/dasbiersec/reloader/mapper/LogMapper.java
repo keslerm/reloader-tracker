@@ -30,7 +30,9 @@ public class LogMapper
 		entity.setNote(log.getNote());
 		entity.setFirearm(log.getFirearm());
 		entity.setGroupSize(log.getGroupSize());
-		entity.setFps(log.getChronograph().getFps());
+
+		if (log.getChronograph() != null)
+			entity.setFps(log.getChronograph().getFps());
 		return entity;
 	}
 }
