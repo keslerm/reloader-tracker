@@ -19,6 +19,7 @@ public class LogEntity extends AbstractEntity
 	private String targetDistance;
 
 	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "log_fps")
 	private List<Integer> fps;
 
 	public List<Integer> getFps()
