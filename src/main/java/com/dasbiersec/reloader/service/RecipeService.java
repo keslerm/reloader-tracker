@@ -1,9 +1,12 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
-import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Log;
+import com.dasbiersec.reloader.dto.log.LogDTO;
+import com.dasbiersec.reloader.dto.recipe.CostDTO;
+import com.dasbiersec.reloader.domain.Batch;
 import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.mapper.LogMapper;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import com.dasbiersec.reloader.repos.LogRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RecipeService
@@ -41,7 +45,7 @@ public class RecipeService
         return recipes;
     }
 
-    public Cost getCost(Integer recipeId)
+    public CostDTO getCost(Integer recipeId)
     {
         Recipe recipe = recipeRepository.findOne(recipeId);
         return recipe.getCost();
@@ -73,6 +77,11 @@ public class RecipeService
         return recipeRepository.findOne(recipeId);
     }
 
+	public Batch createBatch(Integer recipeId, Batch batch)
+	{
+		return batch;
+	}
+
     public Recipe saveRecipe(Recipe recipe)
     {
         recipe.setUserId(getCurrentUser());
@@ -87,20 +96,31 @@ public class RecipeService
         recipeRepository.delete(recipe);
     }
 
-	public Iterable<Log> getLogs(Integer recipeId)
+	public Iterable<LogDTO> getLogs(Integer recipeId)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
-		return recipe.getLogs();
+
+		List<LogDTO> logs = new ArrayList<LogDTO>();
+
+		for (Log entity : recipe.getLogs())
+		{
+			LogDTO log = LogMapper.domainToDTO(entity);
+			logs.add(log);
+		}
+
+		return logs;
 	}
 
-	public Log createLog(Integer recipeId, Log log)
+	public LogDTO createLog(Integer recipeId, LogDTO log)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
 		if (recipe.getLogs() == null)
 			recipe.setLogs(new ArrayList<Log>());
 
-		recipe.getLogs().add(log);
-		log.setRecipe(recipe);
+		Log entity = LogMapper.dtoToDomain(log);
+
+		recipe.getLogs().add(entity);
+		entity.setRecipe(recipe);
 		recipeRepository.save(recipe);
 
 		return log;

@@ -1,10 +1,12 @@
-package com.dasbiersec.reloader.domain;
+package com.dasbiersec.reloader.dto.recipe;
+
+import com.dasbiersec.reloader.domain.Recipe;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Cost implements Serializable
+public class CostDTO implements Serializable
 {
 	private BigDecimal brass;
 	private BigDecimal primer;
@@ -12,7 +14,7 @@ public class Cost implements Serializable
 	private BigDecimal powder;
 	private BigDecimal total;
 
-    public Cost(Recipe recipe)
+    public CostDTO(Recipe recipe)
     {
         BigDecimal brassCost = recipe.getBrass().getCost().divide((recipe.getBrass().getAmount()), 4, RoundingMode.HALF_UP);
         BigDecimal primerCost = recipe.getPrimer().getCost().divide(recipe.getPrimer().getAmount(), 4, RoundingMode.HALF_UP);

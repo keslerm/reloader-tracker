@@ -1,6 +1,11 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.domain.*;
+import com.dasbiersec.reloader.domain.Log;
+import com.dasbiersec.reloader.dto.log.LogDTO;
+import com.dasbiersec.reloader.dto.recipe.CostDTO;
+import com.dasbiersec.reloader.domain.Batch;
+import com.dasbiersec.reloader.domain.Component;
+import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.service.BatchService;
 import com.dasbiersec.reloader.service.ComponentService;
@@ -72,10 +77,10 @@ public class APIController
 
     @RequestMapping(value = "recipes/{id}/cost", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Cost> getCost(@PathVariable Integer id)
+    public ResponseEntity<CostDTO> getCost(@PathVariable Integer id)
     {
-        Cost cost = recipeService.getCost(id);
-        return new ResponseEntity<Cost>(cost, HttpStatus.OK);
+        CostDTO cost = recipeService.getCost(id);
+        return new ResponseEntity<CostDTO>(cost, HttpStatus.OK);
     }
 
     @RequestMapping(value = "recipes/{id}/batches", method = RequestMethod.GET)
@@ -88,10 +93,10 @@ public class APIController
 
     @RequestMapping(value = "recipes/{recipeId}/batches", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Log> createBatch(@PathVariable Integer recipeId, @RequestBody Log log)
+    public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
     {
-        Log in = recipeService.createLog(recipeId, log);
-        return new ResponseEntity<Log>(in, HttpStatus.CREATED);
+        Batch in = recipeService.createBatch(recipeId, batch);
+        return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "recipes/*/batches/{batchId}", method = RequestMethod.PUT)
@@ -104,18 +109,18 @@ public class APIController
 
 	@RequestMapping(value = "recipes/{id}/logs", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Iterable<Log>> getLogs(@PathVariable Integer id)
+	public ResponseEntity<Iterable<LogDTO>> getLogs(@PathVariable Integer id)
 	{
-		Iterable<Log> notes = recipeService.getLogs(id);
-		return new ResponseEntity<Iterable<Log>>(notes, HttpStatus.OK);
+		Iterable<LogDTO> notes = recipeService.getLogs(id);
+		return new ResponseEntity<Iterable<LogDTO>>(notes, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "recipes/{recipeId}/logs", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
-	public ResponseEntity<Log> createNote(@PathVariable Integer recipeId, @RequestBody Log log)
+	public ResponseEntity<LogDTO> createNote(@PathVariable Integer recipeId, @RequestBody LogDTO log)
 	{
-		Log in = recipeService.createLog(recipeId, log);
-		return new ResponseEntity<Log>(in, HttpStatus.CREATED);
+		LogDTO in = recipeService.createLog(recipeId, log);
+		return new ResponseEntity<LogDTO>(in, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "recipes/*/logs/{logId}", method = RequestMethod.PUT)
