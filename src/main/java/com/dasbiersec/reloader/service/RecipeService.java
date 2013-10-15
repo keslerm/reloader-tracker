@@ -1,9 +1,9 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
+import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Log;
 import com.dasbiersec.reloader.dto.log.LogDTO;
-import com.dasbiersec.reloader.dto.recipe.CostDTO;
 import com.dasbiersec.reloader.domain.Batch;
 import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.mapper.LogMapper;
@@ -45,7 +45,7 @@ public class RecipeService
         return recipes;
     }
 
-    public CostDTO getCost(Integer recipeId)
+    public Cost getCost(Integer recipeId)
     {
         Recipe recipe = recipeRepository.findOne(recipeId);
         return recipe.getCost();

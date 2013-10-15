@@ -1,11 +1,8 @@
 package com.dasbiersec.reloader.controller;
 
-import com.dasbiersec.reloader.domain.Log;
+import com.dasbiersec.reloader.domain.*;
 import com.dasbiersec.reloader.dto.log.LogDTO;
-import com.dasbiersec.reloader.dto.recipe.CostDTO;
-import com.dasbiersec.reloader.domain.Batch;
-import com.dasbiersec.reloader.domain.Component;
-import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.service.BatchService;
 import com.dasbiersec.reloader.service.ComponentService;
@@ -77,10 +74,10 @@ public class APIController
 
     @RequestMapping(value = "recipes/{id}/cost", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<CostDTO> getCost(@PathVariable Integer id)
+    public ResponseEntity<Cost> getCost(@PathVariable Integer id)
     {
-        CostDTO cost = recipeService.getCost(id);
-        return new ResponseEntity<CostDTO>(cost, HttpStatus.OK);
+        Cost cost = recipeService.getCost(id);
+        return new ResponseEntity<Cost>(cost, HttpStatus.OK);
     }
 
     @RequestMapping(value = "recipes/{id}/batches", method = RequestMethod.GET)

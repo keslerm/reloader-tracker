@@ -1,6 +1,5 @@
 package com.dasbiersec.reloader.domain;
 
-import com.dasbiersec.reloader.dto.recipe.CostDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -73,9 +72,9 @@ public class Recipe extends AbstractEntity implements Serializable
 	}
 
 	@JsonIgnore
-    public CostDTO getCost()
+    public Cost getCost()
     {
-        return new CostDTO(this);
+        return new Cost(this);
     }
 
     public String getCaliber()
