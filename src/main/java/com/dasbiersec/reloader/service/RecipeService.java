@@ -114,36 +114,31 @@ public class RecipeService
 	public LogDTO createLog(Integer recipeId, LogDTO log)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
+
 		if (recipe.getLogs() == null)
 			recipe.setLogs(new ArrayList<Log>());
 
 		Log entity = LogMapper.dtoToDomain(log);
 
-		recipe.getLogs().add(entity);
 		entity.setRecipe(recipe);
-		recipeRepository.save(recipe);
+		recipe.getLogs().add(entity);
 
+		recipeRepository.save(recipe);
 
 		return LogMapper.domainToDTO(entity);
 	}
 
-    public Log saveLog(Integer noteId, Log log)
+    public LogDTO saveLog(Integer logId, LogDTO dto)
     {
-        Log existing = logRepository.findOne(noteId);
+        Log existing = logRepository.findOne(logId);
 
         if (existing == null)
-            throw new EntityNotFoundException("No log found");
+            throw new EntityNotFoundException("No log with id " + logId + " found");
 
-        existing.setNote(log.getNote());
-	    existing.setFirearm(log.getFirearm());
-	    existing.setRange(log.getRange());
-	    existing.setGroupSize(log.getGroupSize());
-	    existing.setShotsInGroup(log.getShotsInGroup());
-	    existing.setTargetDistance(log.getTargetDistance());
+	    LogMapper.copyDTOToDomain(dto, existing);
+	    logRepository.save(existing);
 
-        logRepository.save(log);
-
-        return logRepository.findOne(noteId);
+        return LogMapper.domainToDTO(logRepository.findOne(logId));
     }
 
     private Integer getCurrentUser()

@@ -12,7 +12,9 @@ public class Chronograph
 	public Chronograph(List<Integer> fps)
 	{
 		this.fps = fps;
-		Collections.sort(this.fps);
+
+		if (fps != null)
+			Collections.sort(this.fps);
 	}
 
 	public Integer getHigh()
