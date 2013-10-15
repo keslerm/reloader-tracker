@@ -2,6 +2,7 @@
 
 Bug Fixes:
   - Fixed lots of bugs around saving logs
+  - Fixed tons of little bugs that were found while making some changes
  
 Features:
   - Logs are greatly improved, along with adding new fields (like Firearm used, Group size, Target Distance, Range)
