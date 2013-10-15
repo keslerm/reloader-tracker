@@ -114,7 +114,7 @@ public class ApplicationConfig
 		entityManagerFactoryBean.setDataSource(dataSource());
 		entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
 
-		entityManagerFactoryBean.setPackagesToScan(new String[] { "com.dasbiersec.reloader.entity" });
+		entityManagerFactoryBean.setPackagesToScan(new String[] { "com.dasbiersec.reloader.domain" });
 		entityManagerFactoryBean.setPersistenceProvider(new HibernatePersistence());
 		entityManagerFactoryBean.afterPropertiesSet();
 		return entityManagerFactoryBean.getObject();

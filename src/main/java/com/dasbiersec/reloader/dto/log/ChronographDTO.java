@@ -9,6 +9,8 @@ public class ChronographDTO
 	public Integer low;
 	public Integer high;
 	public BigDecimal average;
+	public BigDecimal variance;
+	public BigDecimal standardDeviation;
 
 	public List<Integer> fps;
 }
