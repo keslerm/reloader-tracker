@@ -1,11 +1,11 @@
-package com.dasbiersec.reloader.entity;
+package com.dasbiersec.reloader.domain;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "log")
-public class LogEntity extends AbstractEntity
+public class Log extends AbstractEntity
 {
 	@ManyToOne
 	@JoinColumn(name = "recipe_id")
@@ -101,4 +101,9 @@ public class LogEntity extends AbstractEntity
     {
         this.note = note;
     }
+
+	public Chronograph getChronograph()
+	{
+		return new Chronograph(fps);
+	}
 }

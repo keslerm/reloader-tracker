@@ -2,7 +2,7 @@ package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
 import com.dasbiersec.reloader.enums.ComponentType;
-import com.dasbiersec.reloader.entity.Component;
+import com.dasbiersec.reloader.domain.Component;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

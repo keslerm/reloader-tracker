@@ -1,38 +1,49 @@
 package com.dasbiersec.reloader.mapper;
 
-import com.dasbiersec.reloader.domain.log.Chronograph;
-import com.dasbiersec.reloader.domain.log.Log;
-import com.dasbiersec.reloader.entity.LogEntity;
+import com.dasbiersec.reloader.domain.Chronograph;
+import com.dasbiersec.reloader.domain.Log;
+import com.dasbiersec.reloader.dto.log.ChronographDTO;
+import com.dasbiersec.reloader.dto.log.LogDTO;
 
 public class LogMapper
 {
-	public static Log entityToDomain(LogEntity entity)
+	public static LogDTO domainToDTO(Log entity)
 	{
-		Log log = new Log();
-		log.setId(entity.getId());
-		log.setFirearm(entity.getFirearm());
-		log.setGroupSize(entity.getGroupSize());
-		log.setNote(entity.getNote());
-		log.setRange(entity.getRange());
-		log.setShotsInGroup(entity.getShotsInGroup());
-		log.setTargetDistance(entity.getTargetDistance());
-		log.setChronograph(new Chronograph(entity.getFps()));
+		LogDTO log = new LogDTO();
+		log.id = entity.getId();
+		log.firearm = entity.getFirearm();
+		log.groupSize = entity.getGroupSize();
+		log.note = entity.getNote();
+		log.range = entity.getRange();
+		log.shotsInGroup = entity.getShotsInGroup();
+		log.targetDistance = entity.getTargetDistance();
+
+		log.chronograph = domainToDTO(new Chronograph(entity.getFps()));
+
 		return log;
 	}
 
-	public static LogEntity domainToEntity(Log log)
+	public static Log dtoToDomain(LogDTO log)
 	{
-		LogEntity entity = new LogEntity();
-		entity.setId(log.getId());
-		entity.setTargetDistance(log.getTargetDistance());
-		entity.setShotsInGroup(log.getShotsInGroup());
-		entity.setRange(log.getRange());
-		entity.setNote(log.getNote());
-		entity.setFirearm(log.getFirearm());
-		entity.setGroupSize(log.getGroupSize());
+		Log entity = new Log();
+		entity.setId(log.id);
+		entity.setTargetDistance(log.targetDistance);
+		entity.setShotsInGroup(log.shotsInGroup);
+		entity.setRange(log.range);
+		entity.setNote(log.note);
+		entity.setFirearm(log.firearm);
+		entity.setGroupSize(log.groupSize);
+		entity.setFps(log.chronograph.fps);
 
-		if (log.getChronograph() != null)
-			entity.setFps(log.getChronograph().getFps());
 		return entity;
+	}
+
+	public static ChronographDTO domainToDTO(Chronograph domain)
+	{
+		ChronographDTO dto = new ChronographDTO();
+		dto.average = domain.getAverage();
+		dto.high = domain.getHigh();
+		dto.low = domain.getLow();
+		return dto;
 	}
 }

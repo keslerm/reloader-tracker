@@ -1,6 +1,6 @@
-package com.dasbiersec.reloader.entity;
+package com.dasbiersec.reloader.domain;
 
-import com.dasbiersec.reloader.domain.recipe.Cost;
+import com.dasbiersec.reloader.dto.recipe.CostDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -50,7 +50,7 @@ public class Recipe extends AbstractEntity implements Serializable
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
-	private List<LogEntity> logs;
+	private List<Log> logs;
 
     public List<Batch> getBatches()
     {
@@ -62,20 +62,20 @@ public class Recipe extends AbstractEntity implements Serializable
         this.batches = batches;
     }
 
-	public List<LogEntity> getLogs()
+	public List<Log> getLogs()
 	{
 		return logs;
 	}
 
-	public void setLogs(List<LogEntity> logs)
+	public void setLogs(List<Log> logs)
 	{
 		this.logs = logs;
 	}
 
 	@JsonIgnore
-    public Cost getCost()
+    public CostDTO getCost()
     {
-        return new Cost(this);
+        return new CostDTO(this);
     }
 
     public String getCaliber()
