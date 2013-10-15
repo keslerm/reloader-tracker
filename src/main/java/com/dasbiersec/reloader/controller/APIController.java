@@ -50,14 +50,14 @@ public class APIController
 
     @RequestMapping(value = "recipes", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public ResponseEntity<RecipeDTO> saveRecipe(@RequestBody RecipeDTO recipe)
+    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeDTO recipe)
     {
         return new ResponseEntity<RecipeDTO>(recipeService.createRecipe(recipe), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public void deleteRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
+    public void updateRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
     {
         recipeService.saveRecipe(id, recipe);
     }
