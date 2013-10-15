@@ -41,13 +41,26 @@ public class Recipe extends AbstractEntity implements Serializable
     @Column(name = "caliber")
     private String caliber;
 
+	@Column(name = "compressed")
+	private Boolean compressed;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
     private List<Batch> batches;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
 	private List<Log> logs;
 
-    public List<Batch> getBatches()
+	public Boolean getCompressed()
+	{
+		return compressed;
+	}
+
+	public void setCompressed(Boolean compressed)
+	{
+		this.compressed = compressed;
+	}
+
+	public List<Batch> getBatches()
     {
         return batches;
     }

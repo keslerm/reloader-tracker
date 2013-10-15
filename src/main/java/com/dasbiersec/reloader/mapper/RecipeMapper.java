@@ -20,6 +20,7 @@ public class RecipeMapper
 		dto.coal = recipe.getCoal();
 		dto.caliber = recipe.getCaliber();
 		dto.description = recipe.getDescription();
+		dto.compressed = recipe.getCompressed();
 
 		dto.cost = domainToDTO(recipe.getCost());
 
@@ -32,6 +33,7 @@ public class RecipeMapper
 		recipe.setCoal(dto.coal);
 		recipe.setDescription(dto.description);
 		recipe.setPowderCharge(dto.powderCharge);
+		recipe.setCompressed(dto.compressed);
 
 		// TODO: Not the best way to manage this
 		recipe.setBrass(new Component(dto.brass.id));

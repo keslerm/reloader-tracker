@@ -19,4 +19,5 @@ public class RecipeDTO
 
 	public String caliber;
 	public CostDTO cost;
+	public Boolean compressed;
 }

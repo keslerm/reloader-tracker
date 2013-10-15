@@ -1,3 +1,15 @@
+## 1.2 (2013-10-15)
+
+Bug Fixes:
+  - Fixed lots of bugs around saving logs
+ 
+Features:
+  - Logs are greatly improved, along with adding new fields (like Firearm used, Group size, Target Distance, Range)
+  - Added Chronograph details to logs. Each chronograph stores a set of FPS and will return back High, Low, Average, Std Deviation, and Variance
+  - Hugely refactored how Recipes/Components/Logs interfaces with the exposed REST objects.
+  - Cost is now included in the base recipe request, instead of being a seperate request.
+  - Added flag to recipe for Compressed Loads
+
 ## 1.1.1 (2013-10-04)
 
 Bug Fixes:
