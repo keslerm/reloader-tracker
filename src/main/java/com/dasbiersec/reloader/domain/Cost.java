@@ -21,27 +21,27 @@ public class Cost
         total = brass.add(primer).add(bullet).add(powder);
     }
 
-	public BigDecimal getTotal()
+	public BigDecimal getTotalCost()
 	{
 		return total;
 	}
 
-	public BigDecimal getBrass()
+	public BigDecimal getBrassCost()
 	{
 		return brass;
 	}
 
-	public BigDecimal getPrimer()
+	public BigDecimal getPrimerCost()
 	{
 		return primer;
 	}
 
-	public BigDecimal getBullet()
+	public BigDecimal getBulletCost()
 	{
 		return bullet;
 	}
 
-	public BigDecimal getPowder()
+	public BigDecimal getPowderCost()
 	{
 		return powder;
 	}

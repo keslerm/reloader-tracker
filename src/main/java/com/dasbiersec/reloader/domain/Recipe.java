@@ -43,11 +43,9 @@ public class Recipe extends AbstractEntity implements Serializable
     @Column(name = "caliber")
     private String caliber;
 
-    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
     private List<Batch> batches;
 
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
 	private List<Log> logs;
 
@@ -71,7 +69,6 @@ public class Recipe extends AbstractEntity implements Serializable
 		this.logs = logs;
 	}
 
-	@JsonIgnore
     public Cost getCost()
     {
         return new Cost(this);
