@@ -1,7 +1,5 @@
 package com.dasbiersec.reloader.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +8,6 @@ public class Batch extends AbstractEntity
 {
     @ManyToOne
     @JoinColumn(name = "recipe_id")
-    @JsonIgnore
     private Recipe recipe;
 
     private int count;

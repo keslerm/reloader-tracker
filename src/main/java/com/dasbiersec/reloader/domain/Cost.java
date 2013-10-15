@@ -5,45 +5,51 @@ import java.math.RoundingMode;
 
 public class Cost
 {
-	private BigDecimal brass;
-	private BigDecimal primer;
-	private BigDecimal bullet;
-	private BigDecimal powder;
-	private BigDecimal total;
+	private Recipe recipe;
 
     public Cost(Recipe recipe)
     {
-        brass = recipe.getBrass().getCost().divide((recipe.getBrass().getAmount()), 4, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
-        primer = recipe.getPrimer().getCost().divide(recipe.getPrimer().getAmount(), 4, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
-        bullet = recipe.getBullet().getCost().divide(recipe.getBullet().getAmount(), 4, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
-        powder = recipe.getPowder().getCost().divide(recipe.getPowder().getAmount(), 4, RoundingMode.HALF_UP).multiply(recipe.getPowderCharge()).setScale(2, RoundingMode.HALF_UP);
-
-        total = brass.add(primer).add(bullet).add(powder);
+	    this.recipe = recipe;
     }
 
 	public BigDecimal getTotalCost()
 	{
-		return total;
+		if (getBrassCost() == null || getPowderCost() == null || getBulletCost() == null || getPrimerCost() == null)
+			return null;
+
+		return getBrassCost().add(getPrimerCost()).add(getBulletCost()).add(getPowderCost());
 	}
 
 	public BigDecimal getBrassCost()
 	{
-		return brass;
+		if (recipe.getBrass() == null || recipe.getBrass().getAmount() == null)
+			return null;
+
+		return recipe.getBrass().getCost().divide((recipe.getBrass().getAmount()), 4, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
 	}
 
 	public BigDecimal getPrimerCost()
 	{
-		return primer;
+		if (recipe.getPrimer() == null || recipe.getPrimer().getAmount() == null)
+			return null;
+
+		return recipe.getPrimer().getCost().divide(recipe.getPrimer().getAmount(), 4, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
 	}
 
 	public BigDecimal getBulletCost()
 	{
-		return bullet;
+		if (recipe.getBullet() == null || recipe.getBullet().getAmount() == null)
+			return null;
+
+		return recipe.getBullet().getCost().divide(recipe.getBullet().getAmount(), 4, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
 	}
 
 	public BigDecimal getPowderCost()
 	{
-		return powder;
+		if (recipe.getPowder() == null || recipe.getPowder().getAmount() == null || recipe.getPowderCharge() == null)
+			return null;
+
+		return recipe.getPowder().getCost().divide(recipe.getPowder().getAmount(), 4, RoundingMode.HALF_UP).multiply(recipe.getPowderCharge()).setScale(2, RoundingMode.HALF_UP);
 	}
 
 }

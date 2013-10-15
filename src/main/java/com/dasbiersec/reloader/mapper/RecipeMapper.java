@@ -1,5 +1,6 @@
 package com.dasbiersec.reloader.mapper;
 
+import com.dasbiersec.reloader.domain.Component;
 import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.dto.recipe.CostDTO;
@@ -10,12 +11,12 @@ public class RecipeMapper
 	public static RecipeDTO domainToDTO(Recipe recipe)
 	{
 		RecipeDTO dto = new RecipeDTO();
-		dto.brass = recipe.getBrass();
-		dto.bullet = recipe.getBullet();
+		dto.brass = ComponentMapper.domainToDTO(recipe.getBrass());
+		dto.bullet = ComponentMapper.domainToDTO(recipe.getBullet());
 		dto.id = recipe.getId();
-		dto.powder = recipe.getPowder();
+		dto.powder = ComponentMapper.domainToDTO(recipe.getPowder());
 		dto.powderCharge = recipe.getPowderCharge();
-		dto.primer = recipe.getPrimer();
+		dto.primer = ComponentMapper.domainToDTO(recipe.getPrimer());
 		dto.coal = recipe.getCoal();
 		dto.caliber = recipe.getCaliber();
 		dto.description = recipe.getDescription();
@@ -27,14 +28,16 @@ public class RecipeMapper
 
 	public static void copyDTOToDomain(RecipeDTO dto, Recipe recipe)
 	{
-		recipe.setBrass(dto.brass);
-		recipe.setBullet(dto.bullet);
 		recipe.setCaliber(dto.caliber);
 		recipe.setCoal(dto.coal);
 		recipe.setDescription(dto.description);
-		recipe.setPrimer(dto.primer);
-		recipe.setPowder(dto.powder);
 		recipe.setPowderCharge(dto.powderCharge);
+
+		// TODO: Not the best way to manage this
+		recipe.setBrass(new Component(dto.brass.id));
+		recipe.setBullet(new Component(dto.bullet.id));
+		recipe.setPrimer(new Component(dto.primer.id));
+		recipe.setPowder(new Component(dto.powder.id));
 	}
 
 	public static CostDTO domainToDTO(Cost cost)
