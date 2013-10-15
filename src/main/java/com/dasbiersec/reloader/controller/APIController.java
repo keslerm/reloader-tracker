@@ -125,10 +125,10 @@ public class APIController
 
 	@RequestMapping(value = "recipes/*/logs/{logId}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<Log> updateLog(@PathVariable Integer logId, @RequestBody Log log)
+	public ResponseEntity<LogDTO> updateLog(@PathVariable Integer logId, @RequestBody LogDTO log)
 	{
-		Log in = recipeService.saveLog(logId, log);
-		return new ResponseEntity<Log>(in, HttpStatus.OK);
+		LogDTO in = recipeService.saveLog(logId, log);
+		return new ResponseEntity<LogDTO>(in, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components", method = RequestMethod.GET)

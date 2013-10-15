@@ -27,18 +27,23 @@ public class LogMapper
 	public static Log dtoToDomain(LogDTO log)
 	{
 		Log entity = new Log();
-		entity.setId(log.id);
-		entity.setTargetDistance(log.targetDistance);
-		entity.setShotsInGroup(log.shotsInGroup);
-		entity.setRange(log.range);
-		entity.setNote(log.note);
-		entity.setFirearm(log.firearm);
-		entity.setGroupSize(log.groupSize);
-
-		if (log.chronograph != null)
-			entity.setFps(log.chronograph.fps);
-
+		copyDTOToDomain(log, entity);
 		return entity;
+	}
+
+	public static void copyDTOToDomain(LogDTO dto, Log log)
+	{
+		log.setTargetDistance(dto.targetDistance);
+		log.setShotsInGroup(dto.shotsInGroup);
+		log.setRange(dto.range);
+		log.setNote(dto.note);
+		log.setFirearm(dto.firearm);
+		log.setGroupSize(dto.groupSize);
+
+		if (dto.chronograph != null)
+			log.setFps(dto.chronograph.fps);
+		else
+			log.setFps(null);
 	}
 
 	public static ChronographDTO domainToDTO(Chronograph domain)
