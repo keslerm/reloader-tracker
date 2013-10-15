@@ -123,7 +123,8 @@ public class RecipeService
 		entity.setRecipe(recipe);
 		recipeRepository.save(recipe);
 
-		return log;
+
+		return LogMapper.domainToDTO(entity);
 	}
 
     public Log saveLog(Integer noteId, Log log)

@@ -19,6 +19,7 @@ public class LogMapper
 		log.targetDistance = entity.getTargetDistance();
 
 		log.chronograph = domainToDTO(new Chronograph(entity.getFps()));
+		log.chronograph.fps = entity.getFps();
 
 		return log;
 	}
@@ -33,7 +34,9 @@ public class LogMapper
 		entity.setNote(log.note);
 		entity.setFirearm(log.firearm);
 		entity.setGroupSize(log.groupSize);
-		entity.setFps(log.chronograph.fps);
+
+		if (log.chronograph != null)
+			entity.setFps(log.chronograph.fps);
 
 		return entity;
 	}
@@ -44,6 +47,8 @@ public class LogMapper
 		dto.average = domain.getAverage();
 		dto.high = domain.getHigh();
 		dto.low = domain.getLow();
+		dto.variance = domain.getVariance();
+		dto.standardDeviation = domain.getStandardDeviation();
 		return dto;
 	}
 }
