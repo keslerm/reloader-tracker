@@ -44,10 +44,10 @@ public class Recipe extends AbstractEntity implements Serializable
 	@Column(name = "compressed")
 	private Boolean compressed;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Batch> batches;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<Log> logs;
 
 	public Boolean getCompressed()
