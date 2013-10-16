@@ -50,28 +50,32 @@ public class APIController
 
     @RequestMapping(value = "recipes", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeDTO recipe)
+    public ResponseEntity<Void> createRecipe(@RequestBody RecipeDTO recipe)
     {
-        return new ResponseEntity<RecipeDTO>(recipeService.createRecipe(recipe), HttpStatus.CREATED);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public void updateRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
+    public ResponseEntity<Void> updateRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
     {
         recipeService.saveRecipe(id, recipe);
+
+	    return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteRecipe(@PathVariable("id") Integer id)
+    public ResponseEntity<Void> deleteRecipe(@PathVariable("id") Integer id)
     {
         RecipeDTO recipe = recipeService.getRecipe(id);
 
         if (recipe == null)
-            throw new EntityNotFoundException("Could not find recipe with ID");
+	        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 
         recipeService.deleteRecipeById(id);
+
+	    return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 
