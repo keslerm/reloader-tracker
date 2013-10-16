@@ -52,6 +52,8 @@ public class APIController
     @ResponseBody
     public ResponseEntity<Void> createRecipe(@RequestBody RecipeDTO recipe)
     {
+	    recipeService.createRecipe(recipe);
+
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
