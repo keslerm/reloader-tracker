@@ -1,8 +1,9 @@
-## 1.2 (2013-10-15)
+## 1.2 (2013-10-16)
 
 Bug Fixes:
   - Fixed lots of bugs around saving logs
   - Fixed tons of little bugs that were found while making some changes
+  - Can now delete recipes that have logs or batches associated with them
  
 Features:
   - Logs are greatly improved, along with adding new fields (like Firearm used, Group size, Target Distance, Range)
