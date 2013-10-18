@@ -81,6 +81,8 @@ public class APIController
     }
 
 
+
+
 	/****** Batches ******/
     @RequestMapping(value = "recipes/{id}/batches", method = RequestMethod.GET)
     @ResponseBody
@@ -92,19 +94,21 @@ public class APIController
 
     @RequestMapping(value = "recipes/{recipeId}/batches", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Batch> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
+    public ResponseEntity<Void> createBatch(@PathVariable Integer recipeId, @RequestBody Batch batch)
     {
-        Batch in = batchService.createBatch(recipeId, batch);
-        return new ResponseEntity<Batch>(in, HttpStatus.CREATED);
+        batchService.createBatch(recipeId, batch);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "recipes/*/batches/{batchId}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<Batch> updateBatch(@PathVariable Integer batchId, @RequestBody Batch batch)
+    public ResponseEntity<Void> updateBatch(@PathVariable Integer batchId, @RequestBody Batch batch)
     {
-        Batch in = batchService.saveBatch(batchId, batch);
-        return new ResponseEntity<Batch>(in, HttpStatus.OK);
+        batchService.saveBatch(batchId, batch);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+
 
 
 	/****** Logs ******/
@@ -116,59 +120,69 @@ public class APIController
 		return new ResponseEntity<Iterable<LogDTO>>(notes, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "recipes/{recipeId}/logs", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "recipes/{recipeId}/logs", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<LogDTO> createLog(@PathVariable Integer recipeId, @RequestBody LogDTO log)
+	public ResponseEntity<Void> createLog(@PathVariable Integer recipeId, @RequestBody LogDTO log)
 	{
-		LogDTO in = recipeService.createLog(recipeId, log);
-		return new ResponseEntity<LogDTO>(in, HttpStatus.CREATED);
+		recipeService.createLog(recipeId, log);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "recipes/*/logs/{logId}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<LogDTO> updateLog(@PathVariable Integer logId, @RequestBody LogDTO log)
+	public ResponseEntity<Void> updateLog(@PathVariable Integer logId, @RequestBody LogDTO log)
 	{
-		LogDTO in = recipeService.saveLog(logId, log);
-		return new ResponseEntity<LogDTO>(in, HttpStatus.OK);
+		recipeService.saveLog(logId, log);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+
+
 
 
 	/****** Components ******/
 	@RequestMapping(value = "components", method = RequestMethod.GET)
-	public @ResponseBody Iterable<Component> getComponents()
+	@ResponseBody
+	public ResponseEntity<Iterable<Component>> getComponents()
 	{
-		return componentService.getAllComponents();
+		Iterable<Component> components = componentService.getAllComponents();
+		return new ResponseEntity<Iterable<Component>>(components, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components/{id}", method = RequestMethod.GET)
-	public @ResponseBody Component getComponentById(@PathVariable Integer id)
+	@ResponseBody
+	public ResponseEntity<Component> getComponent(@PathVariable Integer id)
 	{
-		return componentService.getComponentById(id);
+		return new ResponseEntity<Component>(componentService.getComponentById(id), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "components", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody Component createComponent(@RequestBody Component componentDTO)
+	@RequestMapping(value = "components", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Void> createComponent(@RequestBody Component componentDTO)
 	{
-		return componentService.saveComponent(componentDTO);
+		componentService.saveComponent(componentDTO);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
     @RequestMapping(value = "components/{id}", method = RequestMethod.PUT)
-    public @ResponseBody Component saveComponent(@PathVariable Integer id, @RequestBody Component componentDTO)
+    @ResponseBody
+    public ResponseEntity<Void> saveComponent(@PathVariable Integer id, @RequestBody Component componentDTO)
     {
         componentService.saveComponent(componentDTO);
-
-        return componentDTO;
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 	@RequestMapping(value = "components/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody void deleteComponent(@PathVariable Integer id)
+	@ResponseBody
+	public ResponseEntity<Void> deleteComponent(@PathVariable Integer id)
 	{
 		componentService.deleteComponentById(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components/type/{type}", method = RequestMethod.GET)
-	public @ResponseBody Iterable<Component> searchForComponents(@PathVariable ComponentType type)
+	@ResponseBody
+	public ResponseEntity<Iterable<Component>> searchForComponents(@PathVariable ComponentType type)
 	{
-		return componentService.findComponentByType(type);
+		return new ResponseEntity<Iterable<Component>>(componentService.findComponentByType(type), HttpStatus.OK);
 	}
 }
