@@ -3,6 +3,8 @@ package com.dasbiersec.reloader.mapper;
 import com.dasbiersec.reloader.domain.Component;
 import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.dto.component.BrassDTO;
+import com.dasbiersec.reloader.dto.component.BulletDTO;
 import com.dasbiersec.reloader.dto.recipe.CostDTO;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 
@@ -11,8 +13,8 @@ public class RecipeMapper
 	public static RecipeDTO domainToDTO(Recipe recipe)
 	{
 		RecipeDTO dto = new RecipeDTO();
-		dto.brass = ComponentMapper.domainToDTO(recipe.getBrass());
-		dto.bullet = ComponentMapper.domainToDTO(recipe.getBullet());
+		dto.brass = (BrassDTO) ComponentMapper.domainToDTO(recipe.getBrass());
+		dto.bullet = (BulletDTO) ComponentMapper.domainToDTO(recipe.getBullet());
 		dto.id = recipe.getId();
 		dto.powder = ComponentMapper.domainToDTO(recipe.getPowder());
 		dto.powderCharge = recipe.getPowderCharge();

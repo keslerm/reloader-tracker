@@ -1,4 +1,12 @@
-## 1.2 (2013-10-16)
+## 1.3.0
+
+Bug Fixes:
+
+
+Features:
+  - Components now have component specific details( e.g. bullet shape/weight, powder shape, case lenght ect)
+
+## 1.2.0 (2013-10-16)
 
 Bug Fixes:
   - Fixed lots of bugs around saving logs
@@ -18,7 +26,7 @@ Features:
 Bug Fixes:
   - Fixed a missing entry for notes to logs when updating a log entry
 
-## 1.1 (2013-10-04)
+## 1.1.0 (2013-10-04)
 
 Features:
   - Changes for the Notes of a specific recipe to record a lot more data (Including Firearm used, Range location, Group size and Number of shots in group, target distance)
