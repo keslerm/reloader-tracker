@@ -4,6 +4,7 @@ Bug Fixes:
   - Fixed lots of bugs around saving logs
   - Fixed tons of little bugs that were found while making some changes
   - Can now delete recipes that have logs or batches associated with them
+  - Fixed a lot of the response codes for most of the REST interface
  
 Features:
   - Logs are greatly improved, along with adding new fields (like Firearm used, Group size, Target Distance, Range)
