@@ -1,8 +1,5 @@
 package com.dasbiersec.reloader.domain;
 
-import com.dasbiersec.reloader.dto.recipe.CostDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -44,15 +41,26 @@ public class Recipe extends AbstractEntity implements Serializable
     @Column(name = "caliber")
     private String caliber;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
+	@Column(name = "compressed")
+	private Boolean compressed;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Batch> batches;
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<Log> logs;
 
-    public List<Batch> getBatches()
+	public Boolean getCompressed()
+	{
+		return compressed;
+	}
+
+	public void setCompressed(Boolean compressed)
+	{
+		this.compressed = compressed;
+	}
+
+	public List<Batch> getBatches()
     {
         return batches;
     }
@@ -72,10 +80,9 @@ public class Recipe extends AbstractEntity implements Serializable
 		this.logs = logs;
 	}
 
-	@JsonIgnore
-    public CostDTO getCost()
+    public Cost getCost()
     {
-        return new CostDTO(this);
+        return new Cost(this);
     }
 
     public String getCaliber()

@@ -46,7 +46,7 @@ public class ChronographTest
 	}
 
 	@Test
-	public void testDeviance()
+	public void testVariance()
 	{
 		Assert.assertEquals(new BigDecimal(38.333).setScale(3, RoundingMode.HALF_UP), chronograph.getVariance());
 	}

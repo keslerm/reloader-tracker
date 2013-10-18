@@ -1,12 +1,14 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
+import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.domain.Log;
 import com.dasbiersec.reloader.dto.log.LogDTO;
-import com.dasbiersec.reloader.dto.recipe.CostDTO;
 import com.dasbiersec.reloader.domain.Batch;
 import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 import com.dasbiersec.reloader.mapper.LogMapper;
+import com.dasbiersec.reloader.mapper.RecipeMapper;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import com.dasbiersec.reloader.repos.LogRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
@@ -33,69 +35,54 @@ public class RecipeService
 	@Autowired
 	private ComponentRepository componentRepository;
 
-    public Recipe getRecipe(Integer id)
+
+	// Recipes
+	public Iterable<RecipeDTO> getAllRecipes()
+	{
+		Iterable<Recipe> recipes = recipeRepository.findAllByUserId(getCurrentUser());
+
+		List<RecipeDTO> dto = new ArrayList<RecipeDTO>();
+
+		for (Recipe recipe : recipes)
+		{
+			dto.add(RecipeMapper.domainToDTO(recipe));
+		}
+
+		return dto;
+	}
+
+    public RecipeDTO getRecipe(Integer id)
     {
         Recipe recipe = recipeRepository.findByIdAndUserId(id, getCurrentUser());
-        return recipe;
+	    return RecipeMapper.domainToDTO(recipe);
     }
 
-    public Iterable<Recipe> getAllRecipes()
+    public RecipeDTO createRecipe(RecipeDTO dto)
     {
-        Iterable<Recipe> recipes = recipeRepository.findAllByUserId(getCurrentUser());
-        return recipes;
-    }
-
-    public CostDTO getCost(Integer recipeId)
-    {
-        Recipe recipe = recipeRepository.findOne(recipeId);
-        return recipe.getCost();
-    }
-
-    public Recipe createRecipe(Recipe recipe)
-    {
+	    Recipe recipe = new Recipe();
+	    RecipeMapper.copyDTOToDomain(dto, recipe);
         recipe.setUserId(getCurrentUser());
         Recipe saved = recipeRepository.save(recipe);
-        return saved;
+        return getRecipe(saved.getId());
     }
 
-    public Recipe saveRecipe(Integer recipeId, Recipe recipe)
+    public RecipeDTO saveRecipe(Integer recipeId, RecipeDTO recipe)
     {
         Recipe existing = recipeRepository.findOne(recipeId);
 
-        existing.setBullet(componentRepository.findOne(recipe.getBullet().getId()));
-        existing.setPrimer(componentRepository.findOne(recipe.getPrimer().getId()));
-	    existing.setPowder(componentRepository.findOne(recipe.getPowder().getId()));
-	    existing.setBrass(componentRepository.findOne(recipe.getBrass().getId()));
-
-        existing.setCaliber(recipe.getCaliber());
-        existing.setCoal(recipe.getCoal());
-        existing.setDescription(recipe.getDescription());
-        existing.setPowderCharge(recipe.getPowderCharge());
-
+	    RecipeMapper.copyDTOToDomain(recipe, existing);
         recipeRepository.save(existing);
 
-        return recipeRepository.findOne(recipeId);
+	    return getRecipe(recipeId);
     }
 
-	public Batch createBatch(Integer recipeId, Batch batch)
+	public void deleteRecipeById(Integer id)
 	{
-		return batch;
+		recipeRepository.delete(id);
 	}
 
-    public Recipe saveRecipe(Recipe recipe)
-    {
-        recipe.setUserId(getCurrentUser());
 
-        Recipe rb = recipeRepository.save(recipe);
-
-        return getRecipe(rb.getId());
-    }
-
-    public void deleteRecipeById(Recipe recipe)
-    {
-        recipeRepository.delete(recipe);
-    }
-
+	// Logs
 	public Iterable<LogDTO> getLogs(Integer recipeId)
 	{
 		Recipe recipe = recipeRepository.findOne(recipeId);
