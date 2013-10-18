@@ -35,6 +35,7 @@ public class ComponentMapper
 				break;
 		}
 
+		dto.manufacturer = component.getManufacturer();
 		dto.amount = component.getAmount();
 		dto.cost = component.getCost();
 		dto.id = component.getId();
@@ -64,8 +65,10 @@ public class ComponentMapper
 	public static BulletDTO createBulletDTO(Component component)
 	{
 		BulletDTO dto = new BulletDTO();
-		dto.shape = "JPH";
-		dto.weight = new BigDecimal(165);
+		dto.shape = component.getShape();
+		dto.weight = component.getWeight();
+		dto.diameter = component.getDiameter();
+		dto.coefficient = component.getCoefficient();
 
 		return dto;
 	}
@@ -73,7 +76,7 @@ public class ComponentMapper
 	public static BrassDTO createBrassDTO(Component component)
 	{
 		BrassDTO dto = new BrassDTO();
-		dto.caseLength = new BigDecimal(12);
+		dto.caseLength = component.getLength();
 
 		return dto;
 	}
@@ -81,7 +84,7 @@ public class ComponentMapper
 	public static PowderDTO createPowderDTO(Component component)
 	{
 		PowderDTO dto = new PowderDTO();
-		dto.shape = "Ball";
+		dto.shape = component.getShape();
 
 		return dto;
 	}

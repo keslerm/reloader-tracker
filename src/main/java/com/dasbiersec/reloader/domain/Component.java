@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 public class Component extends AbstractEntity implements Serializable
 {
 
+	private String manufacturer;
+
 	@Column(name = "name")
 	private String name;
 
@@ -27,11 +29,81 @@ public class Component extends AbstractEntity implements Serializable
 	@Column(name = "user_id")
 	private Integer userId;
 
+
+
+	// Component specifics
+	private BigDecimal diameter;
+	private BigDecimal weight;
+	private String shape;
+	private BigDecimal length;
+	private BigDecimal coefficient;
+
+
 	public Component()	{}
 
 	public Component(Integer id)
 	{
 		this.setId(id);
+	}
+
+	public BigDecimal getCoefficient()
+	{
+		return coefficient;
+	}
+
+	public void setCoefficient(BigDecimal coefficient)
+	{
+		this.coefficient = coefficient;
+	}
+
+	public String getManufacturer()
+	{
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer)
+	{
+		this.manufacturer = manufacturer;
+	}
+
+	public BigDecimal getDiameter()
+	{
+		return diameter;
+	}
+
+	public void setDiameter(BigDecimal diameter)
+	{
+		this.diameter = diameter;
+	}
+
+	public BigDecimal getWeight()
+	{
+		return weight;
+	}
+
+	public void setWeight(BigDecimal weight)
+	{
+		this.weight = weight;
+	}
+
+	public String getShape()
+	{
+		return shape;
+	}
+
+	public void setShape(String shape)
+	{
+		this.shape = shape;
+	}
+
+	public BigDecimal getLength()
+	{
+		return length;
+	}
+
+	public void setLength(BigDecimal length)
+	{
+		this.length = length;
 	}
 
 	public Integer getUserId()
