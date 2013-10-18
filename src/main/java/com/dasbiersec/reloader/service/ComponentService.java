@@ -1,13 +1,18 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
+import com.dasbiersec.reloader.dto.component.ComponentDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.domain.Component;
+import com.dasbiersec.reloader.mapper.ComponentMapper;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ComponentService
@@ -17,27 +22,53 @@ public class ComponentService
 	@Autowired
 	private ComponentRepository componentRepository;
 
-	public Iterable<Component> getAllComponents()
+	public Iterable<ComponentDTO> getAllComponents()
 	{
 		Iterable<Component> components = componentRepository.findAll();
-		return components;
+
+		List<ComponentDTO> list = new ArrayList<ComponentDTO>();
+
+		for (Component comp : components)
+		{
+			list.add(ComponentMapper.domainToDTO(comp));
+		}
+
+		return list;
 	}
 
-	public Iterable<Component> getComponentByType(ComponentType type)
+	public Iterable<ComponentDTO> getComponentByType(ComponentType type)
 	{
-		return componentRepository.findComponentByType(type);
+		Iterable<Component> components =  componentRepository.findComponentByType(type);
+
+		List<ComponentDTO> list = new ArrayList<ComponentDTO>();
+
+		for (Component comp : components)
+		{
+			list.add(ComponentMapper.domainToDTO(comp));
+		}
+
+		return list;
 	}
 
-	public Component getComponentById(Integer id)
+	public ComponentDTO getComponentById(Integer id)
+	{
+		return ComponentMapper.domainToDTO(componentRepository.findOne(id));
+	}
+
+	public ComponentDTO createComponent(ComponentDTO dto)
+	{
+		Component component = new Component();
+		ComponentMapper.copyDTOtoDomain(dto, component);
+        return ComponentMapper.domainToDTO(componentRepository.save(component));
+	}
+
+	public ComponentDTO updateComponent(Integer id, ComponentDTO dto)
 	{
 		Component component = componentRepository.findOne(id);
-		return component;
-	}
+		ComponentMapper.copyDTOtoDomain(dto, component);
 
-	public Component saveComponent(Component component)
-	{
-        componentRepository.save(component);
-        return component;
+
+		return ComponentMapper.domainToDTO(componentRepository.save(component));
 	}
 
 	public void deleteComponentById(Integer id)

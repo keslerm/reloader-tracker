@@ -16,4 +16,12 @@ public class ComponentMapper
 
 		return dto;
 	}
+
+	public static void copyDTOtoDomain(ComponentDTO dto, Component component)
+	{
+		component.setAmount(dto.amount);
+		component.setCost(dto.cost);
+		component.setName(dto.name);
+		component.setType(dto.type);
+	}
 }

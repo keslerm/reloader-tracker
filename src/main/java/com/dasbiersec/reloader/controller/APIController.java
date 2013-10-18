@@ -1,8 +1,8 @@
 package com.dasbiersec.reloader.controller;
 
 import com.dasbiersec.reloader.domain.*;
+import com.dasbiersec.reloader.dto.component.ComponentDTO;
 import com.dasbiersec.reloader.dto.log.LogDTO;
-import com.dasbiersec.reloader.domain.Cost;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.service.BatchService;
@@ -12,12 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Controller
@@ -110,7 +107,6 @@ public class APIController
 
 
 
-
 	/****** Logs ******/
 	@RequestMapping(value = "recipes/{id}/logs", method = RequestMethod.GET)
 	@ResponseBody
@@ -142,32 +138,32 @@ public class APIController
 	/****** Components ******/
 	@RequestMapping(value = "components", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Iterable<Component>> getComponents()
+	public ResponseEntity<Iterable<ComponentDTO>> getComponents()
 	{
-		Iterable<Component> components = componentService.getAllComponents();
-		return new ResponseEntity<Iterable<Component>>(components, HttpStatus.OK);
+		Iterable<ComponentDTO> components = componentService.getAllComponents();
+		return new ResponseEntity<Iterable<ComponentDTO>>(components, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Component> getComponent(@PathVariable Integer id)
+	public ResponseEntity<ComponentDTO> getComponent(@PathVariable Integer id)
 	{
-		return new ResponseEntity<Component>(componentService.getComponentById(id), HttpStatus.OK);
+		return new ResponseEntity<ComponentDTO>(componentService.getComponentById(id), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Void> createComponent(@RequestBody Component componentDTO)
+	public ResponseEntity<Void> createComponent(@RequestBody ComponentDTO componentDTO)
 	{
-		componentService.saveComponent(componentDTO);
+		componentService.createComponent(componentDTO);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
     @RequestMapping(value = "components/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<Void> saveComponent(@PathVariable Integer id, @RequestBody Component componentDTO)
+    public ResponseEntity<Void> saveComponent(@PathVariable Integer id, @RequestBody ComponentDTO componentDTO)
     {
-        componentService.saveComponent(componentDTO);
+	    componentService.updateComponent(id, componentDTO);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
@@ -181,8 +177,8 @@ public class APIController
 
 	@RequestMapping(value = "components/type/{type}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Iterable<Component>> searchForComponents(@PathVariable ComponentType type)
+	public ResponseEntity<Iterable<ComponentDTO>> searchForComponents(@PathVariable ComponentType type)
 	{
-		return new ResponseEntity<Iterable<Component>>(componentService.findComponentByType(type), HttpStatus.OK);
+		return new ResponseEntity<Iterable<ComponentDTO>>(componentService.getComponentByType(type), HttpStatus.OK);
 	}
 }
