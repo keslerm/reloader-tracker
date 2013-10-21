@@ -4,7 +4,7 @@ Bug Fixes:
 
 
 Features:
-  - Components now have component specific details( e.g. bullet shape/weight, powder shape, case lenght ect)
+  - Components now have component specific details ( e.g. bullet shape/weight, powder shape, case length ect)
 
 ## 1.2.0 (2013-10-16)
 

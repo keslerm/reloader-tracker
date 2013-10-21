@@ -45,21 +45,37 @@ public class ComponentMapper
 		return dto;
 	}
 
-	public static void copyDomainToDTO(Component component, ComponentDTO dto)
-	{
-		dto.amount = component.getAmount();
-		dto.cost = component.getCost();
-		dto.id = component.getId();
-		dto.name = component.getName();
-		dto.type = component.getType();
-	}
-
 	public static void copyDTOtoDomain(ComponentDTO dto, Component component)
 	{
+		// Maybe not the best way of doing this but quickest way I can think of
+		// to get this going.
+		if (dto instanceof BrassDTO)
+		{
+			component.setLength(((BrassDTO) dto).caseLength);
+			component.setType(ComponentType.Brass);
+		}
+		else if (dto instanceof BulletDTO)
+		{
+			component.setShape(((BulletDTO) dto).shape);
+			component.setWeight(((BulletDTO) dto).weight);
+			component.setDiameter(((BulletDTO) dto).diameter);
+			component.setCoefficient(((BulletDTO) dto).coefficient);
+			component.setType(ComponentType.Bullet);
+		}
+		else if (dto instanceof PowderDTO)
+		{
+			component.setShape(((PowderDTO) dto).shape);
+			component.setType(ComponentType.Powder);
+		}
+		else if (dto instanceof PrimerDTO)
+		{
+			component.setType(ComponentType.Primer);
+		}
+
 		component.setAmount(dto.amount);
 		component.setCost(dto.cost);
 		component.setName(dto.name);
-		component.setType(dto.type);
+		component.setManufacturer(dto.manufacturer);
 	}
 
 	public static BulletDTO createBulletDTO(Component component)
