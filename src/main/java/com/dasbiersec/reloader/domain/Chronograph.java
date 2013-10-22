@@ -9,12 +9,44 @@ public class Chronograph
 {
 	private List<Integer> fps;
 
+	private BigDecimal bulletWeight;
+
+	public void setBulletWeight(BigDecimal bulletWeight)
+	{
+		this.bulletWeight = bulletWeight;
+	}
+
 	public Chronograph(List<Integer> fps)
 	{
 		this.fps = fps;
 
 		if (fps != null)
 			Collections.sort(this.fps);
+	}
+
+	public Chronograph(List<Integer> fps, BigDecimal bulletWeight)
+	{
+		this.fps = fps;
+
+		if (fps != null)
+			Collections.sort(this.fps);
+
+		this.bulletWeight = bulletWeight;
+	}
+
+	public BigDecimal getMuzzleEnergy()
+	{
+		BigDecimal avg = getAverage();
+
+		if (avg == null)
+			return null;
+
+		BigDecimal energy;
+
+		energy = bulletWeight.multiply(avg).multiply(avg);
+		energy = energy.divide(new BigDecimal(450240), 2, RoundingMode.HALF_UP);
+
+		return energy;
 	}
 
 	public Integer getHigh()

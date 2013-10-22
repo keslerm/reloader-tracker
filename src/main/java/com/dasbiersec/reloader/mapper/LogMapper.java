@@ -54,6 +54,7 @@ public class LogMapper
 		dto.low = domain.getLow();
 		dto.variance = domain.getVariance();
 		dto.standardDeviation = domain.getStandardDeviation();
+		dto.muzzleEnergy = domain.getMuzzleEnergy();
 		return dto;
 	}
 }
