@@ -38,7 +38,7 @@ public class Chronograph
 	{
 		BigDecimal avg = getAverage();
 
-		if (avg == null)
+		if (avg == null || bulletWeight == null)
 			return null;
 
 		BigDecimal energy;
