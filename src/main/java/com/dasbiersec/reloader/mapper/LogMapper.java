@@ -18,7 +18,7 @@ public class LogMapper
 		log.shotsInGroup = entity.getShotsInGroup();
 		log.targetDistance = entity.getTargetDistance();
 
-		log.chronograph = domainToDTO(new Chronograph(entity.getFps()));
+		log.chronograph = domainToDTO(entity.getChronograph());
 		log.chronograph.fps = entity.getFps();
 
 		return log;
