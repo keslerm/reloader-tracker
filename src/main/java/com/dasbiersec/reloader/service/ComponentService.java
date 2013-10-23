@@ -1,6 +1,6 @@
 package com.dasbiersec.reloader.service;
 
-import com.dasbiersec.reloader.auth.AccountDetails;
+import com.dasbiersec.reloader.auth.UserDetails;
 import com.dasbiersec.reloader.dto.component.ComponentDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.domain.Component;
@@ -77,7 +77,7 @@ public class ComponentService
 
     private Integer getCurrentUser()
     {
-        AccountDetails accountDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return accountDetails.getId();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getId();
     }
 }

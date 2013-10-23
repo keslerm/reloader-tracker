@@ -1,9 +1,9 @@
 package com.dasbiersec.reloader.service;
 
-import com.dasbiersec.reloader.auth.AccountDetails;
-import com.dasbiersec.reloader.domain.Account;
+import com.dasbiersec.reloader.auth.UserDetails;
+import com.dasbiersec.reloader.domain.User;
 import com.dasbiersec.reloader.dto.user.RegisterDTO;
-import com.dasbiersec.reloader.repos.AccountRepository;
+import com.dasbiersec.reloader.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,17 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AccountService implements UserDetailsService
+public class UserService implements UserDetailsService
 {
 	@Autowired
-	private AccountRepository userRepository;
+	private UserRepository userRepository;
 
 	@Override
-	public AccountDetails loadUserByUsername(String s) throws UsernameNotFoundException
+	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException
 	{
-		Account account = userRepository.findUserByUsername(s);
+		User username = userRepository.findUserByUsername(s);
 
-		if (account == null)
+		if (username == null)
 			throw new UsernameNotFoundException("Enter a username and password");
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -33,15 +33,15 @@ public class AccountService implements UserDetailsService
 		authorities.add(new SimpleGrantedAuthority("ROLE_API"));
 
 
-		AccountDetails user = new AccountDetails(account.getUsername(), account.getPassword(), true, true, true, true, authorities);
-        user.setId(account.getId());
+		UserDetails user = new UserDetails(username.getUsername(), username.getPassword(), true, true, true, true, authorities);
+        user.setId(username.getId());
 
 		return user;
 	}
 
 	public void registerUser(RegisterDTO dto)
 	{
-		Account account = new Account();
+		User account = new User();
 		account.setUsername(dto.username);
 		account.setPassword(dto.password);
 

@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class Account extends AbstractEntity
+public class User extends AbstractEntity
 {
 
 	@Column(name = "username")

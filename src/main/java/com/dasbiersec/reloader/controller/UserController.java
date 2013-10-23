@@ -1,7 +1,7 @@
 package com.dasbiersec.reloader.controller;
 
 import com.dasbiersec.reloader.dto.user.RegisterDTO;
-import com.dasbiersec.reloader.service.AccountService;
+import com.dasbiersec.reloader.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController
 {
 	@Autowired
-	private AccountService accountService;
+	private UserService userService;
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	@ResponseBody
 	public void register(@RequestBody RegisterDTO dto)
 	{
-		accountService.registerUser(dto);
+		userService.registerUser(dto);
 	}
 }

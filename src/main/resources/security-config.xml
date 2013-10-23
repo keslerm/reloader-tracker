@@ -36,7 +36,7 @@
     -->
 
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider user-service-ref="accountService" />
+        <security:authentication-provider user-service-ref="userService" />
     </security:authentication-manager>
 
 </beans>
