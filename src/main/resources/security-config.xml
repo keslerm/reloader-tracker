@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <context:component-scan base-package="com.dasbiersec.reloader.auth" />
+    <context:component-scan base-package="com.dasbiersec.reloader.auth, com.dasbiersec.reloader.service" />
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
@@ -20,6 +20,7 @@
     <security:http pattern="/login/error" security="none" />
     <security:http pattern="/favicon.ico" security="none" />
     <security:http pattern="/resources/**" security="none" />
+    <security:http pattern="/user/register" security="none" />
 
     <security:http pattern="/api/**" create-session="stateless">
         <security:http-basic />
@@ -35,7 +36,7 @@
     -->
 
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider user-service-ref="userServiceImpl" />
+        <security:authentication-provider user-service-ref="accountService" />
     </security:authentication-manager>
 
 </beans>

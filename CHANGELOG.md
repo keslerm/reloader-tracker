@@ -1,3 +1,11 @@
+## 1.3.2
+
+Bug Fixes:
+  - Components are now user specific.
+
+Features:
+  - Basic user registration through user/register
+
 ## 1.3.1
 
 Features:

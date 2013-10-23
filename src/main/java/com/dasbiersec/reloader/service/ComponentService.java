@@ -24,7 +24,7 @@ public class ComponentService
 
 	public Iterable<ComponentDTO> getAllComponents()
 	{
-		Iterable<Component> components = componentRepository.findAll();
+		Iterable<Component> components = componentRepository.findAllByUserId(getCurrentUser());
 
 		List<ComponentDTO> list = new ArrayList<ComponentDTO>();
 
@@ -38,7 +38,7 @@ public class ComponentService
 
 	public Iterable<ComponentDTO> getComponentByType(ComponentType type)
 	{
-		Iterable<Component> components =  componentRepository.findComponentByType(type);
+		Iterable<Component> components =  componentRepository.findComponentByUserIdAndType(getCurrentUser(), type);
 
 		List<ComponentDTO> list = new ArrayList<ComponentDTO>();
 
@@ -52,12 +52,13 @@ public class ComponentService
 
 	public ComponentDTO getComponentById(Integer id)
 	{
-		return ComponentMapper.domainToDTO(componentRepository.findOne(id));
+		return ComponentMapper.domainToDTO(componentRepository.findOneByUserIdAndId(getCurrentUser(), id));
 	}
 
 	public ComponentDTO createComponent(ComponentDTO dto)
 	{
 		Component component = new Component();
+		component.setUserId(getCurrentUser());
 		ComponentMapper.copyDTOtoDomain(dto, component);
         return ComponentMapper.domainToDTO(componentRepository.save(component));
 	}
@@ -66,20 +67,12 @@ public class ComponentService
 	{
 		Component component = componentRepository.findOne(id);
 		ComponentMapper.copyDTOtoDomain(dto, component);
-
-
 		return ComponentMapper.domainToDTO(componentRepository.save(component));
 	}
 
 	public void deleteComponentById(Integer id)
 	{
 		componentRepository.delete(id);
-	}
-
-	public Iterable<Component> findComponentByType(ComponentType type)
-	{
-		Iterable<Component> components = componentRepository.findComponentByType(type);
-		return components;
 	}
 
     private Integer getCurrentUser()

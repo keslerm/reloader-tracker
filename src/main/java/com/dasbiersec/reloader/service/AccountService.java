@@ -2,7 +2,8 @@ package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.AccountDetails;
 import com.dasbiersec.reloader.domain.Account;
-import com.dasbiersec.reloader.repos.UserRepository;
+import com.dasbiersec.reloader.dto.user.RegisterDTO;
+import com.dasbiersec.reloader.repos.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserDetailsService
+public class AccountService implements UserDetailsService
 {
 	@Autowired
-	private UserRepository userRepository;
+	private AccountRepository userRepository;
 
 	@Override
 	public AccountDetails loadUserByUsername(String s) throws UsernameNotFoundException
@@ -37,6 +38,16 @@ public class UserServiceImpl implements UserDetailsService
         user.setId(account.getId());
 
 		return user;
+	}
+
+	public void registerUser(RegisterDTO dto)
+	{
+		Account account = new Account();
+		account.setApiEnabled(true);
+		account.setUsername(dto.username);
+		account.setPassword(dto.password);
+
+		userRepository.save(account);
 	}
 }
 
