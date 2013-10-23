@@ -104,6 +104,9 @@ public class Log extends AbstractEntity
 
 	public Chronograph getChronograph()
 	{
+		if (recipe.getBullet() != null)
+			return new Chronograph(fps, recipe.getBullet().getWeight());
+
 		return new Chronograph(fps);
 	}
 }

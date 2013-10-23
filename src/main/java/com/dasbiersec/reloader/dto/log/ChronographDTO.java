@@ -11,6 +11,7 @@ public class ChronographDTO
 	public BigDecimal average;
 	public BigDecimal variance;
 	public BigDecimal standardDeviation;
+	public BigDecimal muzzleEnergy;
 
 	public List<Integer> fps;
 }
