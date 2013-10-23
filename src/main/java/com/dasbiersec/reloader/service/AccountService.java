@@ -30,9 +30,8 @@ public class AccountService implements UserDetailsService
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		authorities.add(new SimpleGrantedAuthority("ROLE_API"));
 
-		if (account != null && account.isApiEnabled())
-			authorities.add(new SimpleGrantedAuthority("ROLE_API"));
 
 		AccountDetails user = new AccountDetails(account.getUsername(), account.getPassword(), true, true, true, true, authorities);
         user.setId(account.getId());
@@ -43,7 +42,6 @@ public class AccountService implements UserDetailsService
 	public void registerUser(RegisterDTO dto)
 	{
 		Account account = new Account();
-		account.setApiEnabled(true);
 		account.setUsername(dto.username);
 		account.setPassword(dto.password);
 

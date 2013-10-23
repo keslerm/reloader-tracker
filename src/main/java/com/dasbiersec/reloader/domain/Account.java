@@ -14,19 +14,6 @@ public class Account extends AbstractEntity
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "is_api")
-	private boolean isApiEnabled;
-
-	public boolean isApiEnabled()
-	{
-		return isApiEnabled;
-	}
-
-	public void setApiEnabled(boolean apiEnabled)
-	{
-		isApiEnabled = apiEnabled;
-	}
-
 	public String getUsername()
 	{
 		return username;
