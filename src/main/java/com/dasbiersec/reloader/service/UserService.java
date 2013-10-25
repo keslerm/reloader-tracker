@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -48,6 +49,10 @@ public class UserService implements UserDetailsService
 		User account = new User();
 		account.setUsername(dto.username);
 		account.setPassword(dto.password);
+
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(new Role("ROLE_USER"));
+		account.setRole(roles);
 
 		userRepository.save(account);
 	}
