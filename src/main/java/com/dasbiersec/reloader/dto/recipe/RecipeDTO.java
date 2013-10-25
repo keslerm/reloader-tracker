@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class RecipeDTO
 {
 	public Integer id;
+	public Integer userId;
 	public String description;
 
 	public BulletDTO bullet;

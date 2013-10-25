@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,8 +40,7 @@ public class APIController
 	}
 
 	@RequestMapping(value = "recipes/{id}", method = RequestMethod.GET)
-    @ResponseBody
-	public ResponseEntity<RecipeDTO> getRecipe(@PathVariable Integer id)
+	public @ResponseBody ResponseEntity<RecipeDTO> getRecipe(@PathVariable Integer id)
 	{
 		RecipeDTO recipe = recipeService.getRecipe(id);
 

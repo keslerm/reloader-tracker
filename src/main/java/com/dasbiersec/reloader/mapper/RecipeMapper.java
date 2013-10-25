@@ -13,6 +13,7 @@ public class RecipeMapper
 	public static RecipeDTO domainToDTO(Recipe recipe)
 	{
 		RecipeDTO dto = new RecipeDTO();
+		dto.userId = recipe.getUserId();
 		dto.brass = (BrassDTO) ComponentMapper.domainToDTO(recipe.getBrass());
 		dto.bullet = (BulletDTO) ComponentMapper.domainToDTO(recipe.getBullet());
 		dto.id = recipe.getId();
