@@ -20,11 +20,16 @@
     <security:http pattern="/login/error" security="none" />
     <security:http pattern="/favicon.ico" security="none" />
     <security:http pattern="/resources/**" security="none" />
-    <security:http pattern="/user/register" security="none" />
+    <security:http pattern="/users/register" security="none" />
+
+    <security:http pattern="/users/**" create-session="stateless">
+        <security:http-basic />
+        <security:intercept-url pattern="/**" access="ROLE_ADMIN" />
+    </security:http>
 
     <security:http pattern="/api/**" create-session="stateless">
         <security:http-basic />
-        <security:intercept-url pattern="/**" access="ROLE_API" />
+        <security:intercept-url pattern="/**" access="ROLE_USER" />
     </security:http>
 
     <!--

@@ -1,6 +1,7 @@
 package com.dasbiersec.reloader.service;
 
 import com.dasbiersec.reloader.auth.UserDetails;
+import com.dasbiersec.reloader.domain.Role;
 import com.dasbiersec.reloader.domain.User;
 import com.dasbiersec.reloader.dto.user.RegisterDTO;
 import com.dasbiersec.reloader.repos.UserRepository;
@@ -29,8 +30,11 @@ public class UserService implements UserDetailsService
 			throw new UsernameNotFoundException("Enter a username and password");
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		authorities.add(new SimpleGrantedAuthority("ROLE_API"));
+
+		for (Role role : username.getRole())
+		{
+			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+		}
 
 
 		UserDetails user = new UserDetails(username.getUsername(), username.getPassword(), true, true, true, true, authorities);
@@ -46,6 +50,11 @@ public class UserService implements UserDetailsService
 		account.setPassword(dto.password);
 
 		userRepository.save(account);
+	}
+
+	public void deleteUser(Integer id)
+	{
+		userRepository.delete(id);
 	}
 }
 
