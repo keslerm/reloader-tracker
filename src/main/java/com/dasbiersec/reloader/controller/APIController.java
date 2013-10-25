@@ -42,7 +42,12 @@ public class APIController
     @ResponseBody
 	public ResponseEntity<RecipeDTO> getRecipe(@PathVariable Integer id)
 	{
-		return new ResponseEntity<RecipeDTO>(recipeService.getRecipe(id), HttpStatus.OK);
+		RecipeDTO recipe = recipeService.getRecipe(id);
+
+		if (recipe == null)
+			return new ResponseEntity<RecipeDTO>(HttpStatus.NOT_FOUND);
+
+		return new ResponseEntity<RecipeDTO>(recipe, HttpStatus.OK);
 	}
 
     @RequestMapping(value = "recipes", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })

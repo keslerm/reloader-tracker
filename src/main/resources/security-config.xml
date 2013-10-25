@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <context:component-scan base-package="com.dasbiersec.reloader.auth, com.dasbiersec.reloader.service" />
+    <context:component-scan base-package="com.dasbiersec.reloader.auth" />
 
     <security:global-method-security pre-post-annotations="enabled"/>
 

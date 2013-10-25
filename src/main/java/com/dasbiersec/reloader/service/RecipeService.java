@@ -30,11 +30,6 @@ public class RecipeService
 	@Autowired
 	private LogRepository logRepository;
 
-	@Autowired
-	private ComponentRepository componentRepository;
-
-
-	// Recipes
 	public Iterable<RecipeDTO> getAllRecipes()
 	{
 		Iterable<Recipe> recipes = recipeRepository.findAllByUserId(getCurrentUser());
@@ -52,6 +47,10 @@ public class RecipeService
     public RecipeDTO getRecipe(Integer id)
     {
         Recipe recipe = recipeRepository.findByIdAndUserId(id, getCurrentUser());
+
+	    if (recipe == null)
+		    return null;
+
 	    return RecipeMapper.domainToDTO(recipe);
     }
 
