@@ -1,6 +1,8 @@
 package com.dasbiersec.reloader.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -9,6 +11,20 @@ public class Role extends AbstractEntity
 {
 	private String name;
 
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public User getUser()
+	{
+		return user;
+	}
+
 	public Role()
 	{
 	}
@@ -16,15 +32,5 @@ public class Role extends AbstractEntity
 	public Role(String name)
 	{
 		this.name = name;
-	}
-
-	public String getRoleName()
-	{
-		return name;
-	}
-
-	public void setRoleName(String roleName)
-	{
-		this.name = roleName;
 	}
 }

@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService
 
 		for (Role role : username.getRole())
 		{
-			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
 		}
 
 
@@ -50,9 +50,7 @@ public class UserService implements UserDetailsService
 		account.setUsername(dto.username);
 		account.setPassword(dto.password);
 
-		List<Role> roles = new ArrayList<Role>();
-		roles.add(new Role("ROLE_USER"));
-		account.setRole(roles);
+		account.addRole(new Role("ROLE_USER"));
 
 		userRepository.save(account);
 	}
