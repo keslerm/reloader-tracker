@@ -1,10 +1,11 @@
-## 1.3.2
+## 1.4.0
 
 Bug Fixes:
   - Components are now user specific.
 
 Features:
   - Basic user registration through user/register
+  - Very basic user roles assigned via database
 
 ## 1.3.1
 
