@@ -13,6 +13,7 @@ import com.dasbiersec.reloader.repos.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,11 @@ public class RecipeService
 	@Autowired
 	private LogRepository logRepository;
 
+
+	@PostFilter("hasRole('ROLE_ADMIN') || filterObject.userId == principal.id")
 	public Iterable<RecipeDTO> getAllRecipes()
 	{
-		Iterable<Recipe> recipes = recipeRepository.findAllByUserId(getCurrentUser());
+		Iterable<Recipe> recipes = recipeRepository.findAll();
 
 		List<RecipeDTO> dto = new ArrayList<RecipeDTO>();
 
@@ -46,7 +49,7 @@ public class RecipeService
 		return dto;
 	}
 
-	@PreAuthorize("hasRole('ROLE_SUPER')")
+	@PostAuthorize("hasRole('ROLE_ADMIN') || returnObject == null || returnObject.userId == principal.id")
     public RecipeDTO getRecipe(Integer id)
     {
         Recipe recipe = recipeRepository.findOne(id);

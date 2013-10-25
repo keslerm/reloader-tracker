@@ -51,8 +51,7 @@ public class APIController
 	}
 
     @RequestMapping(value = "recipes", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
-    @ResponseBody
-    public ResponseEntity<Void> createRecipe(@RequestBody RecipeDTO recipe)
+    public @ResponseBody ResponseEntity<Void> createRecipe(@RequestBody RecipeDTO recipe)
     {
 	    recipeService.createRecipe(recipe);
 
@@ -60,8 +59,7 @@ public class APIController
     }
 
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public ResponseEntity<Void> updateRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
+    public @ResponseBody ResponseEntity<Void> updateRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
     {
         recipeService.saveRecipe(id, recipe);
 
@@ -69,8 +67,7 @@ public class APIController
     }
 
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public ResponseEntity<Void> deleteRecipe(@PathVariable("id") Integer id)
+    public @ResponseBody ResponseEntity<Void> deleteRecipe(@PathVariable("id") Integer id)
     {
         RecipeDTO recipe = recipeService.getRecipe(id);
 

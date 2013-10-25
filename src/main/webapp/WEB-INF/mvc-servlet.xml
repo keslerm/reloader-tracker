@@ -11,7 +11,6 @@
 
     <context:component-scan base-package="com.dasbiersec.reloader.controller" />
     <context:component-scan base-package="com.dasbiersec.reloader.exception" />
-    <context:component-scan base-package="com.dasbiersec.reloader.service" />
 
     <!--<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />-->
     <mvc:annotation-driven />
