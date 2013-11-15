@@ -5,17 +5,21 @@ import com.dasbiersec.reloader.domain.Log;
 import com.dasbiersec.reloader.dto.log.LogDTO;
 import com.dasbiersec.reloader.domain.Recipe;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
+import com.dasbiersec.reloader.helper.SecurityHelper;
 import com.dasbiersec.reloader.mapper.LogMapper;
 import com.dasbiersec.reloader.mapper.RecipeMapper;
 import com.dasbiersec.reloader.repos.ComponentRepository;
 import com.dasbiersec.reloader.repos.LogRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
+import com.sun.servicetag.UnauthorizedAccessException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -64,7 +68,7 @@ public class RecipeService
     {
 	    Recipe recipe = new Recipe();
 	    RecipeMapper.copyDTOToDomain(dto, recipe);
-        recipe.setUserId(getCurrentUser());
+        recipe.setUserId(SecurityHelper.getCurrentUserId());
         Recipe saved = recipeRepository.save(recipe);
         return getRecipe(saved.getId());
     }
@@ -73,15 +77,23 @@ public class RecipeService
     {
         Recipe existing = recipeRepository.findOne(recipeId);
 
+	    if (existing.getUserId() != SecurityHelper.getCurrentUserId())
+		    throw new AccessDeniedException("Access is denied");
+
 	    RecipeMapper.copyDTOToDomain(recipe, existing);
         recipeRepository.save(existing);
 
 	    return getRecipe(recipeId);
     }
 
-	public void deleteRecipeById(Integer id)
+	public void deleteRecipeById(Integer recipeId)
 	{
-		recipeRepository.delete(id);
+		Recipe existing = recipeRepository.findOne(recipeId);
+
+		if (existing.getUserId() != SecurityHelper.getCurrentUserId())
+			throw new AccessDeniedException("Access is denied");
+
+		recipeRepository.delete(recipeId);
 	}
 
 
@@ -129,11 +141,5 @@ public class RecipeService
 	    logRepository.save(existing);
 
         return LogMapper.domainToDTO(logRepository.findOne(logId));
-    }
-
-    private Integer getCurrentUser()
-    {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getId();
     }
 }
