@@ -1,10 +1,13 @@
 package com.dasbiersec.reloader.service;
 
+import com.dasbiersec.reloader.domain.Batch;
 import com.dasbiersec.reloader.domain.Log;
 import com.dasbiersec.reloader.domain.Recipe;
+import com.dasbiersec.reloader.dto.batch.BatchDTO;
 import com.dasbiersec.reloader.dto.log.LogDTO;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 import com.dasbiersec.reloader.helper.SecurityHelper;
+import com.dasbiersec.reloader.mapper.BatchMapper;
 import com.dasbiersec.reloader.mapper.LogMapper;
 import com.dasbiersec.reloader.mapper.RecipeMapper;
 import com.dasbiersec.reloader.repos.RecipeRepository;
@@ -15,8 +18,6 @@ import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @Service
 public class RecipeService
 {
@@ -24,7 +25,6 @@ public class RecipeService
 
     @Autowired
     private RecipeRepository recipeRepository;
-
 
 	@PostFilter("hasRole('ROLE_ADMIN') || filterObject.userId == principal.id")
 	public Iterable<Recipe> getAllRecipes()
@@ -69,13 +69,10 @@ public class RecipeService
     @PreAuthorize("hasRole('ROLE_ADMIN') || #recipe.userId == principal.id")
 	public Log createLog(Recipe recipe, LogDTO log)
 	{
-		if (recipe.getLogs() == null)
-			recipe.setLogs(new ArrayList<Log>());
-
 		Log entity = LogMapper.dtoToDomain(log);
-
 		entity.setRecipe(recipe);
-		recipe.getLogs().add(entity);
+
+        recipe.addLog(entity);
 
 		recipeRepository.save(recipe);
 
@@ -95,5 +92,30 @@ public class RecipeService
         recipeRepository.save(recipe);
 
         return log;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #recipe.userId == principal.id")
+    public Batch createBatch(Recipe recipe, BatchDTO batch)
+    {
+        Batch entity = BatchMapper.dtoToDomain(batch);
+        entity.setRecipe(recipe);
+
+        recipe.addBatch(entity);
+
+        recipeRepository.save(recipe);
+
+        return entity;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #recipe.userId == principal.id")
+    public Batch saveBatch(Recipe recipe, Integer batchId, BatchDTO dto)
+    {
+        Batch batch = recipe.getBatch(batchId);
+
+        BatchMapper.copyDTOtoDomain(dto, batch);
+
+        recipeRepository.save(recipe);
+
+        return batch;
     }
 }
