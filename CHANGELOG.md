@@ -2,10 +2,12 @@
 
 Bug Fixes:
   - Components are now user specific.
+  - Lots of security related fixes around domain objects. 
 
 Features:
   - Basic user registration through user/register
   - Very basic user roles assigned via database
+
 
 ## 1.3.1
 

@@ -80,6 +80,17 @@ public class Recipe extends AbstractEntity implements Serializable
 		this.logs = logs;
 	}
 
+    public Log getLog(Integer id)
+    {
+        for (Log log : logs)
+        {
+            if (log.getId().equals(id))
+                return log;
+        }
+
+        return null;
+    }
+
     public Cost getCost()
     {
         return new Cost(this);

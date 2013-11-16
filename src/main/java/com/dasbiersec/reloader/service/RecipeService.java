@@ -7,19 +7,15 @@ import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 import com.dasbiersec.reloader.helper.SecurityHelper;
 import com.dasbiersec.reloader.mapper.LogMapper;
 import com.dasbiersec.reloader.mapper.RecipeMapper;
-import com.dasbiersec.reloader.repos.LogRepository;
 import com.dasbiersec.reloader.repos.RecipeRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class RecipeService
@@ -28,9 +24,6 @@ public class RecipeService
 
     @Autowired
     private RecipeRepository recipeRepository;
-
-	@Autowired
-	private LogRepository logRepository;
 
 
 	@PostFilter("hasRole('ROLE_ADMIN') || filterObject.userId == principal.id")
@@ -73,27 +66,9 @@ public class RecipeService
 		recipeRepository.delete(recipe);
 	}
 
-
-	// Logs
-	public Iterable<LogDTO> getLogs(Integer recipeId)
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #recipe.userId == principal.id")
+	public Log createLog(Recipe recipe, LogDTO log)
 	{
-		Recipe recipe = getRecipe(recipeId);
-
-		List<LogDTO> logs = new ArrayList<LogDTO>();
-
-		for (Log entity : recipe.getLogs())
-		{
-			LogDTO log = LogMapper.domainToDTO(entity);
-			logs.add(log);
-		}
-
-		return logs;
-	}
-
-	public LogDTO createLog(Integer recipeId, LogDTO log)
-	{
-		Recipe recipe = getRecipe(recipeId);
-
 		if (recipe.getLogs() == null)
 			recipe.setLogs(new ArrayList<Log>());
 
@@ -104,19 +79,21 @@ public class RecipeService
 
 		recipeRepository.save(recipe);
 
-		return LogMapper.domainToDTO(entity);
+		return entity;
 	}
 
-    public LogDTO saveLog(Integer logId, LogDTO dto)
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #recipe.userId == principal.id")
+    public Log saveLog(Recipe recipe, Integer logId, LogDTO dto)
     {
-        Log existing = logRepository.findOne(logId);
+        // fetch log from recipe
+        Log log = recipe.getLog(logId);
 
-        if (existing == null)
-            throw new EntityNotFoundException("No log with id " + logId + " found");
+        // update entity with dto
+        LogMapper.copyDTOToDomain(dto, log);
 
-	    LogMapper.copyDTOToDomain(dto, existing);
-	    logRepository.save(existing);
+        // save recipe
+        recipeRepository.save(recipe);
 
-        return LogMapper.domainToDTO(logRepository.findOne(logId));
+        return log;
     }
 }

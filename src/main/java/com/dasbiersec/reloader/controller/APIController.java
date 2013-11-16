@@ -5,6 +5,7 @@ import com.dasbiersec.reloader.dto.component.ComponentDTO;
 import com.dasbiersec.reloader.dto.log.LogDTO;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
+import com.dasbiersec.reloader.mapper.LogMapper;
 import com.dasbiersec.reloader.mapper.RecipeMapper;
 import com.dasbiersec.reloader.service.BatchService;
 import com.dasbiersec.reloader.service.ComponentService;
@@ -112,26 +113,43 @@ public class APIController
 	@ResponseBody
 	public ResponseEntity<Iterable<LogDTO>> getLogs(@PathVariable Integer id)
 	{
-		Iterable<LogDTO> notes = recipeService.getLogs(id);
-		return new ResponseEntity<Iterable<LogDTO>>(notes, HttpStatus.OK);
+        Recipe recipe = recipeService.getRecipe(id);
+
+        List<LogDTO> logs = LogMapper.domainToDTO(recipe.getLogs());
+
+		return new ResponseEntity<Iterable<LogDTO>>(logs, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "recipes/{recipeId}/logs", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Void> createLog(@PathVariable Integer recipeId, @RequestBody LogDTO log)
 	{
-		recipeService.createLog(recipeId, log);
+        Recipe recipe = recipeService.getRecipe(recipeId);
+
+		recipeService.createLog(recipe, log);
+
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "recipes/*/logs/{logId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "recipes/{recipeId}/logs/{logId}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<Void> updateLog(@PathVariable Integer logId, @RequestBody LogDTO log)
+	public ResponseEntity<Void> updateLog(@PathVariable Integer recipeId, @PathVariable Integer logId, @RequestBody LogDTO log)
 	{
-		recipeService.saveLog(logId, log);
+        Recipe recipe = recipeService.getRecipe(recipeId);
+		recipeService.saveLog(recipe, logId, log);
+
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+    @RequestMapping(value = "recipes/{recipeId}/logs/{logId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<LogDTO> getLog(@PathVariable Integer recipeId, @PathVariable Integer logId)
+    {
+        Recipe recipe = recipeService.getRecipe(recipeId);
+        Log log = recipe.getLog(logId);
+
+        return new ResponseEntity<LogDTO>(LogMapper.domainToDTO(log), HttpStatus.OK);
+    }
 
 
 
