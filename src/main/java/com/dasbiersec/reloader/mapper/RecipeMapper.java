@@ -8,12 +8,14 @@ import com.dasbiersec.reloader.dto.component.BulletDTO;
 import com.dasbiersec.reloader.dto.recipe.CostDTO;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecipeMapper
 {
 	public static RecipeDTO domainToDTO(Recipe recipe)
 	{
 		RecipeDTO dto = new RecipeDTO();
-		dto.userId = recipe.getUserId();
 		dto.brass = (BrassDTO) ComponentMapper.domainToDTO(recipe.getBrass());
 		dto.bullet = (BulletDTO) ComponentMapper.domainToDTO(recipe.getBullet());
 		dto.id = recipe.getId();
@@ -55,4 +57,16 @@ public class RecipeMapper
 		dto.total = cost.getTotalCost();
 		return dto;
 	}
+
+    public static List<RecipeDTO> domainToDTO(Iterable<Recipe> recipes)
+    {
+        List<RecipeDTO> dto = new ArrayList<RecipeDTO>();
+
+        for (Recipe recipe : recipes)
+        {
+            dto.add(RecipeMapper.domainToDTO(recipe));
+        }
+
+        return dto;
+    }
 }

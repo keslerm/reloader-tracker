@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -33,32 +34,21 @@ public class RecipeService
 
 
 	@PostFilter("hasRole('ROLE_ADMIN') || filterObject.userId == principal.id")
-	public Iterable<RecipeDTO> getAllRecipes()
+	public Iterable<Recipe> getAllRecipes()
 	{
 		Iterable<Recipe> recipes = recipeRepository.findAll();
-
-		List<RecipeDTO> dto = new ArrayList<RecipeDTO>();
-
-		for (Recipe recipe : recipes)
-		{
-			dto.add(RecipeMapper.domainToDTO(recipe));
-		}
-
-		return dto;
+		return recipes;
 	}
 
 	@PostAuthorize("hasRole('ROLE_ADMIN') || returnObject == null || returnObject.userId == principal.id")
-    public RecipeDTO getRecipe(Integer id)
+    public Recipe getRecipe(Integer id)
     {
         Recipe recipe = recipeRepository.findOne(id);
-
-	    if (recipe == null)
-		    return null;
-
-	    return RecipeMapper.domainToDTO(recipe);
+        return recipe;
     }
 
-    public RecipeDTO createRecipe(RecipeDTO dto)
+    @PostAuthorize("hasRole('ROLE_ADMIN') || returnObject.userId == principal.id")
+    public Recipe createRecipe(RecipeDTO dto)
     {
 	    Recipe recipe = new Recipe();
 	    RecipeMapper.copyDTOToDomain(dto, recipe);
@@ -67,34 +57,27 @@ public class RecipeService
         return getRecipe(saved.getId());
     }
 
-    public RecipeDTO saveRecipe(Integer recipeId, RecipeDTO recipe)
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #existing.userId == principal.id")
+    public Recipe saveRecipe(Recipe existing, RecipeDTO recipe)
     {
-        Recipe existing = recipeRepository.findOne(recipeId);
-
-	    if (existing.getUserId() != SecurityHelper.getCurrentUserId())
-		    throw new AccessDeniedException("Access is denied");
 
 	    RecipeMapper.copyDTOToDomain(recipe, existing);
         recipeRepository.save(existing);
 
-	    return getRecipe(recipeId);
+	    return getRecipe(existing.getId());
     }
 
-	public void deleteRecipeById(Integer recipeId)
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #recipe.userId == principal.id")
+	public void deleteRecipe(Recipe recipe)
 	{
-		Recipe existing = recipeRepository.findOne(recipeId);
-
-		if (existing.getUserId() != SecurityHelper.getCurrentUserId())
-			throw new AccessDeniedException("Access is denied");
-
-		recipeRepository.delete(recipeId);
+		recipeRepository.delete(recipe);
 	}
 
 
 	// Logs
 	public Iterable<LogDTO> getLogs(Integer recipeId)
 	{
-		Recipe recipe = recipeRepository.findOne(recipeId);
+		Recipe recipe = getRecipe(recipeId);
 
 		List<LogDTO> logs = new ArrayList<LogDTO>();
 
@@ -109,7 +92,7 @@ public class RecipeService
 
 	public LogDTO createLog(Integer recipeId, LogDTO log)
 	{
-		Recipe recipe = recipeRepository.findOne(recipeId);
+		Recipe recipe = getRecipe(recipeId);
 
 		if (recipe.getLogs() == null)
 			recipe.setLogs(new ArrayList<Log>());

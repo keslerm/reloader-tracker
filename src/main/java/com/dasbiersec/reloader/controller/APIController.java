@@ -5,6 +5,7 @@ import com.dasbiersec.reloader.dto.component.ComponentDTO;
 import com.dasbiersec.reloader.dto.log.LogDTO;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
+import com.dasbiersec.reloader.mapper.RecipeMapper;
 import com.dasbiersec.reloader.service.BatchService;
 import com.dasbiersec.reloader.service.ComponentService;
 import com.dasbiersec.reloader.service.RecipeService;
@@ -36,13 +37,13 @@ public class APIController
     @ResponseBody
 	public ResponseEntity<Iterable<RecipeDTO>> getRecipes()
 	{
-		return new ResponseEntity<Iterable<RecipeDTO>>(recipeService.getAllRecipes(), HttpStatus.OK);
+		return new ResponseEntity<Iterable<RecipeDTO>>(RecipeMapper.domainToDTO(recipeService.getAllRecipes()), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "recipes/{id}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<RecipeDTO> getRecipe(@PathVariable Integer id)
 	{
-		RecipeDTO recipe = recipeService.getRecipe(id);
+		RecipeDTO recipe = RecipeMapper.domainToDTO(recipeService.getRecipe(id));
 
 		if (recipe == null)
 			return new ResponseEntity<RecipeDTO>(HttpStatus.NOT_FOUND);
@@ -61,7 +62,8 @@ public class APIController
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.PUT)
     public @ResponseBody ResponseEntity<Void> updateRecipe(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipe)
     {
-        recipeService.saveRecipe(id, recipe);
+        Recipe existing = recipeService.getRecipe(id);
+        recipeService.saveRecipe(existing, recipe);
 
 	    return new ResponseEntity<Void>(HttpStatus.OK);
     }
@@ -69,12 +71,8 @@ public class APIController
     @RequestMapping(value = "recipes/{id}", method = RequestMethod.DELETE)
     public @ResponseBody ResponseEntity<Void> deleteRecipe(@PathVariable("id") Integer id)
     {
-        RecipeDTO recipe = recipeService.getRecipe(id);
-
-        if (recipe == null)
-	        return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-
-        recipeService.deleteRecipeById(id);
+        Recipe recipe = recipeService.getRecipe(id);
+        recipeService.deleteRecipe(recipe);
 
 	    return new ResponseEntity<Void>(HttpStatus.OK);
     }
