@@ -27,9 +27,9 @@
         <security:intercept-url pattern="/**" access="ROLE_ADMIN" />
     </security:http>
 
-    <security:http pattern="/api/**" create-session="stateless" use-expressions="true">
+    <security:http pattern="/api/**" create-session="stateless">
         <security:http-basic />
-        <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/**" access="ROLE_USER" />
     </security:http>
 
     <security:authentication-manager alias="authenticationManager">
