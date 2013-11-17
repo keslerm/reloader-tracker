@@ -3,6 +3,7 @@ package com.dasbiersec.reloader.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -70,6 +71,22 @@ public class Recipe extends AbstractEntity implements Serializable
         this.batches = batches;
     }
 
+    public void addBatch(Batch batch)
+    {
+        if (this.batches == null)
+            this.batches = new ArrayList<Batch>();
+
+        this.batches.add(batch);
+    }
+
+    public void addLog(Log log)
+    {
+        if (this.logs == null)
+            this.logs = new ArrayList<Log>();
+
+        this.logs.add(log);
+    }
+
 	public List<Log> getLogs()
 	{
 		return logs;
@@ -79,6 +96,28 @@ public class Recipe extends AbstractEntity implements Serializable
 	{
 		this.logs = logs;
 	}
+
+    public Log getLog(Integer id)
+    {
+        for (Log log : logs)
+        {
+            if (log.getId().equals(id))
+                return log;
+        }
+
+        return null;
+    }
+
+    public Batch getBatch(Integer id)
+    {
+        for (Batch batch : batches)
+        {
+            if (batch.getId().equals(id))
+                return batch;
+        }
+
+        return null;
+    }
 
     public Cost getCost()
     {

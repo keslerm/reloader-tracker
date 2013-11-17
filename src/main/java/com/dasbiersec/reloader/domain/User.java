@@ -2,10 +2,12 @@ package com.dasbiersec.reloader.domain;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class Account extends AbstractEntity
+public class User extends AbstractEntity
 {
 
 	@Column(name = "username")
@@ -14,17 +16,26 @@ public class Account extends AbstractEntity
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "is_api")
-	private boolean isApiEnabled;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private List<Role> role;
 
-	public boolean isApiEnabled()
+	public List<Role> getRole()
 	{
-		return isApiEnabled;
+		return role;
 	}
 
-	public void setApiEnabled(boolean apiEnabled)
+	public void addRole(Role role)
 	{
-		isApiEnabled = apiEnabled;
+		if (this.role == null)
+			this.role = new ArrayList<Role>();
+
+		this.role.add(role);
+	}
+
+	public void setRole(List<Role> role)
+	{
+		this.role = role;
 	}
 
 	public String getUsername()

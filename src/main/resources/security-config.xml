@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <context:component-scan base-package="com.dasbiersec.reloader.auth" />
+    <context:component-scan base-package="com.dasbiersec.reloader.auth,com.dasbiersec.reloader.service" />
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
@@ -20,22 +20,20 @@
     <security:http pattern="/login/error" security="none" />
     <security:http pattern="/favicon.ico" security="none" />
     <security:http pattern="/resources/**" security="none" />
+    <security:http pattern="/users/register" security="none" />
+
+    <security:http pattern="/users/**" create-session="stateless">
+        <security:http-basic />
+        <security:intercept-url pattern="/**" access="ROLE_ADMIN" />
+    </security:http>
 
     <security:http pattern="/api/**" create-session="stateless">
         <security:http-basic />
-        <security:intercept-url pattern="/**" access="ROLE_API" />
+        <security:intercept-url pattern="/**" access="ROLE_USER" />
     </security:http>
-
-    <!--
-    <security:http auto-config="true" use-expressions="true">
-        <security:form-login login-page="/login" authentication-failure-url="/login/error" />
-        <security:intercept-url pattern="/**" access="isAuthenticated()" />
-        <security:logout />
-    </security:http>
-    -->
 
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider user-service-ref="userServiceImpl" />
+        <security:authentication-provider user-service-ref="userService" />
     </security:authentication-manager>
 
 </beans>

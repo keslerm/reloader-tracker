@@ -1,3 +1,14 @@
+## 1.4.0
+
+Bug Fixes:
+  - Lots of security related fixes around domain objects, objects should now be filtered and secured correctly.
+
+Features:
+  - Basic user registration through user/register
+  - Very basic user roles assigned via database
+  - Service/domain model now different, service will now return domain entities
+
+
 ## 1.3.1
 
 Features:

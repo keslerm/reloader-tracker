@@ -5,6 +5,9 @@ import com.dasbiersec.reloader.domain.Log;
 import com.dasbiersec.reloader.dto.log.ChronographDTO;
 import com.dasbiersec.reloader.dto.log.LogDTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LogMapper
 {
 	public static LogDTO domainToDTO(Log entity)
@@ -57,4 +60,18 @@ public class LogMapper
 		dto.muzzleEnergy = domain.getMuzzleEnergy();
 		return dto;
 	}
+
+    public static List<LogDTO> domainToDTO(Iterable<Log> logs)
+    {
+
+        List<LogDTO> dtos = new ArrayList<LogDTO>();
+
+        for (Log entity : logs)
+        {
+            LogDTO log = LogMapper.domainToDTO(entity);
+            dtos.add(log);
+        }
+
+        return dtos;
+    }
 }
