@@ -5,6 +5,8 @@ import com.dasbiersec.reloader.dto.component.*;
 import com.dasbiersec.reloader.enums.ComponentType;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentMapper
 {
@@ -77,6 +79,18 @@ public class ComponentMapper
 		component.setName(dto.name);
 		component.setManufacturer(dto.manufacturer);
 	}
+
+    public static List<ComponentDTO> domainToDTO(Iterable<Component> components)
+    {
+        List<ComponentDTO> dtos = new ArrayList<ComponentDTO>();
+
+        for (Component component : components)
+        {
+            dtos.add(domainToDTO(component));
+        }
+
+        return dtos;
+    }
 
 	public static BulletDTO createBulletDTO(Component component)
 	{

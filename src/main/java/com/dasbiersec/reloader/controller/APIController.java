@@ -7,6 +7,7 @@ import com.dasbiersec.reloader.dto.log.LogDTO;
 import com.dasbiersec.reloader.dto.recipe.RecipeDTO;
 import com.dasbiersec.reloader.enums.ComponentType;
 import com.dasbiersec.reloader.mapper.BatchMapper;
+import com.dasbiersec.reloader.mapper.ComponentMapper;
 import com.dasbiersec.reloader.mapper.LogMapper;
 import com.dasbiersec.reloader.mapper.RecipeMapper;
 import com.dasbiersec.reloader.service.ComponentService;
@@ -160,15 +161,18 @@ public class APIController
 	@ResponseBody
 	public ResponseEntity<Iterable<ComponentDTO>> getComponents()
 	{
-		Iterable<ComponentDTO> components = componentService.getAllComponents();
-		return new ResponseEntity<Iterable<ComponentDTO>>(components, HttpStatus.OK);
+		Iterable<Component> components = componentService.getAllComponents();
+
+        List<ComponentDTO> dtos = ComponentMapper.domainToDTO(components);
+
+		return new ResponseEntity<Iterable<ComponentDTO>>(dtos, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<ComponentDTO> getComponent(@PathVariable Integer id)
 	{
-		return new ResponseEntity<ComponentDTO>(componentService.getComponentById(id), HttpStatus.OK);
+		return new ResponseEntity<ComponentDTO>(ComponentMapper.domainToDTO(componentService.getComponentById(id)), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "components", method = RequestMethod.POST)
@@ -183,7 +187,9 @@ public class APIController
     @ResponseBody
     public ResponseEntity<Void> saveComponent(@PathVariable Integer id, @RequestBody ComponentDTO componentDTO)
     {
-	    componentService.updateComponent(id, componentDTO);
+        Component component = componentService.getComponentById(id);
+	    componentService.updateComponent(component, componentDTO);
+
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
@@ -191,7 +197,9 @@ public class APIController
 	@ResponseBody
 	public ResponseEntity<Void> deleteComponent(@PathVariable Integer id)
 	{
-		componentService.deleteComponentById(id);
+        Component component = componentService.getComponentById(id);
+		componentService.deleteComponent(component);
+
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
@@ -199,6 +207,8 @@ public class APIController
 	@ResponseBody
 	public ResponseEntity<Iterable<ComponentDTO>> searchForComponents(@PathVariable ComponentType type)
 	{
-		return new ResponseEntity<Iterable<ComponentDTO>>(componentService.getComponentByType(type), HttpStatus.OK);
+        Iterable<Component> components = componentService.getComponentByType(type);
+
+		return new ResponseEntity<Iterable<ComponentDTO>>(ComponentMapper.domainToDTO(components), HttpStatus.OK);
 	}
 }
