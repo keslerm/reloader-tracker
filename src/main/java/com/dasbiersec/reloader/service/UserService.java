@@ -6,6 +6,7 @@ import com.dasbiersec.reloader.domain.User;
 import com.dasbiersec.reloader.dto.user.RegisterDTO;
 import com.dasbiersec.reloader.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -55,6 +56,7 @@ public class UserService implements UserDetailsService
 		userRepository.save(account);
 	}
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteUser(Integer id)
 	{
 		userRepository.delete(id);
